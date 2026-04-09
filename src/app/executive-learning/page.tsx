@@ -1,33 +1,43 @@
+import Link from 'next/link';
+import FadeUp from '@/components/animations/FadeUp';
+
 export default function ExecutiveLearning() {
   return (
     <>
-      <div className="hero" style={{ minHeight: '40vh', padding: '4rem 2rem' }}>
-        <div className="container">
-          <h1>Executive Learning</h1>
-          <p>Transformative education for current and future C-suite leaders.</p>
+      <section className="relative overflow-hidden">
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(26,26,26,1) 0%, rgba(139,24,29,0.9) 100%)', zIndex: 0 }} />
+        <div className="hero-campus-layout flex flex-col items-center justify-center min-h-[50vh]">
+          <FadeUp className="container">
+            <h1 className="uppercase text-5xl font-bold font-playfair mb-6">Executive Learning</h1>
+            <p className="font-light text-xl max-w-2xl mx-auto opacity-95">
+              Transformative programs designed specifically for senior leadership and active industry professionals.
+            </p>
+          </FadeUp>
         </div>
-      </div>
-      <section className="section">
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 className="section-title">Elevate Your Leadership</h2>
-          <p className="text-dark mb-8 text-center text-lg">
-            Our Executive Learning modules are intensive, high-impact programs focusing on Digital Transformation, 
-            AI Strategy for Business, and Advanced Financial Governance.
-          </p>
-          
-          <div className="card mb-6">
-            <h3 className="card-title">AI for Executives (3 Days)</h3>
-            <p className="card-text">Demystifying machine learning strategies for non-technical executives to drive enterprise adoption.</p>
+      </section>
+
+      <section className="section bg-white text-dark">
+        <FadeUp className="container">
+          <div className="split-section">
+            <div className="flex-1">
+              <h2 className="text-4xl font-playfair font-bold text-dark mb-6">Upskill at the Edge</h2>
+              <p className="text-lg opacity-80 mb-6 font-light leading-relaxed">
+                As technology rapidly displaces traditional business constructs, executive resilience must be forged through continuous, high-impact education. GU TECH offers hyper-focused short courses, certifications, and masterclasses directed by global industry pioneers.
+              </p>
+              <ul style={{ paddingLeft: '1.5rem', marginBottom: '2.5rem', fontSize: '1.125rem', lineHeight: '1.8', opacity: 0.9 }}>
+                <li style={{ marginBottom: '1rem' }}><strong>Weekend Modalities:</strong> Fit rigorous learning around demanding global schedules.</li>
+                <li style={{ marginBottom: '1rem' }}><strong>Peer Networking:</strong> Interface with C-Suite cohorts from the region's top unicorns.</li>
+                <li style={{ marginBottom: '1rem' }}><strong>Corporate Tailoring:</strong> Custom curriculums developed directly alongside your HR board.</li>
+              </ul>
+              <Link href="/contact" className="btn btn-primary mt-2">Request Corporate Brochure</Link>
+            </div>
+            <div className="flex-1 w-full relative">
+              <div className="image-placeholder-large w-full">
+                [ Image Placeholder: Executives collaborating in modern boardroom ]
+              </div>
+            </div>
           </div>
-          <div className="card mb-6">
-            <h3 className="card-title">Modern Corporate Governance & Ethics</h3>
-            <p className="card-text">Addressing global standards and the intersection with regional compliance requirements.</p>
-          </div>
-          
-          <div className="text-center mt-8">
-            <button className="btn btn-primary">Request Corporate Brochure</button>
-          </div>
-        </div>
+        </FadeUp>
       </section>
     </>
   );
