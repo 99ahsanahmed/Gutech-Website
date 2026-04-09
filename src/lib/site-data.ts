@@ -68,11 +68,16 @@ export type FacultyMember = {
 export type NewsItem = {
   title: string;
   category: string;
+  subtitle: string;
   summary: string;
+  details: string;
+  impact: string;
   channel: string;
   href?: string;
   dateLabel: string;
   imageLabel: string;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
 export const siteConfig = {
@@ -790,37 +795,57 @@ export const facultyMembers: FacultyMember[] = [
 export const newsItems: NewsItem[] = [
   {
     title: "Dr. Zeeshan's Tarbiyah Session",
-    category: 'Campus life',
-    summary: 'A student-focused session on growth, values, and leadership that appears prominently in current GU TECH content.',
-    channel: 'Official website feature',
-    href: 'https://www.gutech.edu.pk/',
-    dateLabel: 'Current site highlight',
-    imageLabel: 'Insert Tarbiyah session event photo',
+    category: 'Campus Life',
+    subtitle: 'Student Development Session',
+    summary:
+      'Dr. Zeeshan conducted an insightful Tarbiyah session at GU TECH, guiding students on personal growth, values, and leadership.',
+    details:
+      'Positioned as a values-led student engagement moment, this session reflects the university’s academic plus character-building direction. The discussion format highlights mentorship, reflection, and practical leadership habits for students.',
+    impact:
+      'Student impact: stronger personal leadership orientation and a visible mentorship culture within campus learning.',
+    channel: 'Official GU TECH News & Updates',
+    href: 'https://www.gutech.edu.pk/news-and-updates',
+    dateLabel: 'Current Site Highlight',
+    imageLabel: 'Tarbiyah session with students',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_fda6c418c6da44aeb2257a5f3a38d46e~mv2.png/v1/crop/x_0%2Cy_92%2Cw_1080%2Ch_895/fill/w_1200%2Ch_900%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_auto/2.png',
+    imageAlt: 'Dr. Zeeshan conducting Tarbiyah session with GU TECH students',
   },
   {
     title: 'MOU Signing with GYB Commerce',
     category: 'Partnerships',
-    summary: 'A partnership-oriented update that signals stronger industry and collaboration positioning for the university.',
-    channel: 'Institutional update',
-    href: 'https://www.gutech.edu.pk/',
-    dateLabel: 'Recent institutional update',
-    imageLabel: 'Insert MOU signing or partnership ceremony image',
+    subtitle: 'Industry Collaboration',
+    summary:
+      'This collaboration creates opportunities for students to engage in innovative projects including ERP systems, app development, cloud infrastructure, and AI.',
+    details:
+      'The announcement frames GU TECH’s industry-aligned model through practical collaboration. It connects academic learning with enterprise-oriented project exposure, strengthening applied pathways for students.',
+    impact:
+      'Student impact: real project exposure in enterprise systems and digital infrastructure domains.',
+    channel: 'Official GU TECH News & Updates',
+    href: 'https://www.gutech.edu.pk/news-and-updates',
+    dateLabel: 'Recent Institutional Update',
+    imageLabel: 'MOU signing ceremony',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_c707274953e645fea4034088257271a2~mv2.jpg/v1/crop/x_0%2Cy_0%2Cw_3000%2Ch_2487/fill/w_1200%2Ch_900%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_auto/MOU%20Signing%20-%20GYB%20Commerce-01.jpg',
+    imageAlt: 'MOU signing session between GU TECH and GYB Commerce',
   },
   {
-    title: 'GirlCode 2.0 Collaboration',
-    category: 'Community and outreach',
-    summary: 'A visible event collaboration that helps present GU TECH as active in student communities and practical technical learning.',
-    channel: 'LinkedIn and public event visibility',
-    dateLabel: 'January 2026',
-    imageLabel: 'Insert GirlCode event or workshop image',
-  },
-  {
-    title: 'AI Talent Accelerator and Data Workshops',
-    category: 'Technology',
-    summary: "Signals the university's direction in data science, AI, and applied digital capability building.",
-    channel: 'Public-facing institutional direction',
-    dateLabel: 'Late 2025 to 2026 direction',
-    imageLabel: 'Insert AI workshop or speaker session image',
+    title: 'AI Talent Accelerator Program',
+    category: 'Community and Outreach',
+    subtitle: 'Future Skills Program',
+    summary:
+      'GU TECH’s one-week AI Talent Accelerator introduces intermediate students to AI, technology, innovation, and leadership.',
+    details:
+      'The program combines Design Thinking, Cybersecurity Fundamentals, AI in Healthcare, Python Programming, and Web Development. It is structured as an early pipeline initiative for technical confidence and career awareness.',
+    impact:
+      'Student impact: practical skill foundation and early career-direction exposure through guided hands-on learning.',
+    channel: 'Official GU TECH News & Updates',
+    href: 'https://www.gutech.edu.pk/news-and-updates',
+    dateLabel: 'December 2025',
+    imageLabel: 'AI Talent Accelerator brochure',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_add7cb8160744aae88b2d5ed176cadf4~mv2.jpg/v1/fill/w_1200%2Ch_1550%2Cal_c%2Cq_80%2Cusm_0.66_1.00_0.01%2Cenc_auto/a93df4_add7cb8160744aae88b2d5ed176cadf4~mv2.jpg',
+    imageAlt: 'GU TECH AI Talent Accelerator program poster',
   },
 ];
 

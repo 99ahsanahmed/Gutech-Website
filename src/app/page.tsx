@@ -52,7 +52,6 @@ export default function Home() {
         <div className="container home-hero__content">
           <div className="home-hero__grid">
             <div>
-              <span className="eyebrow eyebrow--light">Al Ghazali University</span>
               <h1>Where ambition meets academic excellence.</h1>
               <p>
                 A modern university experience across technology, management, innovation, and
@@ -212,7 +211,7 @@ export default function Home() {
                 title="Institutional activity and partnerships."
                 description="A structured media layer for events, collaborations, and student engagement."
               />
-              <StaggerContainer className="news-grid" style={{ gridTemplateColumns: '1fr' }}>
+              <StaggerContainer className="news-grid news-grid--desktop" style={{ gridTemplateColumns: '1fr' }}>
                 {newsItems.slice(0, 3).map((item) => (
                   <StaggerItem key={item.title} className="news-card card-3d">
                     <span className="news-meta">
@@ -223,6 +222,37 @@ export default function Home() {
                   </StaggerItem>
                 ))}
               </StaggerContainer>
+
+              <section className="news-reel-mobile" aria-label="Mobile news story sequence">
+                {newsItems.slice(0, 3).map((item, index) => (
+                  <article key={item.title} className="news-reel-mobile__panel">
+                    {item.imageSrc ? (
+                      <Image
+                        className="news-reel-mobile__image"
+                        src={item.imageSrc}
+                        alt={item.imageAlt ?? item.title}
+                        fill
+                        sizes="100vw"
+                        unoptimized
+                        priority={index === 0}
+                      />
+                    ) : null}
+                    <div className="news-reel-mobile__scrim" />
+                    <div className="news-reel-mobile__content">
+                      <span className="news-reel-mobile__kicker">{item.category}</span>
+                      <h3>{item.title}</h3>
+                      <p className="news-reel-mobile__subtitle">{item.subtitle}</p>
+                      <p>{item.details}</p>
+                      <p>{item.impact}</p>
+                      <div className="news-reel-mobile__meta">
+                        <span>{item.dateLabel}</span>
+                        <span>{item.channel}</span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </section>
+
               <Link className="button button--secondary" href="/news">
                 Open news page
               </Link>
