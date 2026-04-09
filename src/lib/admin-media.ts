@@ -1,3 +1,4 @@
+import { put } from '@vercel/blob';
 import { randomUUID } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -32,6 +33,25 @@ export async function saveUploadedMedia(file: File): Promise<UploadedMedia> {
     throw new Error('File is too large. Max upload size is 50MB.');
   }
 
+  // Use Vercel Blob if configured
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const ext = extFromFile(file);
+    const base = sanitizeBaseName(path.parse(file.name).name);
+    const fileName = `${base}-${randomUUID().slice(0, 8)}${ext}`;
+    
+    const blob = await put(fileName, file, {
+      access: 'public',
+    });
+
+    return {
+      url: blob.url,
+      name: file.name || fileName,
+      type: file.type || 'application/octet-stream',
+      size: file.size,
+    };
+  }
+
+  // Fallback to local filesystem for development
   const uploadsDir = path.join(process.cwd(), 'public', 'admin-uploads');
   await mkdir(uploadsDir, { recursive: true });
 
