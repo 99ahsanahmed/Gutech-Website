@@ -18,7 +18,52 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Admin Publishing Panel
+
+Hidden admin route:
+
+- `/admin` (not linked in navigation)
+
+Required environment variables:
+
+```bash
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=change-this
+ADMIN_SESSION_SECRET=change-this-too
+```
+
+Social publishing modes:
+
+- `SOCIAL_DEMO_MODE=true` (default behavior if omitted): simulates successful posting to selected platforms so you can present full workflow without real credentials.
+- `SOCIAL_DEMO_MODE=false` + webhook URL(s): sends real publish payloads to your automation endpoint (Zapier/Make/n8n/custom backend), which can then post to platform APIs.
+
+Webhook variables:
+
+- `SOCIAL_WEBHOOK_URL` (fallback for all platforms)
+- `SOCIAL_WEBHOOK_URL_FACEBOOK`
+- `SOCIAL_WEBHOOK_URL_INSTAGRAM`
+- `SOCIAL_WEBHOOK_URL_LINKEDIN`
+- `SOCIAL_WEBHOOK_URL_X`
+
+Example payload sent to webhook:
+
+```json
+{
+  "platform": "linkedin",
+  "title": "New scholarship announcement",
+  "description": "Details about admission and deadlines...",
+  "mediaUrl": "https://your-site.com/admin-uploads/file.jpg",
+  "media": {
+    "url": "/admin-uploads/file.jpg",
+    "name": "file.jpg",
+    "type": "image/jpeg",
+    "size": 123456,
+    "publicUrl": "https://your-site.com/admin-uploads/file.jpg"
+  },
+  "createdAt": "2026-04-10T12:00:00.000Z",
+  "source": "gutech-admin"
+}
+```
 
 ## Learn More
 

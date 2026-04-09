@@ -1,20 +1,13 @@
-import SubPageTemplate from '@/components/SubPageTemplate';
+import DetailPage from '@/components/site/DetailPage';
+import { createMetadata, getDepartment } from '@/lib/site-data';
 
-export default function DepDesignThinking() {
-  return (
-    <SubPageTemplate
-      title="Design Thinking"
-      subtitle="Operational & Academic Hub"
-      heroContext="A centralized workshop dedicated to applying user-centric empathetic frameworks to impossible technical & business problems."
-      overview="Design Thinking at GU TECH is not merely an aesthetic endeavor; it is a rigorous problem-solving architecture. This department acts as an internal consultation layer, bringing together engineers, business leaders, and artists to strip down friction and build holistic solutions using deeply human-centric methodologies."
-      curriculumList={[
-        'Empathetic User Research Labs',
-        'Rapid Prototyping & UX Mapping',
-        'Cross-Disciplinary Friction Workshops',
-        'Product Lifecycle Acceleration'
-      ]}
-      imageCaption="Students clustering post-it notes during a rapid UX ideation sprint"
-      isDepartment={true}
-    />
-  );
+const department = getDepartment('design-thinking');
+
+export const metadata = createMetadata(
+  'Design Thinking Resources',
+  'Explore design thinking resources at GU TECH.',
+);
+
+export default function DesignThinkingPage() {
+  return <DetailPage item={department!} eyebrow="Departments" subtitle="Resource hub" />;
 }

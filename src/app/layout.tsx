@@ -1,17 +1,32 @@
-import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
-const inter = Inter({ subsets: ["latin"], weight: ['300', '400', '500', '700'], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ["latin"], weight: ['600', '700'], variable: '--font-playfair' });
+import AppFrame from '@/components/AppFrame';
+import { siteConfig } from '@/lib/site-data';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "GU TECH | Al Ghazali University",
-  description: "Modern, Prestigious tech-driven education.",
+  title: {
+    default: siteConfig.legalName,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.tagline,
+  applicationName: siteConfig.name,
+  metadataBase: new URL('https://www.gutech.edu.pk'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: siteConfig.legalName,
+    description: siteConfig.tagline,
+    siteName: siteConfig.legalName,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.legalName,
+    description: siteConfig.tagline,
+  },
 };
 
 export default function RootLayout({
@@ -19,16 +34,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="main-content flex-1">
-          {children}
-        </main>
-        <Footer />
-        <Chatbot />
-        <GoogleAnalytics gaId="G-ABCDEF1234" />
+    <html data-scroll-behavior="smooth" lang="en">
+      <body>
+        <AppFrame>{children}</AppFrame>
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       </body>
     </html>
   );

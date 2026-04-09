@@ -1,119 +1,235 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import FadeUp from '@/components/animations/FadeUp';
+
 import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
-import ParallaxHeroBackground from '@/components/animations/ParallaxHeroBackground';
+import FacultyWheel from '@/components/site/FacultyWheel';
+import HeroStack from '@/components/site/HeroStack';
+import SectionHeading from '@/components/site/SectionHeading';
+import {
+  createMetadata,
+  facultyMembers,
+  homeHighlights,
+  homeMetrics,
+  newsItems,
+  programs,
+  siteConfig,
+} from '@/lib/site-data';
+
+export const metadata = createMetadata(
+  'Home',
+  'Official GU TECH university website with admissions, programs, departments, faculty, and student support.',
+);
+
+const homeSteps = [
+  {
+    title: 'Explore pathways',
+    text: 'Review undergraduate and graduate routes with clear outcomes and progression.',
+  },
+  {
+    title: 'Connect with admissions',
+    text: 'Get fee, scholarship, and process support through official channels.',
+  },
+  {
+    title: 'Start your journey',
+    text: 'Apply through the official portal with guided onboarding support.',
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <ParallaxHeroBackground />
-        <div className="hero-campus-layout">
-          <FadeUp className="container">
-            <h1 className="uppercase text-5xl font-bold">
-              Al Ghazali <br />
-              <span className="branded-highlight">University</span>
-            </h1>
-            <p className="mt-6 font-light">
-              Empowering students with flexibility, technological expertise, and market-driven curriculum.
-            </p>
-            <div className="flex justify-center gap-4 mt-8">
-              <Link href="/about" className="btn btn-hero-primary">Learn More</Link>
+      <section className="home-hero home-hero--locked">
+        <Image
+          src="/campus-hero.jpg"
+          alt="GU TECH campus"
+          fill
+          priority
+          className="home-hero__image"
+          sizes="100vw"
+        />
+        <div className="home-hero__overlay" />
+        <div className="home-hero__noise" />
+        <div className="container home-hero__content">
+          <div className="home-hero__grid">
+            <div>
+              <span className="eyebrow eyebrow--light">Al Ghazali University</span>
+              <h1>Where ambition meets academic excellence.</h1>
+              <p>
+                A modern university experience across technology, management, innovation, and
+                professional development.
+              </p>
+              <div className="home-hero__actions">
+                <Link className="button button--light" href="/programs">
+                  Explore programs
+                </Link>
+                <a
+                  className="button button--ghost"
+                  href={siteConfig.applyHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Apply now
+                </a>
+              </div>
+              <div className="home-hero__metrics">
+                {homeMetrics.map((fact) => (
+                  <div key={fact.label} className="home-hero__metric">
+                    <span>{fact.label}</span>
+                    <strong>{fact.value}</strong>
+                  </div>
+                ))}
+              </div>
             </div>
-          </FadeUp>
+            <HeroStack />
+          </div>
         </div>
       </section>
 
-      <section className="section section-bg-light">
-        <FadeUp className="container">
-          <h2 className="section-title">Why Enroll in Our Programs?</h2>
-          <StaggerContainer className="grid">
-            <StaggerItem className="card">
-              <h3 className="card-title">Earn As You Learn</h3>
-              <p className="card-text">
-                Empowering students with flexibility, our 2+2 program structure and innovation incubation center allow you to earn, learn, and achieve a bachelor's degree simultaneously. After two years, 65% of your academic work is completed, leaving ample time to gain real-world experience and earn in the third and fourth years.
-              </p>
-            </StaggerItem>
-            <StaggerItem className="card">
-              <h3 className="card-title">Faculty From Top Schools</h3>
-              <p className="card-text">
-                Our institution boasts a distinguished faculty drawn from the world's leading schools, bringing unparalleled expertise and insights to guide students towards academic excellence and real-world success.
-              </p>
-            </StaggerItem>
-            <StaggerItem className="card">
-              <h3 className="card-title">Tech Inspired, Market-Driven</h3>
-              <p className="card-text">
-                Our programs strategically blend industry domain knowledge, creating an immediate demand in the job market, while our faculty imparts cutting-edge technology and communication skills, preparing students for both local and global job markets.
-              </p>
-            </StaggerItem>
-          </StaggerContainer>
-        </FadeUp>
-      </section>
-
-      <section className="section">
-        <FadeUp className="container text-center">
-          <h2 className="section-title">Our Programs</h2>
-          <p className="card-text text-xl max-w-2xl mx-auto mb-12">
-            Become part of an exciting journey of learning across disciplines with a practical problem solving approach.
-          </p>
-          <StaggerContainer className="grid">
-            <StaggerItem className="card text-center">
-              <div className="font-bold text-dark text-4xl mb-4 font-playfair">MS</div>
-              <h3 className="card-title card-title-primary">Islamic Banking & Finance</h3>
-              <Link href="/programs/ms-ibf" className="btn btn-outline mt-4">Learn More</Link>
-            </StaggerItem>
-            <StaggerItem className="card text-center">
-              <div className="font-bold text-dark text-4xl mb-4 font-playfair">BBA</div>
-              <h3 className="card-title card-title-primary">Business Administration</h3>
-              <Link href="/programs/bba" className="btn btn-outline mt-4">Learn More</Link>
-            </StaggerItem>
-            <StaggerItem className="card text-center">
-              <div className="font-bold text-dark text-4xl mb-4 font-playfair">BS CS</div>
-              <h3 className="card-title card-title-primary">BS Computer Science</h3>
-              <Link href="/programs/bs-cs" className="btn btn-outline mt-4">Learn More</Link>
-            </StaggerItem>
-          </StaggerContainer>
-        </FadeUp>
-      </section>
-      
-      <section className="section section-bg-light">
-        <FadeUp className="container">
-          <h2 className="section-title">News & Updates</h2>
-          <div className="news-box">
-            <div className="news-box-text">
-              <h3 className="card-title text-2xl mb-4">Dr. Zeeshan's Insightful Tarbiyah Session</h3>
-              <p className="card-text mb-6">
-                Dr. Zeeshan conducted an insightful Tarbiyah session at GU TECH, guiding students on personal growth, values, and leadership. A session filled with wisdom and inspiration!
-              </p>
-              <Link href="/news" className="text-primary font-medium hover:text-dark" style={{transition: 'color 0.3s ease'}}>View All News &rarr;</Link>
+      <main className="home-sheet">
+        <section className="home-marquee">
+          <div className="home-marquee__rail">
+            <div className="home-marquee__track">
+              <span>Admissions Open</span>
+              <span>BS Computer Science</span>
+              <span>BBA</span>
+              <span>MS Islamic Banking &amp; Finance</span>
+              <span>Executive Learning</span>
+              <span>Design Thinking Resources</span>
+              <span>Admissions Open</span>
+              <span>BS Computer Science</span>
             </div>
-            <div className="news-box-image-wrapper">
-               <div className="rounded-image image-placeholder w-full h-full" style={{minHeight: '250px'}}>
-                 Educational Session Image
-               </div>
+            <div className="home-marquee__track" aria-hidden="true">
+              <span>Admissions Open</span>
+              <span>BS Computer Science</span>
+              <span>BBA</span>
+              <span>MS Islamic Banking &amp; Finance</span>
+              <span>Executive Learning</span>
+              <span>Design Thinking Resources</span>
+              <span>Admissions Open</span>
+              <span>BS Computer Science</span>
             </div>
           </div>
-        </FadeUp>
-      </section>
+        </section>
 
-      <section className="section section-bg-dark">
-        <FadeUp className="container">
-          <div className="vc-section">
-            <div className="rounded-image image-placeholder vc-image">
-               Image of Vice Chancellor
-            </div>
-            <div className="flex-1">
-              <h3 className="text-3xl font-bold mb-2">Mufti Ehsan Waquar</h3>
-              <p className="text-accent font-medium text-xl mb-6">Vice Chancellor</p>
-              <blockquote className="vc-quote text-xl">
-                "At the heart of every educational endeavor is the mission to shape minds and hearts in ways that positively impact the world. At Al-Ghazali University, our vision goes beyond imparting academic knowledge. We aim to nurture individuals who not only excel in contemporary fields but are also deeply rooted in the moral and spiritual traditions."
-              </blockquote>
-              <Link href="/about" className="btn btn-hero-outline mt-8">Read More</Link>
+        <section className="section home-section">
+          <div className="container">
+            <SectionHeading
+              eyebrow="A Mission Defined by Possibility"
+              title="A university platform built for readable decisions."
+              description="Clear content hierarchy, stronger visual rhythm, and immediate action routes for students and families."
+              centered
+            />
+            <StaggerContainer className="info-grid">
+              {homeHighlights.map((item) => (
+                <StaggerItem key={item.title} className="info-card card-3d">
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+
+        <section className="home-image-break">
+          <Image src="/programs-hero.jpg" alt="Campus news and student activities" fill className="home-image-break__image" />
+          <div className="home-image-break__overlay" />
+        </section>
+
+        <section className="section home-section">
+          <div className="container">
+            <SectionHeading
+              eyebrow="Academics"
+              title="Undergraduate and graduate pathways."
+              description="Every program page is presented with clear structure, outcomes, and admissions routes."
+              centered
+            />
+            <StaggerContainer className="program-grid">
+              {programs.map((program) => (
+                <StaggerItem key={program.slug} className="program-card card-3d">
+                  <span className="program-card__meta">{program.category}</span>
+                  <h3>{program.title}</h3>
+                  <p>{program.summary}</p>
+                  <Link className="button button--primary" href={`/programs/${program.slug}`}>
+                    View program
+                  </Link>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </section>
+
+        <section className="home-image-break home-image-break--alt">
+          <Image src="/executive-hero.jpg" alt="Research and innovation activities" fill className="home-image-break__image" />
+          <div className="home-image-break__overlay" />
+        </section>
+
+        <section className="section home-section home-section--muted">
+          <div className="container">
+            <SectionHeading
+              eyebrow="Admissions Journey"
+              title="From first visit to enrolled student."
+              description="A streamlined flow helps students move from interest to application without friction."
+            />
+            <StaggerContainer className="journey-grid">
+              {homeSteps.map((step, index) => (
+                <StaggerItem key={step.title} className="journey-card card-3d">
+                  <span className="journey-step">Step {index + 1}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+            <div className="hero-actions home-actions">
+              <Link className="button button--primary" href="/admissions">
+                Start admissions
+              </Link>
+              <a className="button button--light" href={siteConfig.whatsappHref} rel="noreferrer" target="_blank">
+                WhatsApp support
+              </a>
+              <Link className="button button--secondary" href="/contact">
+                Submit inquiry
+              </Link>
             </div>
           </div>
-        </FadeUp>
-      </section>
+        </section>
+
+        <section className="section home-section">
+          <div className="container split-grid">
+            <div>
+              <SectionHeading
+                eyebrow="Faculty Spotlight"
+                title="Visible academic leadership."
+                description="Faculty identity and expertise are presented as core trust signals."
+              />
+              <FacultyWheel members={facultyMembers} />
+              <Link className="button button--primary" href="/faculty">
+                View full faculty directory
+              </Link>
+            </div>
+            <div>
+              <SectionHeading
+                eyebrow="News and Updates"
+                title="Institutional activity and partnerships."
+                description="A structured media layer for events, collaborations, and student engagement."
+              />
+              <StaggerContainer className="news-grid" style={{ gridTemplateColumns: '1fr' }}>
+                {newsItems.slice(0, 3).map((item) => (
+                  <StaggerItem key={item.title} className="news-card card-3d">
+                    <span className="news-meta">
+                      {item.category} - {item.dateLabel}
+                    </span>
+                    <h3>{item.title}</h3>
+                    <p>{item.summary}</p>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+              <Link className="button button--secondary" href="/news">
+                Open news page
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

@@ -1,42 +1,56 @@
-import Link from 'next/link';
-import FadeUp from '@/components/animations/FadeUp';
-import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
+import Image from 'next/image';
 
-export default function Faculty() {
+import PageHero from '@/components/site/PageHero';
+import SectionHeading from '@/components/site/SectionHeading';
+import { createMetadata, facultyMembers } from '@/lib/site-data';
+
+export const metadata = createMetadata(
+  'Faculty',
+  'Explore the faculty directory for GU TECH.',
+);
+
+export default function FacultyPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(26,26,26,1) 0%, rgba(139,24,29,0.9) 100%)', zIndex: 0 }} />
-        <div className="hero-campus-layout flex flex-col items-center justify-center min-h-[50vh]">
-          <FadeUp className="container text-center">
-            <h1 className="uppercase text-5xl font-bold font-playfair mb-6">
-              Our Guiding <span className="branded-highlight">Faculty</span>
-            </h1>
-            <p className="font-light text-xl max-w-3xl mx-auto opacity-95">
-              World-class educators, industry pioneers, and groundbreaking researchers mapping the bleeding edge of their disciplines.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Faculty"
+        title="Visible academic leadership and stronger faculty presence."
+        description="The faculty page now uses real names, better role labels, and actual media where available so the university appears more established and trustworthy."
+        compact
+      />
 
-      <section className="section bg-white text-dark">
-        <FadeUp className="container text-center">
-          <h2 className="section-title">Distinguished Scholars</h2>
-          <StaggerContainer className="grid mt-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <StaggerItem key={i} className="card text-center" style={{ padding: '2rem' }}>
-                <div style={{ width: '150px', height: '150px', borderRadius: '50%', backgroundColor: '#eee', margin: '0 auto 1.5rem auto', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                   {/* Replace with next/image mapping real faculty later */}
-                </div>
-                <h3 className="card-title text-xl mb-1">Dr. Scholar Name</h3>
-                <p className="text-primary font-medium text-sm mb-3 uppercase tracking-wider">Professor of Computer Science</p>
-                <p className="card-text text-sm">
-                  Specializing in Artificial Intelligence and advanced Machine Learning neural architectures in modern contexts.
-                </p>
-              </StaggerItem>
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Faculty directory"
+            title="The people behind the programs."
+            description="Local faculty images already in the repo are used where possible, and the layout still works cleanly when an image is not yet available."
+          />
+          <div className="faculty-grid">
+            {facultyMembers.map((member) => (
+              <article key={member.name} className="faculty-card">
+                {member.imageSrc ? (
+                  <Image
+                    src={member.imageSrc}
+                    alt={member.name}
+                    width={640}
+                    height={640}
+                    className="faculty-photo"
+                  />
+                ) : (
+                  <div className="faculty-photo faculty-photo--placeholder">
+                    Image placeholder
+                  </div>
+                )}
+                <span className="faculty-meta">{member.role}</span>
+                <h3>{member.name}</h3>
+                <p><strong>{member.school}</strong></p>
+                <p>{member.expertise}</p>
+                <p>{member.description}</p>
+              </article>
             ))}
-          </StaggerContainer>
-        </FadeUp>
+          </div>
+        </div>
       </section>
     </>
   );

@@ -1,71 +1,91 @@
 import Link from 'next/link';
-import FadeUp from '@/components/animations/FadeUp';
-import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 
-export default function Admissions() {
+import MediaPanel from '@/components/site/MediaPanel';
+import PageHero from '@/components/site/PageHero';
+import SectionHeading from '@/components/site/SectionHeading';
+import {
+  admissionSupport,
+  admissionsSteps,
+  createMetadata,
+  siteConfig,
+} from '@/lib/site-data';
+
+export const metadata = createMetadata(
+  'Admissions',
+  'Admissions, application steps, fee guidance, scholarships, and inquiry actions for GU TECH.',
+);
+
+export default function AdmissionsPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(139,24,29,0.9) 100%)', zIndex: 0 }} />
-        <div className="hero-campus-layout flex flex-col items-center justify-center min-h-[50vh]">
-          <FadeUp className="container">
-            <h1 className="uppercase text-5xl font-bold font-playfair mb-6">
-              Admissions
-            </h1>
-            <p className="font-light text-xl max-w-2xl mx-auto opacity-95">
-              Begin your journey at the intersection of prestigious tradition and hyper-modern innovation.
-            </p>
-          </FadeUp>
+      <PageHero
+        eyebrow="Admissions"
+        title="A faster path from interest to application."
+        description="The admissions page now combines process guidance, fee details, scholarships, and direct contact actions in one place so students do not have to search across the site."
+        compact
+      />
+
+      <section className="section">
+        <div className="container split-grid">
+          <div className="surface program-card">
+            <SectionHeading
+              eyebrow="Process"
+              title="How to apply"
+              description="Built from the current admissions flow and simplified for quick reading."
+            />
+            <ol className="check-list">
+              {admissionsSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+          <MediaPanel label="Admissions desk and student onboarding" src="/campus-hero.jpg" />
         </div>
       </section>
 
-      <section className="section bg-white text-dark">
-        <FadeUp className="container">
-          <div className="split-section">
-            <div className="flex-1">
-              <h2 className="text-4xl font-playfair font-bold text-dark mb-6">Admission Process</h2>
-              <p className="text-lg opacity-80 mb-6 font-light leading-relaxed">
-                We seek passionate individuals ready to dive deep into Computer Science, Data Science, and Management. Our application process holistically evaluates your academic excellence, extracurricular impact, and raw drive to create.
-              </p>
-              <ul style={{ paddingLeft: '1.5rem', marginBottom: '2.5rem', fontSize: '1.125rem', lineHeight: '1.8', opacity: 0.9 }}>
-                <li style={{ marginBottom: '1rem' }}><strong>Online Application:</strong> Submit your comprehensive profile.</li>
-                <li style={{ marginBottom: '1rem' }}><strong>GSAT:</strong> Complete the GU TECH Standard Admission Test.</li>
-                <li style={{ marginBottom: '1rem' }}><strong>Interview:</strong> Meet with our esteemed Faculty Board.</li>
-              </ul>
-              <Link href="/contact" className="btn btn-outline">Apply for Undergraduate</Link>
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Support"
+            title="Fees, scholarships, and direct student help."
+            description="The page is designed to remove uncertainty around the first steps of the admissions journey."
+          />
+          <div className="info-grid">
+            <div className="info-card">
+              <h3>Application and test fee</h3>
+              <p>{siteConfig.feeAccount.applicationFee} via {siteConfig.feeAccount.bank}.</p>
+              <p>Account title: {siteConfig.feeAccount.title}</p>
+              <p>Account number: {siteConfig.feeAccount.number}</p>
             </div>
-            <div className="flex-1 w-full relative">
-              <div className="image-placeholder-large w-full">
-                [ Image Placeholder: Graduate reading acceptance letter / Academic gates ]
+            {admissionSupport.map((item) => (
+              <div key={item.title} className="info-card">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </div>
-            </div>
+            ))}
           </div>
-        </FadeUp>
+        </div>
       </section>
 
-      <section className="section section-bg-light">
-        <FadeUp className="container text-center">
-          <h2 className="section-title">Financing Your Future</h2>
-          <p className="font-light text-xl max-w-3xl mx-auto opacity-80 mb-12">
-            We believe an elite education must remain accessible. GU TECH provides comprehensive financial structuring and massive fully-funded opportunity grants.
-          </p>
-          <StaggerContainer className="grid max-w-5xl mx-auto text-left">
-            <StaggerItem className="card">
-              <h3 className="card-title text-2xl font-playfair mb-4">Fee Structure</h3>
-              <p className="card-text mb-6">
-                Our base fee frameworks are entirely transparent, with heavily flexible payment routing aligning directly with our "Earn As You Learn" incubators.
-              </p>
-              <Link href="/contact" className="text-primary font-medium hover:underline transition-colors duration-300">Download Handbook &rarr;</Link>
-            </StaggerItem>
-            <StaggerItem className="card">
-              <h3 className="card-title text-2xl font-playfair mb-4">Scholarships & Aid</h3>
-              <p className="card-text mb-6">
-                Spearheaded by the Board of Governors and the One Nation Foundation, GU TECH maintains grants for leading academic outliers across the region.
-              </p>
-              <Link href="/contact" className="text-primary font-medium hover:underline transition-colors duration-300">View Financial Aid Options &rarr;</Link>
-            </StaggerItem>
-          </StaggerContainer>
-        </FadeUp>
+      <section className="section">
+        <div className="container surface program-card">
+          <SectionHeading
+            eyebrow="Take action"
+            title="Choose the quickest route."
+            description="Every admissions page ends with clear next steps for application and support."
+          />
+          <div className="hero-actions">
+            <a className="button button--primary" href={siteConfig.applyHref} rel="noreferrer" target="_blank">
+              Apply now
+            </a>
+            <a className="button button--light" href={siteConfig.whatsappHref} rel="noreferrer" target="_blank">
+              WhatsApp admissions
+            </a>
+            <Link className="button button--secondary" href="/contact">
+              Submit inquiry
+            </Link>
+          </div>
+        </div>
       </section>
     </>
   );

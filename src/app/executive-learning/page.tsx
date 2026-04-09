@@ -1,44 +1,64 @@
-import Link from 'next/link';
-import FadeUp from '@/components/animations/FadeUp';
+﻿import Link from 'next/link';
 
-export default function ExecutiveLearning() {
+import MediaPanel from '@/components/site/MediaPanel';
+import PageHero from '@/components/site/PageHero';
+import SectionHeading from '@/components/site/SectionHeading';
+import { createMetadata, executiveLearningTracks } from '@/lib/site-data';
+
+export const metadata = createMetadata(
+  'Executive Learning',
+  'Executive learning, professional development, and short-course positioning for GU TECH.',
+);
+
+export default function ExecutiveLearningPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(26,26,26,1) 0%, rgba(139,24,29,0.9) 100%)', zIndex: 0 }} />
-        <div className="hero-campus-layout flex flex-col items-center justify-center min-h-[50vh]">
-          <FadeUp className="container">
-            <h1 className="uppercase text-5xl font-bold font-playfair mb-6">Executive Learning</h1>
-            <p className="font-light text-xl max-w-2xl mx-auto opacity-95">
-              Transformative programs designed specifically for senior leadership and active industry professionals.
-            </p>
-          </FadeUp>
+      <PageHero
+        eyebrow="Executive Learning"
+        title="Short-format learning for leaders, teams, and professionals."
+        description="Executive learning includes certificate pathways, short courses, corporate cohorts, and practical upskilling modules."
+        compact
+      />
+
+      <section className="section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Tracks"
+            title="Executive learning tracks"
+            description="These blocks are structured so you can later attach schedules, fees, and registration links without changing the page design."
+          />
+          <div className="info-grid">
+            {executiveLearningTracks.map((track) => (
+              <div key={track.title} className="info-card">
+                <h3>{track.title}</h3>
+                <p>{track.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section bg-white text-dark">
-        <FadeUp className="container">
-          <div className="split-section">
-            <div className="flex-1">
-              <h2 className="text-4xl font-playfair font-bold text-dark mb-6">Upskill at the Edge</h2>
-              <p className="text-lg opacity-80 mb-6 font-light leading-relaxed">
-                As technology rapidly displaces traditional business constructs, executive resilience must be forged through continuous, high-impact education. GU TECH offers hyper-focused short courses, certifications, and masterclasses directed by global industry pioneers.
-              </p>
-              <ul style={{ paddingLeft: '1.5rem', marginBottom: '2.5rem', fontSize: '1.125rem', lineHeight: '1.8', opacity: 0.9 }}>
-                <li style={{ marginBottom: '1rem' }}><strong>Weekend Modalities:</strong> Fit rigorous learning around demanding global schedules.</li>
-                <li style={{ marginBottom: '1rem' }}><strong>Peer Networking:</strong> Interface with C-Suite cohorts from the region's top unicorns.</li>
-                <li style={{ marginBottom: '1rem' }}><strong>Corporate Tailoring:</strong> Custom curriculums developed directly alongside your HR board.</li>
-              </ul>
-              <Link href="/contact" className="btn btn-primary mt-2">Request Corporate Brochure</Link>
-            </div>
-            <div className="flex-1 w-full relative">
-              <div className="image-placeholder-large w-full">
-                [ Image Placeholder: Executives collaborating in modern boardroom ]
-              </div>
+      <section className="section">
+        <div className="container split-grid">
+          <MediaPanel label="Executive classroom and workshop sessions" src="/executive-hero.jpg" />
+          <div className="surface program-card">
+            <SectionHeading
+              eyebrow="Connected pages"
+              title="Designed to work with continuing education and industry outreach."
+              description="Executive learning now connects cleanly to continuing education, design thinking resources, and the main contact and inquiry flow."
+            />
+            <div className="hero-actions">
+              <Link className="button button--primary" href="/departments/continuing-education">
+                Continuing education
+              </Link>
+              <Link className="button button--light" href="/contact">
+                Request a brochure
+              </Link>
             </div>
           </div>
-        </FadeUp>
+        </div>
       </section>
     </>
   );
 }
+
