@@ -110,7 +110,7 @@ export default function DesignThinkingPage() {
             {/* Block A */}
             <div className="zig-zag-row">
               <div className="zig-zag-image-wrapper lesson-reveal-wrapper glass-card border-neon-red">
-                <Image src="/programs-hero.jpg" alt="Imtiaz Super Market Checkout" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
+                <Image src="/DT_Imtiaz.jpeg" alt="Imtiaz Super Market Checkout" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
                 <div className="lesson-reveal-content">
                   <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Key Lesson Learned</h4>
                   <p style={{ margin: '0.5rem 0 0', opacity: 0.9 }}>Empathy isn't just listening—it's experiencing the frustration of long queues during rush hour firsthand.</p>
@@ -128,7 +128,7 @@ export default function DesignThinkingPage() {
             {/* Block B */}
             <div className="zig-zag-row--reverse">
               <div className="zig-zag-image-wrapper lesson-reveal-wrapper glass-card border-neon-red">
-                <Image src="/executive-hero.jpg" alt="Vending Machine Hardware Prototype" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
+                <Image src="/DT_Activity.jpg" alt="Vending Machine Hardware Prototype" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
                 <div className="lesson-reveal-content">
                   <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Key Lesson Learned</h4>
                   <p style={{ margin: '0.5rem 0 0', opacity: 0.9 }}>Hardware restrictions shouldn't limit software intuition. Digital interfaces must complement physical ergonomics.</p>
@@ -146,7 +146,7 @@ export default function DesignThinkingPage() {
             {/* Block C */}
             <div className="zig-zag-row">
               <div className="zig-zag-image-wrapper lesson-reveal-wrapper glass-card border-neon-red">
-                <Image src="/campus-hero.jpg" alt="Community Workshops in Karachi" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
+                <Image src="/DT_workshop.jpg" alt="Community Workshops in Karachi" fill sizes="(min-width: 768px) 50vw, 100vw" style={{ objectFit: 'cover' }} />
                 <div className="lesson-reveal-content">
                   <h4 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Key Lesson Learned</h4>
                   <p style={{ margin: '0.5rem 0 0', opacity: 0.9 }}>To teach is to learn twice. Leadership emerges when you guide others through ambiguity.</p>
@@ -196,21 +196,21 @@ export default function DesignThinkingPage() {
 
               {/* Gallery Box 1 */}
               <div className="bento-item border-neon-red">
-                <Image src="/executive-hero.jpg" alt="Sticky note brainstorming" fill sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src="/DT_Imtiaz.jpeg" alt="Sticky note brainstorming" fill sizes="(max-width: 768px) 100vw, 33vw" />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 60%)' }} />
                 <div style={{ position: 'absolute', bottom: '1.5rem', left: '1.5rem' }}>
-                  <h4 style={{ margin: 0, color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Unstructured Ideation</h4>
-                  <p style={{ margin: '0.25rem 0 0', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Mapping the empathy pain points</p>
+                  <h4 style={{ margin: 0, color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>User Research</h4>
+                  <p style={{ margin: '0.25rem 0 0', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Conducting empathy interviews</p>
                 </div>
               </div>
 
               {/* Gallery Box 2 */}
               <div className="bento-item border-neon-red">
-                <Image src="/campus-hero.jpg" alt="Physical Prototypes" fill sizes="(max-width: 768px) 100vw, 33vw" />
+                <Image src="/DT_Activity.jpg" alt="Physical Prototypes" fill sizes="(max-width: 768px) 100vw, 33vw" />
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 60%)' }} />
                 <div style={{ position: 'absolute', bottom: '1.5rem', left: '1.5rem' }}>
-                  <h4 style={{ margin: 0, color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Fast Prototyping</h4>
-                  <p style={{ margin: '0.25rem 0 0', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Iterating physical constructs</p>
+                  <h4 style={{ margin: 0, color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.25rem' }}>Iterative Design</h4>
+                  <p style={{ margin: '0.25rem 0 0', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Building low-fidelity mockups</p>
                 </div>
               </div>
 

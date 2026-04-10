@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     title: siteConfig.legalName,
     description: siteConfig.tagline,
   },
+  icons: {
+    icon: '/gutech_tab_logo.png',
+    shortcut: '/gutech_tab_logo.png',
+    apple: '/gutech_tab_logo.png',
+  },
 };
 
 export default function RootLayout({
