@@ -194,44 +194,22 @@ export default function Home() {
         </section>
 
         <section className="section home-section">
-          <div className="container split-grid">
-            <div>
+          <div className="container home-editorial-stack">
+            <div className="home-editorial-block home-editorial-block--faculty">
               <SectionHeading
                 eyebrow="Faculty Spotlight"
                 title="Visible academic leadership."
                 description="Faculty identity and expertise are presented as core trust signals."
               />
-              <FacultyWheel members={facultyMembers} />
+              <FacultyWheel members={facultyMembers} radiusDesktop={430} radiusMobile={320} />
               <Link className="button button--primary" href="/faculty">
                 View full faculty directory
               </Link>
             </div>
-            <div>
-              <SectionHeading
-                eyebrow="News and Updates"
-                title="Institutional activity and partnerships."
-                description="A structured media layer for events, collaborations, and student engagement."
-              />
-              <StaggerContainer className="news-grid news-grid--desktop" style={{ gridTemplateColumns: '1fr' }}>
-                {newsItems.slice(0, 3).map((item) => (
-                  <StaggerItem key={item.title} className="news-card card-3d">
-                    <span className="news-meta">
-                      {item.category} - {item.dateLabel}
-                    </span>
-                    <h3>{item.title}</h3>
-                    <p>{item.summary}</p>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-
-              <NewsReelMobile items={newsItems.slice(0, 3)} />
-
-              <Link className="button button--secondary" href="/news">
-                Open news page
-              </Link>
-            </div>
           </div>
         </section>
+
+        <NewsReelMobile items={newsItems.slice(0, 3)} />
       </main>
     </>
   );

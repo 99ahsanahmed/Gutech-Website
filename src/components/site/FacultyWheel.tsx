@@ -1,20 +1,32 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type { FacultyMember } from '@/lib/site-data';
 
 type FacultyWheelProps = {
   members: FacultyMember[];
+  radiusDesktop?: number;
+  radiusMobile?: number;
+  className?: string;
+  showSchool?: boolean;
 };
 
-export default function FacultyWheel({ members }: FacultyWheelProps) {
+export default function FacultyWheel({
+  members,
+  radiusDesktop = 420,
+  radiusMobile = 320,
+  className,
+  showSchool = false,
+}: FacultyWheelProps) {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const targetAngleRef = useRef(0);
   const smoothAngleRef = useRef(0);
   const isHoveringRef = useRef(false);
+  const [radius, setRadius] = useState(radiusDesktop);
+  const radiusRef = useRef(radiusDesktop);
   const touchStateRef = useRef({
     startX: 0,
     startY: 0,
@@ -32,6 +44,28 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
   }
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const media = window.matchMedia('(max-width: 960px)');
+
+    const syncRadius = () => {
+      const nextRadius = media.matches ? radiusMobile : radiusDesktop;
+      radiusRef.current = nextRadius;
+      setRadius(nextRadius);
+    };
+
+    syncRadius();
+
+    media.addEventListener('change', syncRadius);
+
+    return () => {
+      media.removeEventListener('change', syncRadius);
+    };
+  }, [radiusDesktop, radiusMobile]);
+
+  useEffect(() => {
     let raf = 0;
 
     const animate = () => {
@@ -40,7 +74,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
       const next = current + (target - current) * 0.12;
       smoothAngleRef.current = next;
       if (trackRef.current) {
-        trackRef.current.style.transform = `translateZ(-360px) rotateY(${next}deg)`;
+        trackRef.current.style.transform = `translateZ(-${radiusRef.current}px) rotateY(${next}deg)`;
       }
       raf = requestAnimationFrame(animate);
     };
@@ -138,7 +172,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
   }
 
   return (
-    <section className="faculty-wheel">
+    <section className={`faculty-wheel${className ? ` ${className}` : ''}`}>
       <div className="faculty-wheel__viewport" ref={viewportRef}>
         <div className="faculty-wheel__track" ref={trackRef}>
           {safeMembers.map((member, index) => {
@@ -149,7 +183,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
               <article
                 key={member.name}
                 className="faculty-wheel__card"
-                style={{ transform: `rotateY(${rotation}deg) translateZ(360px)` }}
+                style={{ transform: `rotateY(${rotation}deg) translateZ(${radius}px)` }}
               >
                 <div className="faculty-wheel__photo">
                   {photo ? (
@@ -157,7 +191,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
                       src={photo}
                       alt={member.name}
                       fill
-                      sizes="220px"
+                      sizes="(max-width: 960px) 208px, 280px"
                       className="faculty-wheel__photo-img"
                       style={member.imagePosition ? { objectPosition: member.imagePosition } : undefined}
                     />
@@ -168,6 +202,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
                 <div className="faculty-wheel__meta">
                   <span>{member.role}</span>
                   <h3>{member.name}</h3>
+                  {showSchool ? <p className="faculty-wheel__school">{member.school}</p> : null}
                   <p>{member.expertise}</p>
                 </div>
               </article>

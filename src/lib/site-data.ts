@@ -795,6 +795,119 @@ export const facultyMembers: FacultyMember[] = [
   },
 ];
 
+export const facultyDirectoryMembers: FacultyMember[] = [
+  {
+    name: 'Mufti Ehsan Waquar',
+    role: 'Vice Chancellor',
+    school: 'MBA Banking & Finance, IoBM, Pakistan; MA Economics, University of Karachi, Pakistan',
+    expertise: 'Academic governance, institutional strategy, and values-led higher education leadership.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Vice Chancellor with dual graduate credentials in finance and economics.',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_0a20edb9142741a5ac0c1fa4dc41e647~mv2.png/v1/crop/x_0,y_0,w_1200,h_1200/fill/w_582,h_582,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Mufti-Ehsan-Waqar-01.png',
+  },
+  {
+    name: 'Dr. Zeeshan Ahmed',
+    role: 'Pro Chancellor',
+    school: 'PhD, Mississippi State University, USA',
+    expertise: 'Academic leadership, institutional development, and strategic university direction.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Pro Chancellor with international doctoral background.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_a91007684e5a4cbb9e643929983769ab~mv2.jpg/v1/fill/w_558,h_558,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
+  },
+  {
+    name: 'Dr. Sajid Bashir',
+    role: 'Dean, Management Sciences',
+    school: 'PhD, MAJU, Pakistan',
+    expertise: 'Management education, academic administration, and curriculum leadership.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Dean for Management with doctoral specialization.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_9eea12cae3da4367954be08a1cce26f8~mv2.jpg/v1/fill/w_578,h_586,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
+  },
+  {
+    name: 'Dr. Jawaid Abdul Ghani',
+    role: 'Professor',
+    school: 'PhD, University of Pennsylvania, USA',
+    expertise: 'Advanced teaching, policy-oriented research, and postgraduate academic mentoring.',
+    description:
+      'Officially listed on GU TECH Our Faculty page with global doctoral credentials and senior professorial role.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_e0517c78fd8344a5807080fa3d58e323~mv2.jpg/v1/fill/w_578,h_586,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited_edited_edited.jpg',
+  },
+  {
+    name: 'Dr. Muhammad Shahzad',
+    role: 'Assistant Professor',
+    school: 'PhD, FAST-NUCES, Pakistan',
+    expertise: 'Applied computing instruction, student supervision, and research-informed teaching.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Assistant Professor with technical doctorate.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_4c5a55b638764fc28eff6e4d4f755a41~mv2.jpg/v1/fill/w_576,h_580,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited.jpg',
+  },
+  {
+    name: 'Dr. Basharat Javed',
+    role: 'Director GELC & Associate Professor',
+    school: 'PhD, CUST, Pakistan',
+    expertise: 'Executive learning leadership, applied pedagogy, and institutional capacity building.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as GELC Director with associate professorship.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_ddbdd0eb6fb24ba09052ff9ee2ad0d20~mv2.jpg/v1/fill/w_588,h_582,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
+  },
+  {
+    name: 'Dr. Arif Iqbal Rana',
+    role: 'Professor',
+    school: 'PhD, Rensselaer Polytechnic Institute, USA',
+    expertise: 'Academic research, cross-disciplinary instruction, and higher education mentorship.',
+    description:
+      'Officially listed on GU TECH Our Faculty page with international doctoral specialization and professorial rank.',
+    imageSrc:
+      'https://static.wixstatic.com/media/db6d86_a846b9b25ffd4df58bd567f927d3c2eb~mv2.jpg/v1/fill/w_588,h_582,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
+  },
+  {
+    name: 'Twaha Ahmed Minai',
+    role: 'Senior Lecturer',
+    school: 'MSc, KU',
+    expertise: 'Programming pedagogy, software development guidance, and student-centered classroom delivery.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Senior Lecturer supporting core computing pathways.',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_dec1504919834451835f9d62fc088109~mv2.png/v1/crop/x_12,y_0,w_2376,h_2376/fill/w_586,h_592,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Twaha.png',
+  },
+  {
+    name: 'Dr. Samra Javed',
+    role: 'Associate Professor & Director ORIC',
+    school: 'PhD, IoBM, Pakistan',
+    expertise: 'Research innovation leadership, ORIC direction, and institutional research ecosystem development.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as ORIC Director and Associate Professor.',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_09e49d8439a143f4905c18be496bbbf7~mv2.jpg/v1/fill/w_588,h_596,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited.jpg',
+  },
+  {
+    name: 'Dr. Imran Majeed',
+    role: 'Assistant Professor & Program Coordinator',
+    school: 'PhD in Islamic Finance, INCEIF University, Malaysia; MS in Economics, IBA, Pakistan',
+    expertise: 'Program coordination, interdisciplinary instruction, and applied economics and finance education.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Program Coordinator with international graduate profile.',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_45688b8649524c2599cad9afb03e1490~mv2.png/v1/crop/x_0,y_5,w_2400,h_2365/fill/w_598,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Imran%20Majeed.png',
+  },
+  {
+    name: 'Syed Taloot Momin',
+    role: 'Lab Instructor, Expertise in UAVs Design',
+    school: 'BS Computer Science, FAST-NUCES',
+    expertise: 'Laboratory instruction, UAV-oriented technical mentoring, and hands-on practical training.',
+    description:
+      'Officially listed on GU TECH Our Faculty page as Lab Instructor with UAV design expertise.',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_8c2fed59e15141149221d90ec41fe7da~mv2.jpeg/v1/fill/w_588,h_596,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/WhatsApp%20Image%202025-06-23%20at%202_25_52%20PM.jpeg',
+  },
+];
+
 export const newsItems: NewsItem[] = [
   {
     title: "Dr. Zeeshan's Tarbiyah Session",

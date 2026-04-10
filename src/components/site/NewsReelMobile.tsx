@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { startTransition, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
 
 import type { NewsItem } from '@/lib/site-data';
 
@@ -9,253 +10,158 @@ type NewsReelMobileProps = {
   items: NewsItem[];
 };
 
-const SWIPE_THRESHOLD = 42;
-const WHEEL_THRESHOLD = 22;
-const TRANSITION_MS = 520;
+const SWIPE_THRESHOLD = 46;
 
 export default function NewsReelMobile({ items }: NewsReelMobileProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const viewportRef = useRef<HTMLDivElement | null>(null);
-  const activeIndexRef = useRef(0);
-  const animationTimerRef = useRef<number | null>(null);
-  const isAnimatingRef = useRef(false);
-  const isAligningRef = useRef(false);
-  const alignTimerRef = useRef<number | null>(null);
-  const touchStartXRef = useRef(0);
-  const touchStartYRef = useRef(0);
-  const touchLastXRef = useRef(0);
-  const touchLastYRef = useRef(0);
+  const total = items.length;
+  const slides = useMemo(() => {
+    if (items.length <= 1) {
+      return items;
+    }
 
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
+    return [items[items.length - 1], ...items, items[0]];
+  }, [items]);
 
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport || typeof window === 'undefined' || items.length < 2) {
+  const [activeIndex, setActiveIndex] = useState(total > 1 ? 1 : 0);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchDeltaX, setTouchDeltaX] = useState(0);
+
+  const logicalIndex = total > 1 ? (activeIndex - 1 + total) % total : 0;
+
+  const goNext = () => {
+    if (total <= 1) {
       return;
     }
 
-    const lastIndex = items.length - 1;
-    const mobileQuery = window.matchMedia('(max-width: 960px)');
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const alignmentThreshold = 18;
+    setIsAnimating(true);
+    setActiveIndex((current) => current + 1);
+  };
 
-    const isSectionAligned = () => {
-      const section = sectionRef.current;
-      if (!section) {
-        return true;
-      }
+  const goPrev = () => {
+    if (total <= 1) {
+      return;
+    }
 
-      return Math.abs(section.getBoundingClientRect().top) <= alignmentThreshold;
-    };
+    setIsAnimating(true);
+    setActiveIndex((current) => current - 1);
+  };
 
-    const alignSectionToViewport = () => {
-      const section = sectionRef.current;
-      if (!section || isAligningRef.current || isSectionAligned()) {
-        return false;
-      }
+  const handleTransitionEnd = () => {
+    if (total <= 1) {
+      return;
+    }
 
-      const topOffset = section.getBoundingClientRect().top;
-      isAligningRef.current = true;
-      window.scrollTo({
-        top: window.scrollY + topOffset,
-        behavior: reducedMotionQuery.matches ? 'auto' : 'smooth',
+    if (activeIndex === 0) {
+      setIsAnimating(false);
+      setActiveIndex(total);
+      return;
+    }
+
+    if (activeIndex === total + 1) {
+      setIsAnimating(false);
+      setActiveIndex(1);
+      return;
+    }
+  };
+
+  const handleTrackUpdated = () => {
+    if (!isAnimating) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setIsAnimating(true));
       });
+    }
+  };
 
-      if (alignTimerRef.current) {
-        window.clearTimeout(alignTimerRef.current);
-      }
+  const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) {
+      return;
+    }
 
-      alignTimerRef.current = window.setTimeout(() => {
-        isAligningRef.current = false;
-      }, reducedMotionQuery.matches ? 60 : TRANSITION_MS);
+    setTouchStartX(touch.clientX);
+    setTouchDeltaX(0);
+  };
 
-      return true;
-    };
+  const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) {
+      return;
+    }
 
-    const goTo = (nextIndex: number) => {
-      if (reducedMotionQuery.matches || isAnimatingRef.current || isAligningRef.current) {
-        return false;
-      }
+    setTouchDeltaX(touch.clientX - touchStartX);
+  };
 
-      const boundedIndex = Math.max(0, Math.min(lastIndex, nextIndex));
-      if (boundedIndex === activeIndexRef.current) {
-        return false;
-      }
+  const onTouchEnd = () => {
+    if (touchDeltaX <= -SWIPE_THRESHOLD) {
+      goNext();
+    } else if (touchDeltaX >= SWIPE_THRESHOLD) {
+      goPrev();
+    }
 
-      if (animationTimerRef.current) {
-        window.clearTimeout(animationTimerRef.current);
-      }
-
-      isAnimatingRef.current = true;
-      activeIndexRef.current = boundedIndex;
-      startTransition(() => {
-        setActiveIndex(boundedIndex);
-      });
-
-      animationTimerRef.current = window.setTimeout(() => {
-        isAnimatingRef.current = false;
-      }, TRANSITION_MS);
-
-      return true;
-    };
-
-    const onWheel = (event: WheelEvent) => {
-      if (
-        !mobileQuery.matches ||
-        reducedMotionQuery.matches ||
-        isAnimatingRef.current ||
-        isAligningRef.current
-      ) {
-        return;
-      }
-
-      if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
-        return;
-      }
-
-      if (alignSectionToViewport()) {
-        event.preventDefault();
-        return;
-      }
-
-      const currentIndex = activeIndexRef.current;
-      const goingDown = event.deltaY > 0;
-      const goingUp = event.deltaY < 0;
-
-      if (goingDown && currentIndex < lastIndex) {
-        event.preventDefault();
-        goTo(currentIndex + 1);
-      } else if (goingUp && currentIndex > 0) {
-        event.preventDefault();
-        goTo(currentIndex - 1);
-      }
-    };
-
-    const onTouchStart = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      if (!touch) {
-        return;
-      }
-
-      touchStartXRef.current = touch.clientX;
-      touchStartYRef.current = touch.clientY;
-      touchLastXRef.current = touch.clientX;
-      touchLastYRef.current = touch.clientY;
-    };
-
-    const onTouchMove = (event: TouchEvent) => {
-      if (!mobileQuery.matches || reducedMotionQuery.matches) {
-        return;
-      }
-
-      const touch = event.touches[0];
-      if (!touch) {
-        return;
-      }
-
-      const deltaX = touch.clientX - touchStartXRef.current;
-      const deltaY = touch.clientY - touchStartYRef.current;
-      const currentIndex = activeIndexRef.current;
-      const isVerticalGesture = Math.abs(deltaY) > Math.abs(deltaX);
-      const tryingNext = deltaY < 0 && currentIndex < lastIndex;
-      const tryingPrev = deltaY > 0 && currentIndex > 0;
-
-      if (isVerticalGesture && (!isSectionAligned() || tryingNext || tryingPrev)) {
-        event.preventDefault();
-      }
-
-      touchLastXRef.current = touch.clientX;
-      touchLastYRef.current = touch.clientY;
-    };
-
-    const onTouchEnd = () => {
-      if (
-        !mobileQuery.matches ||
-        reducedMotionQuery.matches ||
-        isAnimatingRef.current ||
-        isAligningRef.current
-      ) {
-        return;
-      }
-
-      const deltaX = touchLastXRef.current - touchStartXRef.current;
-      const deltaY = touchLastYRef.current - touchStartYRef.current;
-      const currentIndex = activeIndexRef.current;
-
-      if (Math.abs(deltaY) <= Math.abs(deltaX) || Math.abs(deltaY) < SWIPE_THRESHOLD) {
-        return;
-      }
-
-      if (alignSectionToViewport()) {
-        return;
-      }
-
-      if (deltaY <= -SWIPE_THRESHOLD && currentIndex < lastIndex) {
-        goTo(currentIndex + 1);
-      } else if (deltaY >= SWIPE_THRESHOLD && currentIndex > 0) {
-        goTo(currentIndex - 1);
-      }
-    };
-
-    viewport.addEventListener('wheel', onWheel, { passive: false });
-    viewport.addEventListener('touchstart', onTouchStart, { passive: true });
-    viewport.addEventListener('touchmove', onTouchMove, { passive: false });
-    viewport.addEventListener('touchend', onTouchEnd, { passive: true });
-
-    return () => {
-      viewport.removeEventListener('wheel', onWheel);
-      viewport.removeEventListener('touchstart', onTouchStart);
-      viewport.removeEventListener('touchmove', onTouchMove);
-      viewport.removeEventListener('touchend', onTouchEnd);
-
-      if (animationTimerRef.current) {
-        window.clearTimeout(animationTimerRef.current);
-      }
-
-      if (alignTimerRef.current) {
-        window.clearTimeout(alignTimerRef.current);
-      }
-    };
-  }, [items.length]);
+    setTouchDeltaX(0);
+  };
 
   return (
-    <section className="news-reel-mobile" aria-label="Mobile news story sequence" ref={sectionRef}>
-      <div className="news-reel-mobile__viewport" ref={viewportRef}>
+    <section className="news-carousel" aria-label="News highlights carousel">
+      <div
+        className="news-carousel__viewport"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         <div
-          className="news-reel-mobile__track"
-          style={{ transform: `translate3d(0, -${activeIndex * 100}svh, 0)` }}
+          className={`news-carousel__track ${isAnimating ? 'is-animating' : ''}`}
+          onTransitionEnd={handleTransitionEnd}
+          onTransitionCancel={handleTrackUpdated}
+          style={{ transform: `translate3d(-${activeIndex * 100}%, 0, 0)` }}
         >
-          {items.map((item, index) => (
-            <article key={item.title} className="news-reel-mobile__panel">
+          {slides.map((item, index) => (
+            <article className="news-carousel__slide" key={`${item.title}-${index}`}>
               {item.imageSrc ? (
                 <Image
-                  className="news-reel-mobile__image"
+                  className="news-carousel__image"
                   src={item.imageSrc}
                   alt={item.imageAlt ?? item.title}
                   fill
                   sizes="100vw"
                   unoptimized
-                  priority={index === 0}
+                  priority={index === 1}
                 />
               ) : null}
-              <div className="news-reel-mobile__scrim" />
-              <div className="news-reel-mobile__content">
-                <span className="news-reel-mobile__kicker">{item.category}</span>
+              <div className="news-carousel__scrim" />
+              <div className="news-carousel__content">
+                <span className="news-carousel__kicker">{item.category}</span>
                 <h3>{item.title}</h3>
-                <p className="news-reel-mobile__subtitle">{item.subtitle}</p>
+                <p className="news-carousel__subtitle">{item.subtitle}</p>
                 <p>{item.details}</p>
                 <p>{item.impact}</p>
-                <div className="news-reel-mobile__meta">
+                <div className="news-carousel__meta">
                   <span>{item.dateLabel}</span>
                   <span>{item.channel}</span>
                 </div>
+                <Link className="button button--light news-carousel__link" href={item.href ?? '/news'}>
+                  Open news page
+                </Link>
               </div>
             </article>
           ))}
         </div>
+      </div>
+
+      <div className="news-carousel__dots" aria-label="News slide navigation">
+        {items.map((item, dotIndex) => (
+          <button
+            type="button"
+            key={`${item.title}-dot`}
+            className={`news-carousel__dot ${logicalIndex === dotIndex ? 'is-active' : ''}`}
+            aria-label={`Go to news slide ${dotIndex + 1}`}
+            onClick={() => {
+              setIsAnimating(true);
+              setActiveIndex(dotIndex + 1);
+            }}
+          />
+        ))}
       </div>
     </section>
   );
