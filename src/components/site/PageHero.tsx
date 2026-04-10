@@ -16,6 +16,7 @@ type PageHeroProps = {
   imageSrc?: string;
   imageAlt?: string;
   compact?: boolean;
+  locked?: boolean;
 };
 
 export default function PageHero({
@@ -29,11 +30,12 @@ export default function PageHero({
   imageSrc,
   imageAlt,
   compact = false,
+  locked = false,
 }: PageHeroProps) {
   const hasMedia = Boolean(imageLabel);
 
   return (
-    <section className={`hero${compact ? ' hero--compact' : ''}`}>
+    <section className={`hero${compact ? ' hero--compact' : ''}${locked ? ' home-hero--locked' : ''}`}>
       <ParallaxHeroBackground />
       <div className="hero-orb hero-orb--one" />
       <div className="hero-orb hero-orb--two" />

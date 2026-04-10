@@ -1,6 +1,7 @@
-﻿'use client';
+'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { X } from 'lucide-react';
 import { startTransition, useEffect, useEffectEvent, useRef, useState } from 'react';
 
 type Message = {
@@ -43,14 +44,27 @@ export default function Chatbot() {
     });
     setLoading(true);
 
+    const historyPayload = messages.slice(1); // Exclude the initial unprompted greeting from generating SDK model errors or handle it normally
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, history: historyPayload }),
       });
+
+      if (response.status === 429) {
+        setMessages((current) => [
+          ...current,
+          {
+            role: 'assistant',
+            text: 'System is busy, please wait a moment',
+          },
+        ]);
+        return;
+      }
 
       const payload = (await response.json()) as { message?: string };
 
@@ -100,8 +114,22 @@ export default function Chatbot() {
                 <strong>GU TECH Assistant</strong>
                 <span>Programs, admissions, and student support</span>
               </div>
-              <button onClick={() => setIsOpen(false)} type="button">
-                Close
+              <button 
+                onClick={() => setIsOpen(false)} 
+                type="button"
+                style={{ 
+                  background: 'rgba(255,255,255,0.1)', 
+                  border: 'none', 
+                  borderRadius: '50%', 
+                  width: '32px', 
+                  height: '32px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  padding: 0
+                }}
+              >
+                <X size={18} />
               </button>
             </div>
 
@@ -110,6 +138,15 @@ export default function Chatbot() {
                 <div
                   key={`${message.role}-${index}`}
                   className={`chatbot-message chatbot-message--${message.role}`}
+                  style={{
+                    backgroundColor: message.role === 'user' ? 'transparent' : 'rgba(255,255,255,0.06)',
+                    border: message.role === 'user' ? '1px solid rgba(255,255,255,0.2)' : 'none',
+                    padding: '0.85rem 1rem',
+                    borderRadius: '12px',
+                    color: 'rgba(255,255,255,0.9)',
+                    marginBottom: '0.75rem',
+                    fontSize: '0.95rem'
+                  }}
                 >
                   {message.text}
                 </div>

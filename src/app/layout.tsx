@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 import AppFrame from '@/components/AppFrame';
+import SmoothScroll from '@/components/SmoothScroll';
 import { siteConfig } from '@/lib/site-data';
 import './globals.css';
 
@@ -37,9 +38,11 @@ export default function RootLayout({
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
-    <html data-scroll-behavior="smooth" lang="en">
+    <html lang="en">
       <body>
-        <AppFrame>{children}</AppFrame>
+        <SmoothScroll>
+          <AppFrame>{children}</AppFrame>
+        </SmoothScroll>
         {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
       </body>
     </html>
