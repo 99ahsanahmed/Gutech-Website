@@ -15,10 +15,13 @@ const TRANSITION_MS = 520;
 
 export default function NewsReelMobile({ items }: NewsReelMobileProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const activeIndexRef = useRef(0);
   const animationTimerRef = useRef<number | null>(null);
   const isAnimatingRef = useRef(false);
+  const isAligningRef = useRef(false);
+  const alignTimerRef = useRef<number | null>(null);
   const touchStartXRef = useRef(0);
   const touchStartYRef = useRef(0);
   const touchLastXRef = useRef(0);
@@ -37,9 +40,43 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
     const lastIndex = items.length - 1;
     const mobileQuery = window.matchMedia('(max-width: 960px)');
     const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const alignmentThreshold = 18;
+
+    const isSectionAligned = () => {
+      const section = sectionRef.current;
+      if (!section) {
+        return true;
+      }
+
+      return Math.abs(section.getBoundingClientRect().top) <= alignmentThreshold;
+    };
+
+    const alignSectionToViewport = () => {
+      const section = sectionRef.current;
+      if (!section || isAligningRef.current || isSectionAligned()) {
+        return false;
+      }
+
+      const topOffset = section.getBoundingClientRect().top;
+      isAligningRef.current = true;
+      window.scrollTo({
+        top: window.scrollY + topOffset,
+        behavior: reducedMotionQuery.matches ? 'auto' : 'smooth',
+      });
+
+      if (alignTimerRef.current) {
+        window.clearTimeout(alignTimerRef.current);
+      }
+
+      alignTimerRef.current = window.setTimeout(() => {
+        isAligningRef.current = false;
+      }, reducedMotionQuery.matches ? 60 : TRANSITION_MS);
+
+      return true;
+    };
 
     const goTo = (nextIndex: number) => {
-      if (reducedMotionQuery.matches || isAnimatingRef.current) {
+      if (reducedMotionQuery.matches || isAnimatingRef.current || isAligningRef.current) {
         return false;
       }
 
@@ -66,11 +103,21 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
     };
 
     const onWheel = (event: WheelEvent) => {
-      if (!mobileQuery.matches || reducedMotionQuery.matches || isAnimatingRef.current) {
+      if (
+        !mobileQuery.matches ||
+        reducedMotionQuery.matches ||
+        isAnimatingRef.current ||
+        isAligningRef.current
+      ) {
         return;
       }
 
       if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
+        return;
+      }
+
+      if (alignSectionToViewport()) {
+        event.preventDefault();
         return;
       }
 
@@ -116,7 +163,7 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
       const tryingNext = deltaY < 0 && currentIndex < lastIndex;
       const tryingPrev = deltaY > 0 && currentIndex > 0;
 
-      if (isVerticalGesture && (tryingNext || tryingPrev)) {
+      if (isVerticalGesture && (!isSectionAligned() || tryingNext || tryingPrev)) {
         event.preventDefault();
       }
 
@@ -125,7 +172,12 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
     };
 
     const onTouchEnd = () => {
-      if (!mobileQuery.matches || reducedMotionQuery.matches || isAnimatingRef.current) {
+      if (
+        !mobileQuery.matches ||
+        reducedMotionQuery.matches ||
+        isAnimatingRef.current ||
+        isAligningRef.current
+      ) {
         return;
       }
 
@@ -134,6 +186,10 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
       const currentIndex = activeIndexRef.current;
 
       if (Math.abs(deltaY) <= Math.abs(deltaX) || Math.abs(deltaY) < SWIPE_THRESHOLD) {
+        return;
+      }
+
+      if (alignSectionToViewport()) {
         return;
       }
 
@@ -158,11 +214,15 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
       if (animationTimerRef.current) {
         window.clearTimeout(animationTimerRef.current);
       }
+
+      if (alignTimerRef.current) {
+        window.clearTimeout(alignTimerRef.current);
+      }
     };
   }, [items.length]);
 
   return (
-    <section className="news-reel-mobile" aria-label="Mobile news story sequence">
+    <section className="news-reel-mobile" aria-label="Mobile news story sequence" ref={sectionRef}>
       <div className="news-reel-mobile__viewport" ref={viewportRef}>
         <div
           className="news-reel-mobile__track"

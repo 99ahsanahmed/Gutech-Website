@@ -1035,14 +1035,17 @@ button {
 .faculty-wheel__card {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 46%;
   width: 240px;
-  min-height: 290px;
+  height: 372px;
   transform-style: preserve-3d;
   margin-left: -120px;
-  margin-top: -145px;
-  padding: 0.7rem;
+  margin-top: -186px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   border-radius: 18px;
+  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.72);
   background: linear-gradient(155deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.03) 52%, rgba(255, 255, 255, 0.11));
   backdrop-filter: blur(22px) saturate(170%);
@@ -1074,15 +1077,16 @@ button {
 .faculty-wheel__photo {
   position: relative;
   width: 100%;
-  height: 132px;
-  border-radius: 14px;
+  height: 176px;
+  border-radius: 18px 18px 0 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+  background: linear-gradient(180deg, rgba(243, 245, 250, 0.9), rgba(229, 233, 240, 0.76));
 }
 
 .faculty-wheel__photo-img {
   object-fit: cover;
+  object-position: 50% 14%;
 }
 
 .faculty-wheel__photo-fallback {
@@ -1094,8 +1098,13 @@ button {
 }
 
 .faculty-wheel__meta {
-  margin-top: 0.7rem;
-  padding: 0.45rem 0.35rem 0.2rem;
+  flex: 1;
+  display: grid;
+  grid-template-rows: 2.9rem 4.9rem 1fr;
+  gap: 0.35rem;
+  align-content: start;
+  margin-top: 0;
+  padding: 0.85rem 1rem 0.95rem;
   border-radius: 0;
   background: transparent;
   border: 0;
@@ -1104,27 +1113,43 @@ button {
 }
 
 .faculty-wheel__meta span {
-  display: inline-block;
+  display: -webkit-box;
   color: #b11f27;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
+  line-height: 1.35;
+  min-height: 0;
+  margin: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   text-transform: uppercase;
 }
 
 .faculty-wheel__meta h3 {
-  margin: 0.35rem 0 0;
+  margin: 0;
   font-family: var(--font-display);
   font-size: 1.2rem;
   line-height: 1.08;
+  min-height: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   color: #232531;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .faculty-wheel__meta p {
-  margin: 0.45rem 0 0;
+  margin: 0;
   color: rgba(35, 37, 49, 0.86);
   font-size: 0.92rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
@@ -1969,7 +1994,7 @@ button {
   }
 
   .faculty-wheel__viewport {
-    height: 390px;
+    height: 412px;
     perspective: 1100px;
     overflow: visible;
     padding: 0.2rem 0;
@@ -1985,11 +2010,20 @@ button {
   .faculty-wheel__card {
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 45%;
     width: 208px;
-    min-height: 258px;
+    height: 348px;
     margin-left: -104px;
-    margin-top: -129px;
+    margin-top: -174px;
+  }
+
+  .faculty-wheel__photo {
+    height: 164px;
+  }
+
+  .faculty-wheel__meta {
+    grid-template-rows: 2.8rem 4.4rem 1fr;
+    padding: 0.8rem 0.95rem 0.9rem;
   }
 
   .hero-stack {

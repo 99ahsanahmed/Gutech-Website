@@ -63,6 +63,7 @@ export type FacultyMember = {
   expertise: string;
   description: string;
   imageSrc?: string;
+  imagePosition?: string;
 };
 
 export type NewsItem = {
@@ -735,6 +736,7 @@ export const facultyMembers: FacultyMember[] = [
     expertise: 'Artificial intelligence, data-driven decision making, digital transformation',
     description: "A senior academic and industry-facing leader whose profile strongly supports GU TECH's AI and computing identity.",
     imageSrc: '/DR_RM.avif',
+    imagePosition: '50% 4%',
   },
   {
     name: 'Twaha Ahmed Minai',
@@ -775,6 +777,7 @@ export const facultyMembers: FacultyMember[] = [
     expertise: 'Applied instruction, student development, and departmental support',
     description: 'Helps diversify the faculty listing beyond a purely professor-level display.',
     imageSrc: '/Syed Taloot Munim.avif',
+    imagePosition: '50% 3%',
   },
   {
     name: 'Dr. Zeeshan Ahmed',

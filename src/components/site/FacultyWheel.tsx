@@ -159,6 +159,7 @@ export default function FacultyWheel({ members }: FacultyWheelProps) {
                       fill
                       sizes="220px"
                       className="faculty-wheel__photo-img"
+                      style={member.imagePosition ? { objectPosition: member.imagePosition } : undefined}
                     />
                   ) : (
                     <div className="faculty-wheel__photo-fallback">Faculty</div>
