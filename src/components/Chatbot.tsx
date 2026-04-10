@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { startTransition, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { FiMessageCircle } from 'react-icons/fi';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -93,11 +94,12 @@ export default function Chatbot() {
   return (
     <>
       <button
-        className="chatbot-toggle"
+        className="chatbot-toggle-icon"
         onClick={() => setIsOpen((current) => !current)}
+        title="chat with gutech"
         type="button"
       >
-        {isOpen ? 'Close chat' : 'Chat with GU TECH'}
+        <FiMessageCircle size={24} />
       </button>
 
       <AnimatePresence>

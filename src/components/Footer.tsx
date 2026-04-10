@@ -1,3 +1,5 @@
+import { Mail, MapPin } from 'lucide-react';
+import { FaFacebook, FaInstagram, FaLinkedinIn, FaPhone, FaYoutube } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,7 +11,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <Image src="/GU TECH logo.avif" alt="GU TECH" width={196} height={54} />
+            <Image src="/university-logo.avif" alt="GU TECH" width={196} height={54} />
             <h2 className="footer-title">Build your future with confidence.</h2>
             <p>{siteConfig.tagline}</p>
           </div>
@@ -25,9 +27,15 @@ export default function Footer() {
         </div>
 
         <div className="footer-contact-strip">
-          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-          <a href={`tel:${siteConfig.phone.replaceAll('-', '')}`}>{siteConfig.phone}</a>
-          <span>{siteConfig.address}</span>
+          <a href={`mailto:${siteConfig.email}`}>
+            <Mail size={18} /> {siteConfig.email}
+          </a>
+          <a href={`tel:${siteConfig.phone.replaceAll('-', '')}`}>
+            <FaPhone size={18} /> {siteConfig.phone}
+          </a>
+          <span>
+            <MapPin size={18} /> {siteConfig.address}
+          </span>
         </div>
 
         <div className="footer-grid">
@@ -67,16 +75,27 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>&copy; {new Date().getFullYear()} GU TECH. All rights reserved.</span>
           <div className="footer-socials">
-            {siteConfig.socials.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                rel="noreferrer"
-                target="_blank"
-              >
-                {social.label}
-              </a>
-            ))}
+            {siteConfig.socials.map((social) => {
+              const Icon = {
+                Facebook: FaFacebook,
+                Instagram: FaInstagram,
+                LinkedIn: FaLinkedinIn,
+                YouTube: FaYoutube,
+              }[social.label] || FaFacebook;
+              
+              return (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  rel="noreferrer"
+                  target="_blank"
+                  title={social.label}
+                  className="footer-social-icon"
+                >
+                  <Icon size={20} />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

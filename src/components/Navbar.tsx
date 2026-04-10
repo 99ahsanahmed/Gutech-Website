@@ -1,10 +1,12 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { IoCall } from 'react-icons/io5';
 
 import { navigation } from '@/lib/site-data';
 
@@ -33,7 +35,7 @@ export default function Navbar() {
       <div className="container nav-row">
         <Link className="brand-mark" href="/">
           <Image
-            src="/GU TECH logo.avif"
+            src="/university-logo.avif"
             alt="GU TECH"
             width={168}
             height={46}
@@ -108,8 +110,12 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions">
-          <Link className="button button--primary nav-cta" href="/contact">
-            Contact
+          <Link 
+            className="button button--primary nav-cta-icon" 
+            href="/contact"
+            title="Contact Admissions"
+          >
+            <IoCall size={20} />
           </Link>
           <button
             aria-expanded={isOpen}
@@ -117,7 +123,7 @@ export default function Navbar() {
             onClick={() => setIsOpen((current) => !current)}
             type="button"
           >
-            Menu
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
