@@ -21,7 +21,7 @@ function isActive(pathname: string, href: string) {
 export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<'programs' | 'departments' | null>(
+  const [mobileSection, setMobileSection] = useState<'programs' | 'departments' | 'admissions' | null>(
     null,
   );
 
@@ -107,12 +107,23 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link
-            className={isActive(pathname, '/admissions') ? 'is-active' : ''}
-            href="/admissions"
-          >
-            Admissions
-          </Link>
+          <div className="nav-group">
+            <Link
+              className={
+                pathname.startsWith('/admissions') ? 'nav-trigger is-active' : 'nav-trigger'
+              }
+              href="/admissions"
+            >
+              Admissions
+            </Link>
+            <div className="nav-panel">
+              {navigation.admissionsLinks.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           <Link className={isActive(pathname, '/faculty') ? 'is-active' : ''} href="/faculty">
             Faculty
           </Link>
@@ -249,9 +260,45 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
 
-              <Link href="/admissions" onClick={closeMenu}>
-                Admissions
-              </Link>
+              <div className="mobile-section">
+                <button
+                  aria-expanded={mobileSection === 'admissions'}
+                  className="mobile-section__toggle"
+                  onClick={() =>
+                    setMobileSection((current) =>
+                      current === 'admissions' ? null : 'admissions',
+                    )
+                  }
+                  type="button"
+                >
+                  <span>Admissions</span>
+                  <ChevronDown
+                    className={
+                      mobileSection === 'admissions'
+                        ? 'mobile-section__chevron is-open'
+                        : 'mobile-section__chevron'
+                    }
+                    size={18}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {mobileSection === 'admissions' ? (
+                    <motion.div
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      className="mobile-links"
+                      exit={{ opacity: 0, height: 0, y: -6 }}
+                      initial={{ opacity: 0, height: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {navigation.admissionsLinks.map((item) => (
+                        <Link key={item.href} href={item.href} onClick={closeMenu}>
+                          {item.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
               <Link href="/faculty" onClick={closeMenu}>
                 Faculty
               </Link>

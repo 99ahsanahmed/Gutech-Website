@@ -1,17 +1,20 @@
-:root {
-  --bg: #f8f9fb;
-  --surface: rgba(255, 255, 255, 0.78);
-  --surface-strong: #ffffff;
-  --line: rgba(50, 50, 50, 0.12);
-  --ink: #161616;
-  --ink-soft: rgba(22, 22, 22, 0.72);
-  --brand: #8b181d;
-  --brand-strong: #6f1317;
-  --brand-wash: rgba(139, 24, 29, 0.08);
-  --charcoal: #323232;
-  --sand: #efe1d2;
-  --gold: #c9a35b;
-  --shadow: 0 24px 70px rgba(28, 20, 15, 0.12);
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f8f9fb;
+  --color-surface: rgba(255, 255, 255, 0.78);
+  --color-surface-strong: #ffffff;
+  --color-line: rgba(50, 50, 50, 0.12);
+  --color-ink: #161616;
+  --color-ink-soft: rgba(22, 22, 22, 0.72);
+  --color-brand: #8b181d;
+  --color-brand-strong: #6f1317;
+  --color-brand-wash: rgba(139, 24, 29, 0.08);
+  --color-charcoal: #323232;
+  --color-sand: #efe1d2;
+  --color-gold: #c9a35b;
+  
+  --shadow-main: 0 24px 70px rgba(28, 20, 15, 0.12);
   --shadow-soft: 0 12px 30px rgba(25, 16, 12, 0.08);
   --radius-lg: 12px;
   --radius-md: 8px;
@@ -19,6 +22,17 @@
   --font-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
   --font-body: 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
   --header-h: 5.25rem;
+}
+
+:root {
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --line: var(--color-line);
+  --ink: var(--color-ink);
+  --brand: var(--color-brand);
+  --charcoal: var(--color-charcoal);
+  --radius-lg: 12px;
+  --shadow: var(--shadow-main);
 }
 
 * {
@@ -129,13 +143,13 @@ button {
 }
 
 .button--primary {
-  background: var(--brand);
+  background: var(--color-brand);
   color: #fff;
   box-shadow: 0 16px 28px rgba(139, 24, 29, 0.18);
 }
 
 .button--primary:hover {
-  background: var(--brand-strong);
+  background: var(--color-brand-strong);
 }
 
 .button--light {

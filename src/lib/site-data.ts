@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export type HeroAction = {
   label: string;
@@ -114,9 +114,10 @@ export const siteConfig = {
     'https://wa.me/923114488324?text=Assalamualaikum%20GU%20TECH%2C%20I%20would%20like%20to%20know%20more%20about%20admissions.',
   applyHref: 'https://alghazaliuniversity.arpl.pk/',
   feeAccount: {
-    bank: 'Faysal Bank Limited',
-    title: 'Al Ghazali University',
-    number: '3511436000002425',
+    bank: 'National Bank of Pakistan',
+    title: 'ONE NATION FOUNDATION',
+    number: '1063004169854142',
+    iban: 'PK42 NBPA 1063 0041 6985 4142',
     applicationFee: 'PKR 1,000',
   },
   socials: [
@@ -156,6 +157,10 @@ export const navigation = {
     { label: 'Design Thinking Resources', href: '/departments/design-thinking' },
     { label: 'Continuing Education Programs', href: '/departments/continuing-education' },
     { label: 'I.I.C', href: '/departments/iic' },
+  ],
+  admissionsLinks: [
+    { label: 'Admission Process', href: '/admissions' },
+    { label: 'Fee Structure', href: '/admissions/fee-structure' },
   ],
 };
 
