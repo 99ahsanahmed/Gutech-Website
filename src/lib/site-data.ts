@@ -77,6 +77,10 @@ export type FacultyMember = {
   school: string;
   expertise: string;
   description: string;
+  biography?: string[];
+  focusAreas?: string[];
+  profileHighlights?: string[];
+  profileHref?: string;
   imageSrc?: string;
   imagePosition?: string;
 };
@@ -1156,27 +1160,72 @@ export const facultyDirectoryMembers: FacultyMember[] = [
     school: 'MBA Banking & Finance, IoBM, Pakistan; MA Economics, University of Karachi, Pakistan',
     expertise: 'Academic governance, institutional strategy, and values-led higher education leadership.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Vice Chancellor with dual graduate credentials in finance and economics.',
+      'Officially listed by GU TECH as Vice Chancellor with graduate credentials in finance and economics.',
+    biography: [
+      'GU TECH presents Mufti Ehsan Waquar as Vice Chancellor, placing him at the center of academic governance, institutional planning, and the public-facing leadership identity of the university. His profile combines senior stewardship with formal preparation in both banking and finance and economics, which gives the institution a visibly structured leadership base.',
+      'Within the university narrative, his role signals more than administrative oversight. It strengthens GU TECH’s message around disciplined academic direction, values-led education, and long-horizon institutional development for students, parents, and external stakeholders.',
+    ],
+    focusAreas: [
+      'Institutional governance and academic stewardship',
+      'Values-led higher education leadership',
+      'Strategic planning for university growth',
+    ],
+    profileHighlights: [
+      'Official role: Vice Chancellor',
+      'Academic background: MBA Banking & Finance, IoBM',
+      'Academic background: MA Economics, University of Karachi',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/mufti-ehsan-waquar',
     imageSrc:
       'https://static.wixstatic.com/media/a93df4_0a20edb9142741a5ac0c1fa4dc41e647~mv2.png/v1/crop/x_0,y_0,w_1200,h_1200/fill/w_582,h_582,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Mufti-Ehsan-Waqar-01.png',
   },
   {
     name: 'Dr. Zeeshan Ahmed',
     role: 'Pro Chancellor',
-    school: 'PhD, Mississippi State University, USA',
+    school: 'PhD, Mississippi State University, USA; MBA, IBA, Pakistan; CPA',
     expertise: 'Academic leadership, institutional development, and strategic university direction.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Pro Chancellor with international doctoral background.',
+      'Officially listed by GU TECH as Pro Chancellor with international doctoral training and business credentials.',
+    biography: [
+      'Dr. Zeeshan Ahmed is presented on the official GU TECH faculty listing as Pro Chancellor, combining doctoral work from Mississippi State University with an MBA from IBA and CPA credentials. That combination positions him as a leadership figure who sits at the intersection of strategy, academic direction, and execution.',
+      'Across the public university story, his presence reinforces a management-plus-technology identity rather than a conventional brochure-only institution. He represents senior academic leadership, institutional development, and the type of decision-making discipline expected in a modern higher education environment.',
+    ],
+    focusAreas: [
+      'Strategic university leadership',
+      'Institutional development and growth',
+      'Academic direction with management discipline',
+    ],
+    profileHighlights: [
+      'Official role: Pro Chancellor',
+      'Academic background: PhD, Mississippi State University, USA',
+      'Additional credentials: MBA, IBA, Pakistan; CPA',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-zeeshan-ahmed',
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_a91007684e5a4cbb9e643929983769ab~mv2.jpg/v1/fill/w_558,h_558,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
   },
   {
     name: 'Dr. Sajid Bashir',
-    role: 'Dean, Management Sciences',
-    school: 'PhD, MAJU, Pakistan',
+    role: 'Dean, Management & Informatics',
+    school: 'PhD, MAJU, Pakistan; MS, MAJU, Pakistan; MBA, IIUI, Pakistan',
     expertise: 'Management education, academic administration, and curriculum leadership.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Dean for Management with doctoral specialization.',
+      'Officially listed by GU TECH as Dean for Management & Informatics with doctoral, masters, and MBA qualifications.',
+    biography: [
+      'GU TECH lists Dr. Sajid Bashir as Dean, Management & Informatics, presenting him as a senior academic leader for the university’s management-facing pathways. His profile combines doctoral and masters study from MAJU with an MBA from IIUI, building a clear academic base for curriculum oversight and program leadership.',
+      'His role matters because the university is trying to look institutionally credible rather than startup-fragile. A dean-level academic profile helps communicate structure, governance, and depth in management education while supporting the wider positioning of GU TECH as a modern, professionally oriented university.',
+    ],
+    focusAreas: [
+      'Management education and curriculum design',
+      'Academic administration and school leadership',
+      'Program development for business and informatics pathways',
+    ],
+    profileHighlights: [
+      'Official role: Dean, Management & Informatics',
+      'Academic background: PhD, MAJU, Pakistan',
+      'Additional credentials: MS, MAJU; MBA, IIUI',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-sajid-bashir',
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_9eea12cae3da4367954be08a1cce26f8~mv2.jpg/v1/fill/w_578,h_586,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
   },
@@ -1186,27 +1235,122 @@ export const facultyDirectoryMembers: FacultyMember[] = [
     school: 'PhD, University of Pennsylvania, USA',
     expertise: 'Advanced teaching, policy-oriented research, and postgraduate academic mentoring.',
     description:
-      'Officially listed on GU TECH Our Faculty page with global doctoral credentials and senior professorial role.',
+      'Officially listed by GU TECH as Professor with doctoral training from the University of Pennsylvania.',
+    biography: [
+      'Dr. Jawaid Abdul Ghani appears on the official faculty page as a senior professor with a PhD from the University of Pennsylvania. That international academic background gives GU TECH a visibly stronger professorial layer and contributes to the institution’s claim of serious academic depth.',
+      'On a page like this, his profile helps communicate research maturity, higher-order mentorship, and the presence of senior faculty who can support not only classroom teaching but also strategic academic direction and advanced scholarly engagement.',
+    ],
+    focusAreas: [
+      'Senior-level teaching and mentorship',
+      'Research-informed academic leadership',
+      'Postgraduate and policy-oriented academic guidance',
+    ],
+    profileHighlights: [
+      'Official role: Professor',
+      'Academic background: PhD, University of Pennsylvania, USA',
+      'Directory value: strengthens senior professorial presence at GU TECH',
+    ],
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_e0517c78fd8344a5807080fa3d58e323~mv2.jpg/v1/fill/w_578,h_586,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited_edited_edited.jpg',
   },
   {
-    name: 'Dr. Muhammad Shahzad',
-    role: 'Assistant Professor',
-    school: 'PhD, FAST-NUCES, Pakistan',
-    expertise: 'Applied computing instruction, student supervision, and research-informed teaching.',
+    name: 'Dr. Rauf Ahmed Shams Malick',
+    role: 'Professor / Chairman Computer Science',
+    school: 'PhD, KU, Pakistan; M.Phil, KU, Pakistan; BS, SSUET, Pakistan',
+    expertise: 'Artificial intelligence, data-driven decision making, and digital transformation in computing education.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Assistant Professor with technical doctorate.',
+      'Officially listed by GU TECH as Professor and Chairman of Computer Science with multi-stage academic training in Karachi.',
+    biography: [
+      'Dr. Rauf Ahmed Shams Malick is one of the most important academic profiles for GU TECH because the official faculty page positions him as Professor and Chairman Computer Science. His credentials span a PhD and M.Phil from the University of Karachi along with an undergraduate foundation from SSUET, creating a strong local academic lineage in computing.',
+      'For the university website, his presence gives the Computer Science department visible authority. He anchors the institution’s technical identity through leadership, academic supervision, and the kind of subject-depth that parents and prospective students expect to see when evaluating a flagship computing program.',
+    ],
+    focusAreas: [
+      'Computer science academic leadership',
+      'Artificial intelligence and data-driven computing',
+      'Departmental supervision and curriculum direction',
+    ],
+    profileHighlights: [
+      'Official role: Professor / Chairman Computer Science',
+      'Academic background: PhD, KU; M.Phil, KU',
+      'Undergraduate foundation: BS, SSUET, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-rauf-malick',
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_4c5a55b638764fc28eff6e4d4f755a41~mv2.jpg/v1/fill/w_576,h_580,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited.jpg',
+    imagePosition: '50% 8%',
+  },
+  {
+    name: 'Dr. Muhammad Shahzad',
+    role: 'Assistant Professor',
+    school: 'PhD, FAST-NUCES, Pakistan; Visiting Scientist, University of Lancaster, UK',
+    expertise: 'Applied computing instruction, student supervision, and research-informed teaching.',
+    description:
+      'Officially listed by GU TECH as Assistant Professor with a FAST-NUCES doctorate and Lancaster visiting scientist experience.',
+    biography: [
+      'Dr. Muhammad Shahzad is listed by GU TECH as Assistant Professor with a PhD from FAST-NUCES and visiting scientist exposure at the University of Lancaster in the UK. That combination makes his profile especially valuable on the faculty page because it shows both local technical depth and international academic engagement.',
+      'His presence strengthens the computing side of the university by signalling that technical instruction is not being delivered in isolation from wider research exposure. It helps the faculty page communicate that students are learning from people who operate with current academic and applied computing relevance.',
+    ],
+    focusAreas: [
+      'Applied computing and technical instruction',
+      'Student supervision in computing pathways',
+      'Research-linked classroom delivery',
+    ],
+    profileHighlights: [
+      'Official role: Assistant Professor',
+      'Academic background: PhD, FAST-NUCES, Pakistan',
+      'Additional profile note: Visiting Scientist at University of Lancaster, UK',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-muhammad-shahzad',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_aa69cd6fa8ce4416ab0738832fd31414~mv2.jpg/v1/fill/w_580,h_570,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_%20Shahzad%202-34.jpg',
+  },
+  {
+    name: 'Dr. Khubaib Ahmed',
+    role: 'Associate Professor',
+    school: 'PhD, DHA Suffa University, Pakistan; M.Phil, SZABIST, Pakistan',
+    expertise: 'Technical education, research supervision, and computing depth across applied classroom settings.',
+    description:
+      'Officially listed by GU TECH as Associate Professor with doctoral work from DHA Suffa University.',
+    biography: [
+      'Dr. Khubaib Ahmed appears on the official faculty page as Associate Professor, supported by a PhD from DHA Suffa University and an M.Phil from SZABIST. That combination contributes a stronger middle-to-senior academic layer to the GU TECH faculty composition.',
+      'His profile is important for the public directory because it extends the technical department beyond entry-level teaching optics. It shows that GU TECH has faculty who can support computing instruction, research supervision, and academically grounded program delivery with visible professional depth.',
+    ],
+    focusAreas: [
+      'Applied computing instruction',
+      'Research supervision and academic guidance',
+      'Departmental depth for technical programs',
+    ],
+    profileHighlights: [
+      'Official role: Associate Professor',
+      'Academic background: PhD, DHA Suffa University, Pakistan',
+      'Additional credentials: M.Phil, SZABIST, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-khubaib-ahmed',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_cef14560c9ab41cea3d771cce74af350~mv2.png/v1/fill/w_586,h_586,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr%20Khubaib.png',
   },
   {
     name: 'Dr. Basharat Javed',
     role: 'Director GELC & Associate Professor',
-    school: 'PhD, CUST, Pakistan',
+    school: 'PhD, CUST, Pakistan; MS, MAJU, Pakistan',
     expertise: 'Executive learning leadership, applied pedagogy, and institutional capacity building.',
     description:
-      'Officially listed on GU TECH Our Faculty page as GELC Director with associate professorship.',
+      'Officially listed by GU TECH as GELC Director and Associate Professor with doctoral specialization in Pakistan.',
+    biography: [
+      'Dr. Basharat Javed is identified on the official faculty page as Director GELC and Associate Professor, which gives him a dual academic and institutional role inside GU TECH. His doctoral background from CUST, together with graduate study at MAJU, supports the executive learning and capability-building side of the university’s public positioning.',
+      'That makes him especially useful in the redesigned faculty experience because he connects degree education with wider institutional upskilling. His profile helps show that GU TECH is not only teaching conventional coursework, but also building a more applied and professionally responsive academic ecosystem.',
+    ],
+    focusAreas: [
+      'Executive learning and GELC leadership',
+      'Applied pedagogy and academic delivery',
+      'Institutional capacity building',
+    ],
+    profileHighlights: [
+      'Official role: Director GELC & Associate Professor',
+      'Academic background: PhD, CUST, Pakistan',
+      'Additional credentials: MS, MAJU, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-basharat-javed',
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_ddbdd0eb6fb24ba09052ff9ee2ad0d20~mv2.jpg/v1/fill/w_588,h_582,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
   },
@@ -1216,27 +1360,71 @@ export const facultyDirectoryMembers: FacultyMember[] = [
     school: 'PhD, Rensselaer Polytechnic Institute, USA',
     expertise: 'Academic research, cross-disciplinary instruction, and higher education mentorship.',
     description:
-      'Officially listed on GU TECH Our Faculty page with international doctoral specialization and professorial rank.',
+      'Officially listed by GU TECH as Professor with international doctoral specialization.',
+    biography: [
+      'Dr. Arif Iqbal Rana appears in the official faculty directory as Professor with a PhD from Rensselaer Polytechnic Institute in the United States. His profile adds a visibly international academic dimension to the GU TECH faculty composition.',
+      'On the redesigned page, that matters because it raises the perceived academic maturity of the institution. A professor-level profile with global doctoral training helps the university communicate serious teaching depth, research literacy, and a broader standard of mentorship across its programs.',
+    ],
+    focusAreas: [
+      'Cross-disciplinary academic instruction',
+      'Research-led higher education practice',
+      'Senior faculty mentorship',
+    ],
+    profileHighlights: [
+      'Official role: Professor',
+      'Academic background: PhD, Rensselaer Polytechnic Institute, USA',
+      'Directory value: international professorial presence',
+    ],
     imageSrc:
       'https://static.wixstatic.com/media/db6d86_a846b9b25ffd4df58bd567f927d3c2eb~mv2.jpg/v1/fill/w_588,h_582,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited_edited.jpg',
   },
   {
     name: 'Twaha Ahmed Minai',
     role: 'Senior Lecturer',
-    school: 'MSc, KU',
+    school: 'MSc, KU; M.Phil CS, KU; MSCS, Muhammad Ali Jinnah University',
     expertise: 'Programming pedagogy, software development guidance, and student-centered classroom delivery.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Senior Lecturer supporting core computing pathways.',
+      'Officially listed by GU TECH as Senior Lecturer with layered graduate preparation in computing.',
+    biography: [
+      'Twaha Ahmed Minai is listed on the official faculty page as Senior Lecturer, with academic credentials spanning KU and Muhammad Ali Jinnah University. That profile gives the computing faculty a strong teaching-oriented presence built around classroom delivery, programming instruction, and student support.',
+      'In the context of the redesigned page, his role helps balance senior academic leadership with the day-to-day teaching backbone of the institution. He represents the kind of faculty member students encounter directly in core technical courses, which makes his inclusion important to the realism of the directory.',
+    ],
+    focusAreas: [
+      'Programming pedagogy and software fundamentals',
+      'Student-centered technical instruction',
+      'Support for core computing pathways',
+    ],
+    profileHighlights: [
+      'Official role: Senior Lecturer',
+      'Academic background: MSc, KU; M.Phil CS, KU',
+      'Additional credentials: MSCS, Muhammad Ali Jinnah University',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/twaha-ahmed',
     imageSrc:
       'https://static.wixstatic.com/media/a93df4_dec1504919834451835f9d62fc088109~mv2.png/v1/crop/x_12,y_0,w_2376,h_2376/fill/w_586,h_592,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Twaha.png',
   },
   {
     name: 'Dr. Samra Javed',
     role: 'Associate Professor & Director ORIC',
-    school: 'PhD, IoBM, Pakistan',
+    school: 'PhD, IoBM, Pakistan; MPhil, SZABIST, Pakistan',
     expertise: 'Research innovation leadership, ORIC direction, and institutional research ecosystem development.',
     description:
-      'Officially listed on GU TECH Our Faculty page as ORIC Director and Associate Professor.',
+      'Officially listed by GU TECH as ORIC Director and Associate Professor with research-led academic credentials.',
+    biography: [
+      'Dr. Samra Javed is presented by GU TECH as Associate Professor and Director ORIC, placing her at the interface of teaching, research culture, and institutional innovation support. Her profile combines doctoral work from IoBM with MPhil studies at SZABIST, which aligns well with an academic environment trying to demonstrate research maturity.',
+      'Her presence on the faculty page adds an important research and innovation layer. It signals that GU TECH is not positioning itself only around teaching delivery, but also around research coordination, knowledge development, and a more structured ecosystem for academic advancement.',
+    ],
+    focusAreas: [
+      'Research and innovation ecosystem development',
+      'ORIC leadership and institutional research coordination',
+      'Academic mentoring with research orientation',
+    ],
+    profileHighlights: [
+      'Official role: Associate Professor & Director ORIC',
+      'Academic background: PhD, IoBM, Pakistan',
+      'Additional credentials: MPhil, SZABIST, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-samra-javed',
     imageSrc:
       'https://static.wixstatic.com/media/a93df4_09e49d8439a143f4905c18be496bbbf7~mv2.jpg/v1/fill/w_588,h_596,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_edited.jpg',
   },
@@ -1246,9 +1434,49 @@ export const facultyDirectoryMembers: FacultyMember[] = [
     school: 'PhD in Islamic Finance, INCEIF University, Malaysia; MS in Economics, IBA, Pakistan',
     expertise: 'Program coordination, interdisciplinary instruction, and applied economics and finance education.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Program Coordinator with international graduate profile.',
+      'Officially listed by GU TECH as Program Coordinator with international graduate work in Islamic finance and economics.',
+    biography: [
+      'Dr. Imran Majeed appears on the official faculty page as Assistant Professor and Program Coordinator, with advanced study in Islamic Finance from INCEIF University in Malaysia and Economics from IBA Pakistan. That profile gives GU TECH a valuable interdisciplinary bridge between finance, economics, and program operations.',
+      'His role is especially important because it mixes classroom teaching with program-level coordination. On the redesigned page, that helps the faculty roster feel more complete and institutionally real, showing not only teaching staff but also the people who keep academic pathways organized and coherent.',
+    ],
+    focusAreas: [
+      'Program coordination and academic operations',
+      'Applied economics and finance education',
+      'Interdisciplinary instruction across management-oriented pathways',
+    ],
+    profileHighlights: [
+      'Official role: Assistant Professor & Program Coordinator',
+      'Academic background: PhD in Islamic Finance, INCEIF University, Malaysia',
+      'Additional credentials: MS in Economics, IBA, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-imran-majeed',
     imageSrc:
       'https://static.wixstatic.com/media/a93df4_45688b8649524c2599cad9afb03e1490~mv2.png/v1/crop/x_0,y_5,w_2400,h_2365/fill/w_598,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Imran%20Majeed.png',
+  },
+  {
+    name: 'Dr. Muhammad Haris Mirza',
+    role: 'Assistant Professor',
+    school: 'PhD in Marketing, University of Karachi, Pakistan; MS, Hamdard University, Pakistan',
+    expertise: 'Marketing strategy, business research, and management instruction with analytical depth.',
+    description:
+      'Officially listed by GU TECH as Assistant Professor with specialization in marketing and business studies.',
+    biography: [
+      'Dr. Muhammad Haris Mirza is listed by GU TECH as Assistant Professor, with a PhD in Marketing from the University of Karachi and an MS from Hamdard University. His profile expands the directory beyond pure computing and shows stronger subject coverage in management and market-facing education.',
+      'That matters on the redesigned faculty page because the university is trying to look like a full institutional ecosystem rather than a single-department microsite. His presence helps the page communicate that GU TECH supports business, management, and professionally relevant teaching alongside its technical programs.',
+    ],
+    focusAreas: [
+      'Marketing and business research',
+      'Management instruction and applied analysis',
+      'Student guidance in market-facing academic pathways',
+    ],
+    profileHighlights: [
+      'Official role: Assistant Professor',
+      'Academic background: PhD in Marketing, University of Karachi',
+      'Additional credentials: MS, Hamdard University, Pakistan',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/dr-muhammad-haris-mirza',
+    imageSrc:
+      'https://static.wixstatic.com/media/a93df4_4109b5f42da24b7ea37deeebb42de41e~mv2.jpg/v1/fill/w_588,h_596,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Dr_%20Haris.jpg',
   },
   {
     name: 'Syed Taloot Momin',
@@ -1256,7 +1484,22 @@ export const facultyDirectoryMembers: FacultyMember[] = [
     school: 'BS Computer Science, FAST-NUCES',
     expertise: 'Laboratory instruction, UAV-oriented technical mentoring, and hands-on practical training.',
     description:
-      'Officially listed on GU TECH Our Faculty page as Lab Instructor with UAV design expertise.',
+      'Officially listed by GU TECH as Lab Instructor with expertise in UAV design and practical computing support.',
+    biography: [
+      'Syed Taloot Momin is listed on the official faculty page as Lab Instructor with expertise in UAVs design and a BS in Computer Science from FAST-NUCES. His profile adds an applied laboratory layer to the university directory, which is important because hands-on instruction is a major part of how technical credibility is judged.',
+      'On a page that needs to feel real rather than decorative, his presence shows that GU TECH includes faculty support for practical experimentation, lab culture, and technical implementation. That makes the overall faculty narrative more believable and more useful for students who care about execution, not just theory.',
+    ],
+    focusAreas: [
+      'Practical lab instruction and technical support',
+      'UAV-oriented experimentation and design exposure',
+      'Hands-on student mentoring in applied computing settings',
+    ],
+    profileHighlights: [
+      'Official role: Lab Instructor, Expertise in UAVs Design',
+      'Academic background: BS Computer Science, FAST-NUCES',
+      'Directory value: strengthens the applied lab-learning story',
+    ],
+    profileHref: 'https://www.gutech.edu.pk/syed-taloot-momin',
     imageSrc:
       'https://static.wixstatic.com/media/a93df4_8c2fed59e15141149221d90ec41fe7da~mv2.jpeg/v1/fill/w_588,h_596,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/WhatsApp%20Image%202025-06-23%20at%202_25_52%20PM.jpeg',
   },

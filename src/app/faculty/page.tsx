@@ -49,13 +49,13 @@ export default function FacultyPage() {
             <SectionHeading
               eyebrow="Faculty directory"
               title="The people behind the programs."
-              description="Faculty cards now use the same interactive wheel experience with a cleaner full-width presentation."
+              description="Click any faculty card to open a full-screen profile with academic background, focus areas, and a richer institutional summary."
               centered
             />
             <FacultyWheel
               members={facultyDirectoryMembers}
-              radiusDesktop={560}
-              radiusMobile={320}
+              radiusDesktop={820}
+              radiusMobile={640}
               className="faculty-wheel--directory"
               showSchool
             />

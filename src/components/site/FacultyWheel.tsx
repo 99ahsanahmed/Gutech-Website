@@ -1,6 +1,9 @@
 'use client';
 
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type { FacultyMember } from '@/lib/site-data';
@@ -13,6 +16,38 @@ type FacultyWheelProps = {
   showSchool?: boolean;
 };
 
+type ActiveFacultyProfile = {
+  member: FacultyMember;
+  originX: number;
+  originY: number;
+  originScale: number;
+};
+
+const OVERLAY_EASE = [0.22, 1, 0.36, 1] as const;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function createMemberId(name: string) {
+  return `faculty-card-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+
+function createProfileOrigin(card: HTMLElement) {
+  const rect = card.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const isMobile = viewportWidth <= 960;
+  const panelWidth = Math.min(isMobile ? viewportWidth - 20 : viewportWidth - 72, 1160);
+  const panelHeight = Math.min(viewportHeight - (isMobile ? 20 : 32), isMobile ? 860 : 880);
+
+  return {
+    originX: rect.left + rect.width / 2 - viewportWidth / 2,
+    originY: rect.top + rect.height / 2 - viewportHeight / 2,
+    originScale: clamp(Math.min(rect.width / panelWidth, rect.height / panelHeight), 0.18, 0.92),
+  };
+}
+
 export default function FacultyWheel({
   members,
   radiusDesktop = 420,
@@ -20,12 +55,13 @@ export default function FacultyWheel({
   className,
   showSchool = false,
 }: FacultyWheelProps) {
+  const prefersReducedMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const targetAngleRef = useRef(0);
   const smoothAngleRef = useRef(0);
   const isHoveringRef = useRef(false);
-  const [radius, setRadius] = useState(radiusDesktop);
   const radiusRef = useRef(radiusDesktop);
   const touchStateRef = useRef({
     startX: 0,
@@ -33,14 +69,32 @@ export default function FacultyWheel({
     lastX: 0,
     axisLocked: '' as '' | 'x' | 'y',
   });
+  const [radius, setRadius] = useState(radiusDesktop);
+  const [activeProfile, setActiveProfile] = useState<ActiveFacultyProfile | null>(null);
 
   const safeMembers = useMemo(
-    () => members.filter((member) => member.name && member.role).slice(0, 8),
+    () => members.filter((member) => member.name && member.role),
     [members],
   );
 
   function rotateBy(step: number) {
     targetAngleRef.current += step;
+  }
+
+  function closeProfile() {
+    setActiveProfile(null);
+  }
+
+  function openProfile(member: FacultyMember, card: HTMLElement) {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const origin = createProfileOrigin(card);
+    setActiveProfile({
+      member,
+      ...origin,
+    });
   }
 
   useEffect(() => {
@@ -57,7 +111,6 @@ export default function FacultyWheel({
     };
 
     syncRadius();
-
     media.addEventListener('change', syncRadius);
 
     return () => {
@@ -73,9 +126,11 @@ export default function FacultyWheel({
       const current = smoothAngleRef.current;
       const next = current + (target - current) * 0.12;
       smoothAngleRef.current = next;
+
       if (trackRef.current) {
         trackRef.current.style.transform = `translateZ(-${radiusRef.current}px) rotateY(${next}deg)`;
       }
+
       raf = requestAnimationFrame(animate);
     };
 
@@ -98,7 +153,7 @@ export default function FacultyWheel({
     };
 
     const handleWindowWheel = (event: WheelEvent) => {
-      if (!isHoveringRef.current) {
+      if (activeProfile || !isHoveringRef.current) {
         return;
       }
 
@@ -109,15 +164,9 @@ export default function FacultyWheel({
       rotateBy(direction * 13);
     };
 
-    viewport.addEventListener('mouseenter', handlePointerEnter);
-    viewport.addEventListener('mouseleave', handlePointerLeave);
-    viewport.addEventListener('focusin', handlePointerEnter);
-    viewport.addEventListener('focusout', handlePointerLeave);
-    window.addEventListener('wheel', handleWindowWheel, { passive: false, capture: true });
-
     const handleTouchStart = (event: TouchEvent) => {
       const touch = event.touches[0];
-      if (!touch) {
+      if (!touch || activeProfile) {
         return;
       }
 
@@ -128,6 +177,10 @@ export default function FacultyWheel({
     };
 
     const handleTouchMove = (event: TouchEvent) => {
+      if (activeProfile) {
+        return;
+      }
+
       const touch = event.touches[0];
       if (!touch) {
         return;
@@ -137,24 +190,26 @@ export default function FacultyWheel({
       const deltaXFromStart = touch.clientX - state.startX;
       const deltaYFromStart = touch.clientY - state.startY;
 
-      if (!state.axisLocked) {
-        if (Math.abs(deltaXFromStart) > 8 || Math.abs(deltaYFromStart) > 8) {
-          state.axisLocked = Math.abs(deltaXFromStart) > Math.abs(deltaYFromStart) ? 'x' : 'y';
-        }
+      if (!state.axisLocked && (Math.abs(deltaXFromStart) > 8 || Math.abs(deltaYFromStart) > 8)) {
+        state.axisLocked = Math.abs(deltaXFromStart) > Math.abs(deltaYFromStart) ? 'x' : 'y';
       }
 
       if (state.axisLocked === 'x') {
         event.preventDefault();
         event.stopPropagation();
-        const step = touch.clientX - state.lastX;
-        rotateBy(step * 0.32);
+        rotateBy((touch.clientX - state.lastX) * 0.32);
       }
 
       state.lastX = touch.clientX;
     };
 
+    viewport.addEventListener('mouseenter', handlePointerEnter);
+    viewport.addEventListener('mouseleave', handlePointerLeave);
+    viewport.addEventListener('focusin', handlePointerEnter);
+    viewport.addEventListener('focusout', handlePointerLeave);
     viewport.addEventListener('touchstart', handleTouchStart, { passive: true });
     viewport.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('wheel', handleWindowWheel, { passive: false, capture: true });
 
     return () => {
       viewport.removeEventListener('mouseenter', handlePointerEnter);
@@ -165,11 +220,67 @@ export default function FacultyWheel({
       viewport.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('wheel', handleWindowWheel, { capture: true });
     };
-  }, []);
+  }, [activeProfile]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    if (!activeProfile) {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [activeProfile]);
+
+  useEffect(() => {
+    if (!activeProfile) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeProfile();
+      }
+    };
+
+    closeButtonRef.current?.focus();
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeProfile]);
 
   if (!safeMembers.length) {
     return null;
   }
+
+  const activeMember = activeProfile?.member ?? null;
+  const biography = activeMember?.biography?.length
+    ? activeMember.biography
+    : activeMember
+      ? [activeMember.description]
+      : [];
+  const focusAreas = activeMember?.focusAreas?.length
+    ? activeMember.focusAreas
+    : activeMember
+      ? [activeMember.expertise]
+      : [];
+  const profileHighlights = activeMember?.profileHighlights?.length
+    ? activeMember.profileHighlights
+    : activeMember
+      ? [`Official role: ${activeMember.role}`, `Academic background: ${activeMember.school}`]
+      : [];
 
   return (
     <section className={`faculty-wheel${className ? ` ${className}` : ''}`}>
@@ -184,6 +295,18 @@ export default function FacultyWheel({
                 key={member.name}
                 className="faculty-wheel__card"
                 style={{ transform: `rotateY(${rotation}deg) translateZ(${radius}px)` }}
+                onClick={(event) => openProfile(member, event.currentTarget)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openProfile(member, event.currentTarget as HTMLElement);
+                  }
+                }}
+                aria-label={`Open profile for ${member.name}`}
+                aria-haspopup="dialog"
+                aria-controls={`${createMemberId(member.name)}-dialog`}
               >
                 <div className="faculty-wheel__photo">
                   {photo ? (
@@ -219,6 +342,141 @@ export default function FacultyWheel({
           Next
         </button>
       </div>
+
+      <AnimatePresence mode="wait">
+        {activeProfile ? (
+          <motion.div
+            className="faculty-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0.18 : 0.24, ease: OVERLAY_EASE }}
+            onClick={closeProfile}
+          >
+            <motion.article
+              id={`${createMemberId(activeProfile.member.name)}-dialog`}
+              className="faculty-overlay__panel"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={`${createMemberId(activeProfile.member.name)}-title`}
+              onClick={(event) => event.stopPropagation()}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 0, y: 20 }
+                  : {
+                      opacity: 0.28,
+                      x: activeProfile.originX,
+                      y: activeProfile.originY,
+                      scale: activeProfile.originScale,
+                    }
+              }
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              exit={
+                prefersReducedMotion
+                  ? { opacity: 0, y: 20 }
+                  : {
+                      opacity: 0,
+                      x: activeProfile.originX,
+                      y: activeProfile.originY,
+                      scale: activeProfile.originScale,
+                    }
+              }
+              transition={{ duration: prefersReducedMotion ? 0.2 : 0.42, ease: OVERLAY_EASE }}
+            >
+              <header className="faculty-overlay__header">
+                <div className="faculty-overlay__identity">
+                  <div className="faculty-overlay__photo">
+                    {activeMember?.imageSrc ? (
+                      <Image
+                        src={activeMember.imageSrc}
+                        alt={activeMember.name}
+                        fill
+                        sizes="(max-width: 960px) 34vw, 220px"
+                        className="faculty-overlay__photo-img"
+                        style={
+                          activeMember.imagePosition
+                            ? { objectPosition: activeMember.imagePosition }
+                            : undefined
+                        }
+                      />
+                    ) : (
+                      <div className="faculty-overlay__photo-fallback">Faculty</div>
+                    )}
+                  </div>
+                  <div className="faculty-overlay__title">
+                    <span>{activeMember?.role}</span>
+                    <h3 id={`${createMemberId(activeProfile.member.name)}-title`}>
+                      {activeMember?.name}
+                    </h3>
+                    <p className="faculty-overlay__credentials">{activeMember?.school}</p>
+                  </div>
+                </div>
+                <button
+                  ref={closeButtonRef}
+                  className="faculty-overlay__close"
+                  type="button"
+                  onClick={closeProfile}
+                  aria-label="Close faculty profile"
+                >
+                  <X size={22} />
+                </button>
+              </header>
+
+              <div className="faculty-overlay__body">
+                <article className="faculty-overlay__narrative">
+                  <h4>Profile overview</h4>
+                  {biography.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </article>
+
+                <div className="faculty-overlay__details">
+                  <article>
+                    <h4>Academic background</h4>
+                    <p>{activeMember?.school}</p>
+                  </article>
+
+                  <article>
+                    <h4>Focus areas</h4>
+                    <ul className="faculty-overlay__list">
+                      {focusAreas.map((area) => (
+                        <li key={area}>{area}</li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  <article>
+                    <h4>Directory highlights</h4>
+                    <ul className="faculty-overlay__list">
+                      {profileHighlights.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </article>
+
+                  {activeMember?.profileHref ? (
+                    <article>
+                      <h4>Official profile</h4>
+                      <p>
+                        Cross-check this faculty member on the official GU TECH faculty directory for
+                        the live institutional listing.
+                      </p>
+                      <Link
+                        className="faculty-overlay__link"
+                        href={activeMember.profileHref}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Open official faculty profile
+                      </Link>
+                    </article>
+                  ) : null}
+                </div>
+              </div>
+            </motion.article>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </section>
   );
 }

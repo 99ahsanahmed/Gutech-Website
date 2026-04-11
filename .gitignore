@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+.edge-cdp-test/
+*.png
+*.html
 
 # next.js
 /.next/
