@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -14,22 +14,26 @@ const containerVariants = {
 };
 
 export const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 42, scale: 0.985, filter: 'blur(10px)' },
   show: { 
-    opacity: 1, 
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] as const }
   }
 };
 
 export function StaggerContainer({ children, className = "", style }: { children: React.ReactNode, className?: string, style?: React.CSSProperties }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
       style={style}
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="show"
+      variants={reduceMotion ? undefined : containerVariants}
+      initial={reduceMotion ? false : "hidden"}
+      whileInView={reduceMotion ? undefined : "show"}
       viewport={{ once: true, margin: "-50px" }}
     >
       {children}
@@ -38,8 +42,14 @@ export function StaggerContainer({ children, className = "", style }: { children
 }
 
 export function StaggerItem({ children, className = "", style }: { children: React.ReactNode, className?: string, style?: React.CSSProperties }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <motion.div className={className} style={style} variants={itemVariants}>
+    <motion.div
+      className={className}
+      style={style}
+      variants={reduceMotion ? undefined : itemVariants}
+    >
       {children}
     </motion.div>
   );

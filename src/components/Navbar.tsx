@@ -1,14 +1,14 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { IoCall } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 
-import { navigation } from '@/lib/site-data';
+import { navigation, siteConfig } from '@/lib/site-data';
 
 function isActive(pathname: string, href: string) {
   if (href === '/') {
@@ -29,6 +29,21 @@ export default function Navbar() {
     setIsOpen(false);
     setMobileSection(null);
   }
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const isMobileViewport = window.matchMedia('(max-width: 960px)').matches;
+    if (isOpen && isMobileViewport) {
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
+    document.body.style.overflow = '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <header className="site-header">
@@ -110,12 +125,15 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions">
-          <Link 
-            className="button button--primary nav-cta-icon" 
-            href="/contact"
-            title="Contact Admissions"
+          <Link
+            aria-label="Chat on WhatsApp admissions"
+            className="button button--primary nav-cta-icon"
+            href={siteConfig.whatsappHref}
+            rel="noopener noreferrer"
+            target="_blank"
+            title="WhatsApp Admissions"
           >
-            <IoCall size={20} />
+            <FaWhatsapp size={20} />
           </Link>
           <button
             aria-expanded={isOpen}
@@ -131,11 +149,11 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen ? (
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             className="mobile-panel"
-            exit={{ opacity: 0, y: -12 }}
-            initial={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0, y: -10, scale: 0.985 }}
+            initial={{ opacity: 0, y: -10, scale: 0.985 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="container mobile-panel__inner">
               <Link href="/" onClick={closeMenu}>
@@ -147,6 +165,7 @@ export default function Navbar() {
 
               <div className="mobile-section">
                 <button
+                  aria-expanded={mobileSection === 'programs'}
                   className="mobile-section__toggle"
                   onClick={() =>
                     setMobileSection((current) =>
@@ -155,24 +174,41 @@ export default function Navbar() {
                   }
                   type="button"
                 >
-                  Programs
+                  <span>Programs</span>
+                  <ChevronDown
+                    className={
+                      mobileSection === 'programs'
+                        ? 'mobile-section__chevron is-open'
+                        : 'mobile-section__chevron'
+                    }
+                    size={18}
+                  />
                 </button>
-                <Link href="/programs" onClick={closeMenu}>
-                  All programs
-                </Link>
-                {mobileSection === 'programs' ? (
-                  <div className="mobile-links">
-                    {navigation.programLinks.map((item) => (
-                      <Link key={item.href} href={item.href} onClick={closeMenu}>
-                        {item.label}
+                <AnimatePresence initial={false}>
+                  {mobileSection === 'programs' ? (
+                    <motion.div
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      className="mobile-links"
+                      exit={{ opacity: 0, height: 0, y: -6 }}
+                      initial={{ opacity: 0, height: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <Link href="/programs" onClick={closeMenu}>
+                        All programs
                       </Link>
-                    ))}
-                  </div>
-                ) : null}
+                      {navigation.programLinks.map((item) => (
+                        <Link key={item.href} href={item.href} onClick={closeMenu}>
+                          {item.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </div>
 
               <div className="mobile-section">
                 <button
+                  aria-expanded={mobileSection === 'departments'}
                   className="mobile-section__toggle"
                   onClick={() =>
                     setMobileSection((current) =>
@@ -181,20 +217,36 @@ export default function Navbar() {
                   }
                   type="button"
                 >
-                  Departments
+                  <span>Departments</span>
+                  <ChevronDown
+                    className={
+                      mobileSection === 'departments'
+                        ? 'mobile-section__chevron is-open'
+                        : 'mobile-section__chevron'
+                    }
+                    size={18}
+                  />
                 </button>
-                <Link href="/departments" onClick={closeMenu}>
-                  All departments
-                </Link>
-                {mobileSection === 'departments' ? (
-                  <div className="mobile-links">
-                    {navigation.departmentLinks.map((item) => (
-                      <Link key={item.href} href={item.href} onClick={closeMenu}>
-                        {item.label}
+                <AnimatePresence initial={false}>
+                  {mobileSection === 'departments' ? (
+                    <motion.div
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      className="mobile-links"
+                      exit={{ opacity: 0, height: 0, y: -6 }}
+                      initial={{ opacity: 0, height: 0, y: -6 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <Link href="/departments" onClick={closeMenu}>
+                        All departments
                       </Link>
-                    ))}
-                  </div>
-                ) : null}
+                      {navigation.departmentLinks.map((item) => (
+                        <Link key={item.href} href={item.href} onClick={closeMenu}>
+                          {item.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </div>
 
               <Link href="/admissions" onClick={closeMenu}>

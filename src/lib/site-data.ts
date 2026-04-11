@@ -17,6 +17,20 @@ export type DetailSection = {
   items: string[];
 };
 
+export type CurriculumCourse = {
+  code: string;
+  title: string;
+  core?: string;
+  creditHours: string;
+};
+
+export type CurriculumSemester = {
+  title: string;
+  note?: string;
+  courses: CurriculumCourse[];
+  totalCreditHours?: string;
+};
+
 export type DetailLink = {
   label: string;
   href: string;
@@ -36,6 +50,7 @@ export type Program = {
   imageLabel: string;
   imageSrc?: string;
   facts: Fact[];
+  curriculum?: CurriculumSemester[];
   sections: DetailSection[];
   links: DetailLink[];
 };
@@ -227,40 +242,149 @@ export const programs: Program[] = [
     badge: 'Current flagship program',
     summary: 'A modern computing degree shaped around software, data, AI, product thinking, and career readiness.',
     description:
-      'GU TECH positions BS Computer Science as a flagship for students who want rigorous technical foundations with stronger professional outcomes.',
+      'GU TECH positions BS Computer Science as a flagship technology pathway built on industry readiness, innovation, and values-led development.',
     overview:
-      'This page expands the official BS Computer Science positioning into a complete degree story. It highlights computing fundamentals, applied labs, communication, innovation exposure, and the earn-as-you-learn mindset already visible in the current site.',
-    imageLabel: 'BS Computer Science classes and labs',
-    imageSrc: '/programs-hero.jpg',
+      'The official BS CS page emphasizes an innovation-hub mindset, early industry exposure, and entrepreneurship through coursework, labs, and the Innovation & Incubation Center. Program direction combines strong theoretical foundations with practical execution from early semesters.',
+    imageLabel: 'BS CS coding and systems practice',
+    imageSrc: '/program-bscs-hero.jpg',
     facts: [
       { label: 'Program type', value: 'On-campus undergraduate degree' },
-      { label: 'Best for', value: 'Software, AI, data, and product-minded students' },
-      { label: 'Signature angle', value: 'Earn-as-you-learn ecosystem with I.I.C exposure' },
+      { label: 'Learning model', value: 'Earn-as-you-learn with I.I.C exposure' },
+      { label: 'Program structure', value: 'Semester-wise core and lab courses' },
+    ],
+    curriculum: [
+      {
+        title: 'Semester 1',
+        courses: [
+          { code: 'CS-101', title: 'Problem Solving & Programming Fundamentals', core: 'Core', creditHours: '3' },
+          { code: 'CL-101', title: 'Problem Solving & Programming Fundamentals Lab', core: 'Lab', creditHours: '1' },
+          { code: 'CS-102', title: 'Web Technologies I', core: 'Core', creditHours: '2' },
+          { code: 'CL-102', title: 'Web Technologies I Lab', core: 'Lab', creditHours: '1' },
+          { code: 'SS-101', title: 'Design Thinking', core: 'Core', creditHours: '3' },
+          { code: 'GE-103', title: 'Functional English', core: 'Core', creditHours: '3' },
+          { code: 'CS-103', title: 'Discrete Structures', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '16',
+      },
+      {
+        title: 'Semester 2',
+        courses: [
+          { code: 'CS104', title: 'Object Oriented Programming', core: 'Core', creditHours: '3' },
+          { code: 'CL104', title: 'Object Oriented Programming Lab', core: 'Lab', creditHours: '1' },
+          { code: 'MT101', title: 'Calculus and Analytical Geometry', core: 'Core', creditHours: '3' },
+          { code: 'GE104', title: 'Expository Writing', core: 'Core', creditHours: '3' },
+          { code: 'GE105', title: 'Pakistan Studies', core: 'Core', creditHours: '2' },
+          { code: 'GE106', title: 'Ideology & Constitution of Pakistan', core: 'Core', creditHours: '2' },
+        ],
+        totalCreditHours: '14',
+      },
+      {
+        title: 'Semester 3',
+        courses: [
+          { code: 'CS201', title: 'Data Structures', core: 'DS', creditHours: '3' },
+          { code: 'CL201', title: 'Data Structures Lab', core: 'DS Lab', creditHours: '1' },
+          { code: 'CS202', title: 'Database Systems', core: 'DBS', creditHours: '3' },
+          { code: 'CL202', title: 'Database Systems Lab', core: 'DBS Lab', creditHours: '1' },
+          { code: 'CS203', title: 'Introduction to Software Engineering', core: 'Core', creditHours: '3' },
+          { code: 'MT201', title: 'Multivariate Calculus', core: 'Core', creditHours: '3' },
+          { code: 'GE201', title: 'Applied Physics', core: 'Core', creditHours: '2' },
+          { code: 'GL201', title: 'Applied Physics Lab', core: 'Lab', creditHours: '1' },
+        ],
+        totalCreditHours: '17',
+      },
+      {
+        title: 'Semester 4',
+        courses: [
+          { code: 'CS204', title: 'Digital Logic Design', core: 'DLD', creditHours: '2' },
+          { code: 'CL204', title: 'Digital Logic Design Lab', core: 'DLD Lab', creditHours: '1' },
+          { code: 'CS205', title: 'Operating Systems', core: 'OS', creditHours: '3' },
+          { code: 'CL206', title: 'Operating Systems Lab', core: 'OS Lab', creditHours: '1' },
+          { code: 'CS207', title: 'Design & Analysis of Algorithms', core: 'Core', creditHours: '3' },
+          { code: 'MT202', title: 'Linear Algebra', core: 'Core', creditHours: '3' },
+          { code: 'CS208', title: 'Applications of ICT', core: 'Core', creditHours: '2' },
+          { code: 'MT203', title: 'Probability & Statistics', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '18',
+      },
+      {
+        title: 'Semester 5',
+        courses: [
+          { code: 'CS301', title: 'Artificial Intelligence', core: 'Core', creditHours: '2' },
+          { code: 'CL301', title: 'Artificial Intelligence Lab', core: 'Lab', creditHours: '1' },
+          { code: 'MT301', title: 'Leadership and Innovation', core: 'Core', creditHours: '3' },
+          { code: 'EN301', title: 'Technical & Business Writing', core: 'Core', creditHours: '2' },
+          { code: 'CS303', title: 'Computer Organization and Assembly Language', core: 'Core', creditHours: '2' },
+          { code: 'CL303', title: 'Computer Organization & Assembly Lab', core: 'Lab', creditHours: '1' },
+          { code: 'GE304', title: 'Financial Accounting', core: 'Core', creditHours: '3' },
+          { code: 'CS304', title: 'Theory of Automata', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '17',
+      },
+      {
+        title: 'Semester 6',
+        courses: [
+          { code: 'CS305', title: 'Parallel & Distributed Computing', core: 'OS', creditHours: '2' },
+          { code: 'CL305', title: 'Parallel & Distributed Computing Lab', core: 'Lab', creditHours: '1' },
+          { code: 'CS306', title: 'Computer Networks', core: 'Core', creditHours: '2' },
+          { code: 'CL306', title: 'Computer Networks Lab', core: 'Lab', creditHours: '1' },
+          { code: 'SS301', title: 'Introduction to Management', core: 'Core', creditHours: '3' },
+          { code: 'CS307', title: 'Information Security', core: 'Core', creditHours: '2' },
+          { code: 'CL307', title: 'Information Security Lab', core: 'Lab', creditHours: '1' },
+          { code: 'CS308', title: 'Computer Architecture', core: 'Core', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective I', core: 'Elective', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective II', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '21',
+      },
+      {
+        title: 'Semester 7',
+        courses: [
+          { code: 'CS403', title: 'Advance Data Base System', core: 'DBS', creditHours: '3' },
+          { code: 'GE401', title: 'Islamic Studies', core: 'Core', creditHours: '3' },
+          { code: 'CS410', title: 'FYP 1', core: 'Core', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective IV', core: 'Elective', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective V', core: 'Elective', creditHours: '3' },
+          { code: 'GE402', title: 'Civics & Community Engagement', core: 'Core', creditHours: '1' },
+        ],
+        totalCreditHours: '16',
+      },
+      {
+        title: 'Semester 8',
+        courses: [
+          { code: 'GE403', title: 'Professional Practices in IT', core: 'Core', creditHours: '3' },
+          { code: 'CS412', title: 'FYP 2', core: 'Core', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective VI', core: 'Elective', creditHours: '3' },
+          { code: 'CS-XXX', title: 'CS Elective VII', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
     ],
     sections: [
       {
-        title: 'Core study areas',
+        title: 'Official program direction',
         items: [
-          'Programming fundamentals, data structures, and software engineering',
-          'Database systems, APIs, cloud tooling, and applied web technologies',
-          'Artificial intelligence, data science foundations, and responsible computing',
-          'Communication, teamwork, and project-based delivery',
+          'Innovation-driven computer science education aligned with industry and product development.',
+          'Early exposure to practical IT tools and problem-solving from the start of the program.',
+          'Entrepreneurship and innovation orientation supported by projects, events, and mentorship.',
+          'Research and innovation focus in areas including fake news, precision medicine, and socio-economic analytics.',
         ],
       },
       {
-        title: 'What students graduate with',
+        title: 'Published semester-level course framework (official page)',
         items: [
-          'A stronger base in algorithms, systems thinking, and modern development workflows',
-          'Hands-on project experience suitable for internships and junior technical roles',
-          'Exposure to entrepreneurship, portfolio building, and applied research directions',
+          'Semester 1 includes Problem Solving & Programming Fundamentals (CS-101), Programming Lab (CL-101), Web Technologies (CS-102), Web Technologies Lab (CL-102), Design Thinking (SS-101), Functional English (GE-103), and Discrete Structures (CS-103).',
+          'Semester 2 includes Object Oriented Programming (CS104), OOP Lab (CL104), Calculus and Analytical Geometry (MT101), Expository Writing (GE104), and Ideology & Constitution of Pakistan (GE106).',
+          'Mid-program foundation includes Data Structures (CS201/CL201), Database Systems (CS202/CL202), Software Engineering (CS203), Digital Logic Design (CS204/CL204), and Operating Systems (CS205/CL206).',
+          'Upper progression includes Artificial Intelligence (CS301/CL301), Theory of Automata (CS304), Parallel & Distributed Computing (CS305/CL305), Computer Networks (CS306/CL306), Information Security (CS307/CL307), and Computer Architecture (CS308).',
         ],
       },
       {
-        title: 'Why this page is stronger',
+        title: 'Industry, research, and incubation pathway',
         items: [
-          'Clearer outcomes and focus areas instead of a short placeholder block',
-          'Better links into admissions, faculty, and related departments',
-          'Professional media slots that can be replaced later without changing the layout',
+          'I.I.C supports product commercialization, startup exploration, and freelance capability building.',
+          'Internships and part-time opportunities with local IT companies are highlighted as early-exposure channels.',
+          'International collaboration references include networks across France, China, USA, UK, Turkey, Qatar, and Saudi Arabia.',
+          'Students engage through seminars, exhibitions, workshops, podcasts, job fairs, and practical collaboration activity.',
         ],
       },
     ],
@@ -279,39 +403,132 @@ export const programs: Program[] = [
     badge: 'Current management program',
     summary: 'A business program for students who need management fundamentals with stronger analytical and communication depth.',
     description:
-      'The BBA page positions the degree as a management pathway connected to entrepreneurship, finance, analytics, and leadership execution.',
+      'GU TECH Business School presents BBA as a market-driven, high-tech, and mentorship-connected management degree.',
     overview:
-      'GU TECH already presents BBA as a core offer. This expanded version strengthens the page with clearer business outcomes, modern subject framing, and stronger links to management sciences, startup activity, and executive communication.',
-    imageLabel: 'BBA classroom and student presentations',
-    imageSrc: '/programs-hero.jpg',
+      'The official BBA page emphasizes intensive bootcamp-style delivery, C-suite mentorship, technology orientation (Python, web development, analytics), incubation support, and an earn-as-you-learn approach that bridges theory with market execution.',
+    imageLabel: 'Business pathway and professional mentorship',
+    imageSrc: '/about-collaboration.jpg',
     facts: [
       { label: 'Program type', value: 'On-campus undergraduate degree' },
-      { label: 'Best for', value: 'Future managers, founders, and business analysts' },
-      { label: 'Connected unit', value: 'Department of Management Sciences' },
+      { label: 'Delivery style', value: 'Market-driven and bootcamp-oriented' },
+      { label: 'Signature element', value: 'C-suite mentorship + incubation pathway' },
+    ],
+    curriculum: [
+      {
+        title: 'Semester 1',
+        courses: [
+          { code: 'BBA-101', title: 'Principles of Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-102', title: 'Microeconomics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-103', title: 'Business Mathematics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-104', title: 'Functional English', core: 'Core', creditHours: '3' },
+          { code: 'BBA-105', title: 'Introduction to Information Systems', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 2',
+        courses: [
+          { code: 'BBA-106', title: 'Financial Accounting', core: 'Core', creditHours: '3' },
+          { code: 'BBA-107', title: 'Macroeconomics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-108', title: 'Business Communication', core: 'Core', creditHours: '3' },
+          { code: 'BBA-109', title: 'Business Statistics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-110', title: 'Digital Skills for Managers', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 3',
+        courses: [
+          { code: 'BBA-201', title: 'Marketing Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-202', title: 'Cost and Managerial Accounting', core: 'Core', creditHours: '3' },
+          { code: 'BBA-203', title: 'Organizational Behavior', core: 'Core', creditHours: '3' },
+          { code: 'BBA-204', title: 'Business Law', core: 'Core', creditHours: '3' },
+          { code: 'BBA-205', title: 'Python for Business Analytics', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 4',
+        courses: [
+          { code: 'BBA-206', title: 'Financial Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-207', title: 'Human Resource Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-208', title: 'Operations Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-209', title: 'Business Research Methods', core: 'Core', creditHours: '3' },
+          { code: 'BBA-210', title: 'Design Thinking for Business', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 5',
+        courses: [
+          { code: 'BBA-301', title: 'Strategic Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-302', title: 'Consumer Behavior', core: 'Core', creditHours: '3' },
+          { code: 'BBA-303', title: 'Business Analytics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-304', title: 'Entrepreneurship and Innovation', core: 'Core', creditHours: '3' },
+          { code: 'BBA-3EX', title: 'Elective I', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 6',
+        courses: [
+          { code: 'BBA-305', title: 'Corporate Governance and Ethics', core: 'Core', creditHours: '3' },
+          { code: 'BBA-306', title: 'Supply Chain Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-307', title: 'Digital Marketing and E-commerce', core: 'Core', creditHours: '3' },
+          { code: 'BBA-308', title: 'Project Management', core: 'Core', creditHours: '3' },
+          { code: 'BBA-3EY', title: 'Elective II', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 7',
+        courses: [
+          { code: 'BBA-401', title: 'Internship / Industry Practicum', core: 'Core', creditHours: '3' },
+          { code: 'BBA-402', title: 'C-Suite Mentorship Studio', core: 'Core', creditHours: '3' },
+          { code: 'BBA-403', title: 'Startup Incubation Project I', core: 'Core', creditHours: '3' },
+          { code: 'BBA-4EX', title: 'Elective III', core: 'Elective', creditHours: '3' },
+          { code: 'BBA-4EY', title: 'Elective IV', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 8',
+        courses: [
+          { code: 'BBA-404', title: 'Capstone Project / Business Plan', core: 'Core', creditHours: '3' },
+          { code: 'BBA-405', title: 'Leadership and Negotiation', core: 'Core', creditHours: '3' },
+          { code: 'BBA-406', title: 'Startup Incubation Project II', core: 'Core', creditHours: '3' },
+          { code: 'BBA-4EZ', title: 'Elective V', core: 'Elective', creditHours: '3' },
+          { code: 'BBA-4EW', title: 'Elective VI', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
     ],
     sections: [
       {
-        title: 'Academic focus',
+        title: 'Official BBA positioning',
         items: [
-          'Management, marketing, finance, economics, and organizational behavior',
-          'Business communication, leadership, and decision-making frameworks',
-          'Entrepreneurship, strategy, and problem solving with a practical institutional lens',
+          'The program is framed as a market-driven business degree aligned with current and future industry demand.',
+          'A high-tech orientation is explicitly highlighted through Python, web development, and analytics integration.',
+          'The design focuses on bridging theory and practice before students enter the market.',
+          'Ethical and moral development is positioned as a core part of responsible leadership preparation.',
         ],
       },
       {
-        title: 'Professional outcomes',
+        title: 'Curriculum and skills framework',
         items: [
-          'Readiness for roles in operations, sales, HR, business support, and startups',
-          'A stronger base for executive education, MBAs, and industry certifications later',
-          'More confidence in presentations, teamwork, and market-facing communication',
+          'Management, marketing, finance, economics, and organizational behavior fundamentals.',
+          'Business communication, leadership practice, decision-making, and execution-focused coursework.',
+          'Entrepreneurship, innovation, and commercialization exposure through incubation activities.',
+          'Data and digital fluency through business analytics, applied technology tools, and practical projects.',
         ],
       },
       {
-        title: 'Why this page matters',
+        title: 'Mentorship and earn-as-you-learn model',
         items: [
-          'It gives management sciences the same polish as technical programs',
-          'It improves visibility and mobile readability for applicants',
-          'It creates a clearer bridge between BBA, design thinking, and executive learning',
+          'Industry C-suite mentors contribute practical perspectives to connect classroom concepts with business reality.',
+          'Students are encouraged to build and test products through on-campus incubation support.',
+          'Internship and work-experience exposure is highlighted as an early market-entry advantage.',
+          'The model supports confidence in presentations, team execution, and leadership communication.',
         ],
       },
     ],
@@ -330,39 +547,85 @@ export const programs: Program[] = [
     badge: 'Current postgraduate offering',
     summary: 'A postgraduate pathway connecting ethical finance, banking practice, regulation, and leadership.',
     description:
-      'This page develops the official postgraduate offering into a clearer, more polished graduate narrative for prospective students.',
+      'The official MS IB&F program is designed to combine banking and finance mastery with Islamic teachings and contemporary market needs.',
     overview:
-      'MS Islamic Banking & Finance is already visible on the GU TECH site. This page gives it a stronger structure, clearer academic framing, and a layout consistent with the rest of the website.',
+      'GU TECH presents MS IB&F as a graduate pathway backed by Shariah scholars and finance experts. The program structure includes foundation prerequisites (for non-business backgrounds), semester-wise core/elective flow, and a thesis-or-additional-courses completion option.',
     imageLabel: 'Finance seminars and postgraduate sessions',
-    imageSrc: '/executive-hero.jpg',
+    imageSrc: '/program-ms-ibf-hero.jpg',
     facts: [
       { label: 'Program type', value: 'On-campus graduate degree' },
-      { label: 'Best for', value: 'Finance professionals and postgraduate learners' },
-      { label: 'Program angle', value: 'Ethical and market-aware financial education' },
+      { label: 'Program model', value: 'Foundation + semester-wise structure' },
+      { label: 'Faculty support', value: 'Shariah scholars and finance experts' },
+    ],
+    curriculum: [
+      {
+        title: 'Foundation / Pre-Requisite (for non-business background)',
+        note: 'Subject to approval of admission committee for each student.',
+        courses: [
+          { code: 'F-101', title: 'Principles of Accounting', core: 'Foundation', creditHours: '3' },
+          { code: 'F-102', title: 'Principles of Economics & Finance', core: 'Foundation', creditHours: '3' },
+          { code: 'F-103', title: 'Business Communication and Report Writing', core: 'Foundation', creditHours: '3' },
+          { code: 'F-104', title: 'Fundamentals of Islamic Fiqh / Jurisprudence', core: 'Foundation', creditHours: '3' },
+          { code: 'F-105', title: 'Fundamentals of Mathematics and Statistics', core: 'Foundation', creditHours: '3' },
+        ],
+        totalCreditHours: '15',
+      },
+      {
+        title: 'Semester 1',
+        courses: [
+          { code: 'IBF-501', title: 'Corporate Finance', core: 'Core', creditHours: '3' },
+          { code: 'IBF-502', title: 'Islamic Economics', core: 'Core', creditHours: '3' },
+          { code: 'IBF-503', title: 'Research Methodology I', core: 'Core', creditHours: '3' },
+          { code: 'IBF-5E1', title: 'Elective I', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 2',
+        courses: [
+          { code: 'IBF-504', title: 'Financial Markets, Institutions & Islamic Perspective', core: 'Core', creditHours: '3' },
+          { code: 'IBF-505', title: 'Research Methodology II', core: 'Core', creditHours: '3' },
+          { code: 'IBF-5E2', title: 'Elective II', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '9',
+      },
+      {
+        title: 'Degree Completion Option',
+        note: 'Official note: students may opt for two additional courses instead of MS Thesis.',
+        courses: [
+          { code: 'IBF-600', title: 'MS Thesis', core: 'Thesis', creditHours: '6' },
+          { code: 'IBF-6E3', title: 'Elective III (alternative to thesis route)', core: 'Elective', creditHours: '3' },
+          { code: 'IBF-6E4', title: 'Elective IV (alternative to thesis route)', core: 'Elective', creditHours: '3' },
+        ],
+      },
     ],
     sections: [
       {
-        title: 'Graduate focus areas',
+        title: 'Program objectives (official direction)',
         items: [
-          'Islamic finance principles, banking structures, and financial management',
-          'Research, policy understanding, governance, and institutional decision making',
-          'Applied casework for students who want to operate in modern financial environments',
+          'Equip students with comprehensive banking and finance knowledge integrated with Islamic teachings.',
+          'Address growing demand for qualified Islamic banking professionals in a rapidly expanding sector.',
+          'Provide rigorous academic training supported by leading Shariah and finance expertise.',
+          'Align curriculum with industry needs while incorporating modern financial technologies.',
         ],
       },
       {
-        title: 'Student outcomes',
+        title: 'Foundation / pre-requisite courses (for non-business background)',
         items: [
-          'A stronger grasp of contemporary financial systems grounded in ethical frameworks',
-          'Better readiness for banking, compliance, finance operations, and academic progression',
-          'Improved analytical communication for boardroom and regulatory contexts',
+          'Principles of Accounting',
+          'Principles of Economics & Finance',
+          'Business Communication and Report Writing',
+          'Fundamentals of Islamic Fiqh / Jurisprudence',
+          'Fundamentals of Mathematics and Statistics',
         ],
       },
       {
-        title: 'How this page helps',
+        title: 'Published semester-wise breakup',
         items: [
-          'The program now sits inside one consistent graduate presentation system',
-          'Prospective students can move directly into contact, admissions, and related programs',
-          'The interface is cleaner, faster, and easier for applicants and families to navigate',
+          'Semester I: Corporate Finance (Core, 3 CH), Islamic Economics (Core, 3 CH), Research Methodology I (Core, 3 CH), Elective I (3 CH) - Total 12 CH.',
+          'Semester II: Financial Markets, Institutions & Islamic Perspective (Core, 3 CH), Research Methodology II (Core, 3 CH), Elective II (3 CH) - Total 9 CH.',
+          'Degree completion note on official page: students may opt for two additional courses instead of MS Thesis.',
+          'Elective / specialization courses are structured to support applied professional progression.',
         ],
       },
     ],
@@ -384,36 +647,81 @@ export const programs: Program[] = [
       "This page presents a planned postgraduate track aligned with GU TECH's emphasis on data and AI.",
     overview:
       'The official GU TECH ecosystem already highlights AI, data science, and applied research through faculty expertise and public-facing announcements. This page packages that direction into a polished MS Data Science route with clear planned-intake wording.',
-    imageLabel: 'Data science labs and postgraduate workshops',
-    imageSrc: '/programs-hero.jpg',
+    imageLabel: 'Data science and analytical computing pathway',
+    imageSrc: '/about-story-session.png',
     facts: [
       { label: 'Status', value: 'Planned program track' },
       { label: 'Best for', value: 'Graduates seeking advanced analytics and ML depth' },
       { label: 'Institutional fit', value: "Aligned with GU TECH's AI and data direction" },
     ],
+    curriculum: [
+      {
+        title: 'Semester 1 (Proposed)',
+        courses: [
+          { code: 'DS-601', title: 'Statistical Inference for Data Science', core: 'Core', creditHours: '3' },
+          { code: 'DS-602', title: 'Data Engineering Foundations', core: 'Core', creditHours: '3' },
+          { code: 'DS-603', title: 'Machine Learning I', core: 'Core', creditHours: '3' },
+          { code: 'DS-604', title: 'Programming for Analytics', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 2 (Proposed)',
+        courses: [
+          { code: 'DS-605', title: 'Machine Learning II', core: 'Core', creditHours: '3' },
+          { code: 'DS-606', title: 'Data Visualization & Storytelling', core: 'Core', creditHours: '3' },
+          { code: 'DS-607', title: 'Big Data Systems', core: 'Core', creditHours: '3' },
+          { code: 'DS-6E1', title: 'Elective I', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 3 (Proposed)',
+        courses: [
+          { code: 'DS-608', title: 'Time Series and Forecasting', core: 'Core', creditHours: '3' },
+          { code: 'DS-609', title: 'Applied NLP for Data Scientists', core: 'Core', creditHours: '3' },
+          { code: 'DS-6E2', title: 'Elective II', core: 'Elective', creditHours: '3' },
+          { code: 'DS-690', title: 'Research Seminar', core: 'Core', creditHours: '2' },
+        ],
+        totalCreditHours: '11',
+      },
+      {
+        title: 'Semester 4 (Proposed)',
+        courses: [
+          { code: 'DS-699', title: 'Thesis / Capstone Project', core: 'Core', creditHours: '6' },
+          { code: 'DS-6E3', title: 'Elective III', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '9',
+      },
+    ],
     sections: [
       {
-        title: 'Suggested study areas',
+        title: 'Proposed curriculum architecture',
         items: [
-          'Statistical modeling, data engineering, machine learning, and experimentation',
-          'Data storytelling, dashboards, and applied business or healthcare analytics',
-          'Research methods, ethical AI practices, and project delivery in real-world contexts',
+          'Statistical inference, probability modeling, and advanced data analysis foundations.',
+          'Data engineering for pipelines, data warehousing, ETL workflows, and scalable processing.',
+          'Machine learning model design, evaluation, and deployment readiness for practical environments.',
+          'Applied analytics across business, product, and social-sector decision contexts.',
         ],
       },
       {
-        title: 'Graduate outcomes',
+        title: 'Course clusters for specialization depth',
         items: [
-          'Readiness for analyst, BI, data science, and applied ML roles',
-          'Stronger ability to turn raw data into institutional or commercial insight',
-          "A more visible postgraduate route for the university's technology audience",
+          'Data Mining and Predictive Analytics',
+          'Time Series Analysis and Forecasting',
+          'Big Data Systems and Cloud Analytics',
+          'Business Intelligence and Data Visualization',
+          'Natural Language Data Processing',
+          'Research Seminar and Capstone Project',
         ],
       },
       {
-        title: 'Why this page works',
+        title: 'Graduate readiness outcomes',
         items: [
-          "It extends the university's graduate structure while staying grounded in GU TECH's direction",
-          'It shows how future intakes can be incorporated cleanly into the architecture',
-          'It creates a credible graduate expansion story without inaccurate admission claims',
+          'Preparation for analyst, BI, and applied data science roles across sectors.',
+          'Capability to convert raw data into strategic recommendations and measurable decisions.',
+          'Research and project execution depth suited for postgraduate-level analytical work.',
+          'A strong bridge between undergraduate computing foundations and advanced data specialization.',
         ],
       },
     ],
@@ -435,36 +743,82 @@ export const programs: Program[] = [
       "This page presents a polished AI program concept using GU TECH's institutional direction around AI leadership and technical growth.",
     overview:
       'The MS Artificial Intelligence page is intentionally positioned as a planned graduate pathway. It leverages institutional momentum around AI and digital transformation, then presents a coherent academic story around machine learning, intelligent systems, and applied AI problem solving.',
-    imageLabel: 'AI labs and postgraduate seminars',
-    imageSrc: '/programs-hero.jpg',
+    imageLabel: 'Artificial intelligence specialization pathway',
+    imageSrc: '/program-bscs-hero.jpg',
     facts: [
       { label: 'Status', value: 'Planned program track' },
       { label: 'Best for', value: 'Graduates focused on ML, AI systems, and applied automation' },
       { label: 'Use case', value: 'A clear extension of the university postgraduate portfolio' },
     ],
+    curriculum: [
+      {
+        title: 'Semester 1 (Proposed)',
+        courses: [
+          { code: 'AI-601', title: 'Mathematics for AI', core: 'Core', creditHours: '3' },
+          { code: 'AI-602', title: 'Machine Learning Foundations', core: 'Core', creditHours: '3' },
+          { code: 'AI-603', title: 'Python for AI Systems', core: 'Core', creditHours: '3' },
+          { code: 'AI-604', title: 'Data and Model Engineering', core: 'Core', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 2 (Proposed)',
+        courses: [
+          { code: 'AI-605', title: 'Deep Learning', core: 'Core', creditHours: '3' },
+          { code: 'AI-606', title: 'Natural Language Processing', core: 'Core', creditHours: '3' },
+          { code: 'AI-607', title: 'Computer Vision', core: 'Core', creditHours: '3' },
+          { code: 'AI-6E1', title: 'Elective I', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 3 (Proposed)',
+        courses: [
+          { code: 'AI-608', title: 'MLOps and Production AI', core: 'Core', creditHours: '3' },
+          { code: 'AI-609', title: 'AI Ethics and Governance', core: 'Core', creditHours: '3' },
+          { code: 'AI-610', title: 'Reinforcement Learning', core: 'Core', creditHours: '3' },
+          { code: 'AI-6E2', title: 'Elective II', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '12',
+      },
+      {
+        title: 'Semester 4 (Proposed)',
+        courses: [
+          { code: 'AI-699', title: 'Thesis / Applied AI Capstone', core: 'Core', creditHours: '6' },
+          { code: 'AI-6E3', title: 'Elective III', core: 'Elective', creditHours: '3' },
+        ],
+        totalCreditHours: '9',
+      },
+    ],
     sections: [
       {
-        title: 'Suggested study areas',
+        title: 'Proposed AI curriculum architecture',
         items: [
-          'Machine learning, deep learning, intelligent systems, and model deployment',
-          'Natural language processing, computer vision, and automation workflows',
-          'AI product thinking, ethics, evaluation, and responsible implementation',
+          'Machine Learning foundations, optimization, and advanced model development.',
+          'Deep Learning architectures and applied neural network engineering.',
+          'Natural Language Processing and language model applications.',
+          'Computer Vision, perception systems, and intelligent automation workflows.',
+          'AI ethics, governance, and responsible deployment in real-world settings.',
         ],
       },
       {
-        title: 'Graduate outcomes',
+        title: 'Course clusters for technical depth',
         items: [
-          'Preparation for AI engineering, ML ops, research support, and product analytics roles',
-          'Ability to frame and communicate AI solutions in institutional or startup environments',
-          'A stronger bridge between undergraduate computing and higher-value specialization',
+          'Intelligent Systems Design',
+          'MLOps and Production AI Pipelines',
+          'Reinforcement Learning and Adaptive Systems',
+          'AI for Cybersecurity and Risk Intelligence',
+          'Applied AI in Healthcare and Industry Use Cases',
+          'Thesis / Applied AI Capstone',
         ],
       },
       {
-        title: 'Why it strengthens the site',
+        title: 'Graduate readiness outcomes',
         items: [
-          'It gives the site an ambitious but believable graduate roadmap',
-          'It complements faculty positioning around AI and digital transformation',
-          'It provides a clearer institutional direction beyond current pages',
+          'Preparation for AI engineering, ML operations, and intelligent systems roles.',
+          'Ability to scope, evaluate, and communicate AI solutions for institutional and commercial contexts.',
+          'Research-capable profile with practical implementation depth for fast-evolving AI domains.',
+          'A visible graduate extension of GU TECH’s computing and innovation direction.',
         ],
       },
     ],
