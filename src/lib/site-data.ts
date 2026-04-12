@@ -152,10 +152,7 @@ export const navigation = {
     { label: 'MS Islamic Banking & Finance', href: '/programs/ms-ibf' },
   ],
   departmentLinks: [
-    { label: 'Computer Science', href: '/departments/cs' },
-    { label: 'Management Sciences', href: '/departments/management-sciences' },
     { label: 'Design Thinking Resources', href: '/departments/design-thinking' },
-    { label: 'Continuing Education Programs', href: '/departments/continuing-education' },
     { label: 'I.I.C', href: '/departments/iic' },
   ],
   admissionsLinks: [

@@ -11,12 +11,16 @@ export const metadata = createMetadata(
 );
 
 export default function DepartmentsPage() {
+  const highlightedDepartments = departments.filter(
+    (department) => department.slug === 'design-thinking' || department.slug === 'iic',
+  );
+
   return (
     <>
       <PageHero
         eyebrow="Departments"
-        title="Academic, innovation, and resource-driven units."
-        description="The department section combines academic units with innovation and professional learning hubs in one clear structure."
+        title="Innovation-focused departments and strategic units."
+        description="This section now focuses on GU TECH's two signature units for innovation execution and applied problem-solving."
         compact
       />
 
@@ -24,11 +28,11 @@ export default function DepartmentsPage() {
         <div className="container">
           <SectionHeading
             eyebrow="Departments and units"
-            title="A structure built for growth."
-            description="This setup lets the site support academic departments, strategic centers, and resource hubs without making the navigation feel fragmented."
+            title="Focused, high-impact institutional units."
+            description="Design Thinking Resources and I.I.C are surfaced as the priority department experiences in the current site architecture."
           />
           <StaggerContainer className="program-grid">
-            {departments.map((department) => (
+            {highlightedDepartments.map((department) => (
               <StaggerItem key={department.slug} className="program-card">
                 <span className="program-card__meta">{department.type}</span>
                 <h3>{department.title}</h3>

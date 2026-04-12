@@ -98,7 +98,6 @@ export default function Navbar() {
               Departments
             </Link>
             <div className="nav-panel">
-              <Link href="/departments">All departments</Link>
               {navigation.departmentLinks.map((item) => (
                 <Link key={item.href} href={item.href}>
                   {item.label}
@@ -247,9 +246,6 @@ export default function Navbar() {
                       initial={{ opacity: 0, height: 0, y: -6 }}
                       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <Link href="/departments" onClick={closeMenu}>
-                        All departments
-                      </Link>
                       {navigation.departmentLinks.map((item) => (
                         <Link key={item.href} href={item.href} onClick={closeMenu}>
                           {item.label}
