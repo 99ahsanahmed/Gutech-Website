@@ -106,7 +106,7 @@ export const siteConfig = {
   tagline:
     'Technology-focused education with visible pathways into industry, research, entrepreneurship, and executive learning.',
   campusLine: 'Al Ghazali University, Main Campus',
-  address: 'B-2, Block 12, Gulistan-e-Johar, Karachi, Pakistan',
+  address: 'Plot #16, Sector 47, Korangi Creek Rd, Industrial Zone, Korangi Creek, Karachi, 75190, Pakistan',
   email: 'admissions@gutech.edu.pk',
   infoEmail: 'info@gutech.edu.pk',
   phone: '0311-4488324',

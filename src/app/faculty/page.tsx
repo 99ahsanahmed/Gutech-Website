@@ -59,9 +59,11 @@ export default function FacultyPage() {
               className="faculty-wheel--directory"
               showSchool
             />
-            <Link className="button button--primary faculty-page-wheel__button" href="/contact">
-              Schedule a faculty consultation
-            </Link>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
+              <Link className="button button--primary faculty-page-wheel__button" href="/contact">
+                Schedule a faculty consultation
+              </Link>
+            </div>
           </div>
         </section>
 

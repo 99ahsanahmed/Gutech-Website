@@ -132,6 +132,9 @@ export default function Navbar() {
           >
             News
           </Link>
+          <Link className={isActive(pathname, '/contact') ? 'is-active' : ''} href="/contact">
+            Contact
+          </Link>
         </nav>
 
         <div className="nav-actions">
