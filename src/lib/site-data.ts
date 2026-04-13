@@ -158,6 +158,7 @@ export const navigation = {
   admissionsLinks: [
     { label: 'Admission Process', href: '/admissions' },
     { label: 'Fee Structure', href: '/admissions/fee-structure' },
+    { label: 'Scholarships', href: '/admissions/scholarships' },
   ],
 };
 

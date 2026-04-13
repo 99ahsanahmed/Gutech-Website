@@ -203,20 +203,20 @@ export default function IICPage() {
             <span className="eyebrow eyebrow--light iic-hero__eyebrow">
               Innovation & Incubation Centre
             </span>
-            <h1>Where AI research, startup ambition, and industry problems meet.</h1>
+            <h1>AI research, startup ambition, and industry problems meet.</h1>
             <p>
               The I.I.C connects GU TECH students, founders, and partners through applied AI work,
               venture mentoring, consultancy, training, and cohort-based incubation.
             </p>
             <div className="home-hero__actions iic-hero__actions">
-              <a
+              {/* <a
                 className="button button--primary"
                 href={officialIicUrl}
                 target="_blank"
                 rel="noreferrer"
               >
                 Open official I.I.C page
-              </a>
+              </a> */}
               <a
                 className="button button--ghost"
                 href={officialLeapUrl}
