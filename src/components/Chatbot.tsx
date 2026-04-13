@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import type { TouchEvent, WheelEvent } from 'react';
 import { startTransition, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { FiMessageCircle } from 'react-icons/fi';
 
@@ -9,6 +10,10 @@ type Message = {
   role: 'user' | 'assistant';
   text: string;
 };
+
+function stopNestedScroll(event: WheelEvent<HTMLElement> | TouchEvent<HTMLElement>) {
+  event.stopPropagation();
+}
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +36,7 @@ export default function Chatbot() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, loading]);
 
   async function sendMessage(text: string) {
     const message = text.trim();
@@ -107,8 +112,11 @@ export default function Chatbot() {
           <motion.aside
             animate={{ opacity: 1, y: 0, scale: 1 }}
             className="chatbot-panel"
+            data-lenis-prevent
             exit={{ opacity: 0, y: 18, scale: 0.98 }}
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            onTouchMoveCapture={stopNestedScroll}
+            onWheelCapture={stopNestedScroll}
             transition={{ duration: 0.2 }}
           >
             <div className="chatbot-head">
@@ -135,7 +143,13 @@ export default function Chatbot() {
               </button>
             </div>
 
-            <div className="chatbot-log" ref={logRef}>
+            <div
+              className="chatbot-log"
+              data-lenis-prevent
+              ref={logRef}
+              onTouchMoveCapture={stopNestedScroll}
+              onWheelCapture={stopNestedScroll}
+            >
               {messages.map((message, index) => (
                 <div
                   key={`${message.role}-${index}`}
@@ -147,7 +161,12 @@ export default function Chatbot() {
                     borderRadius: '12px',
                     color: 'rgba(255,255,255,0.9)',
                     marginBottom: '0.75rem',
-                    fontSize: '0.95rem'
+                    fontSize: '0.95rem',
+                    wordBreak: 'break-word' as const,
+                    overflowWrap: 'break-word' as const,
+                    whiteSpace: 'pre-wrap' as const,
+                    minWidth: 0,
+                    maxWidth: '100%',
                   }}
                 >
                   {message.text}

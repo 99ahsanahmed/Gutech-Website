@@ -1,24 +1,64 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
-import { extractLead } from '@/lib/chatbot';
+import { buildChatbotContext, buildFallbackAnswer, extractLead } from '@/lib/chatbot';
 import { saveChatLead } from '@/lib/inquiry-store';
-import { departments, programs, siteConfig } from '@/lib/site-data';
 
-const apiKey = process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+const modelCandidates = ['gemini-2.0-flash-lite', 'gemini-2.0-flash', 'gemini-2.5-flash'];
 
-function buildContext() {
-  return [
-    `University: ${siteConfig.legalName}`,
-    `Admissions email: ${siteConfig.email}`,
-    `Info email: ${siteConfig.infoEmail || siteConfig.email}`,
-    `Phone: ${siteConfig.phone}`,
-    `Address: ${siteConfig.address}`,
-    `Programs: ${programs.map((program) => `${program.title} (${program.category})`).join(', ')}`,
-    `Departments: ${departments.map((department) => department.title).join(', ')}`,
-    `Goal: Represent GU Tech professionally. Focus heavily on pushing the asker toward admission securely, warmly encouraging them to apply. If they ask about admission, direct them to ${siteConfig.email} or point them toward submitting an application from the portal.`
-  ].join('\n');
+function getGenAIClient() {
+  const apiKey =
+    process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
+
+  return apiKey ? new GoogleGenerativeAI(apiKey) : null;
+}
+
+async function generateAssistantReply(
+  history: Array<{ role: string; text: string }>,
+  message: string,
+) {
+  const client = getGenAIClient();
+
+  if (!client) {
+    return null;
+  }
+
+  const systemInstruction = buildChatbotContext(message);
+  let lastError: unknown;
+
+  for (const modelName of modelCandidates) {
+    try {
+      const model = client.getGenerativeModel({
+        model: modelName,
+        systemInstruction,
+      });
+
+      const chat = model.startChat({
+        history: history.map((msg) => ({
+          role: msg.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: msg.text }],
+        })),
+        generationConfig: {
+          maxOutputTokens: 400,
+        },
+      });
+
+      const result = await chat.sendMessage(message);
+      const text = result.response.text()?.trim();
+
+      if (text) {
+        return text;
+      }
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  if (lastError) {
+    throw lastError;
+  }
+
+  return null;
 }
 
 export async function POST(request: Request) {
@@ -38,44 +78,24 @@ export async function POST(request: Request) {
       // Non-critical background lead-parser errors ignored safely
     }
 
-    if (!genAI) {
-      return NextResponse.json({
-        message:
-          'The AI assistant is currently unavailable. Please connect the Gemini API key, or contact admissions via WhatsApp or email.',
-      });
-    }
+    try {
+      const response = await generateAssistantReply(history, message);
 
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
-      systemInstruction: buildContext(),
-    });
-
-    const chat = model.startChat({
-      history: history.map((msg: { role: string; text: string }) => ({
-        role: msg.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: msg.text }],
-      })),
-      generationConfig: {
-        maxOutputTokens: 600,
-      },
-    });
-
-    const result = await chat.sendMessage(message);
-    const text = result.response.text();
-
-    return NextResponse.json({
-      message: text ?? 'I could not generate a complete response. Please ask again.',
-    });
-  } catch (error: any) {
-    if (error.status === 429 || error.message?.includes('429')) {
-      return NextResponse.json({
-        message: 'System is busy, please wait a moment',
-      }, { status: 429 });
+      if (response) {
+        return NextResponse.json({ message: response });
+      }
+    } catch (assistantError) {
+      console.error('Chat assistant upstream error:', assistantError);
     }
 
     return NextResponse.json({
-      message:
-        'I could not connect to the assistant service right now. Please use the contact page or WhatsApp admissions support.',
-    }, { status: 500 });
+      message: buildFallbackAnswer(message),
+    });
+  } catch (error: unknown) {
+    console.error('Chat route failed:', error);
+
+    return NextResponse.json({
+      message: buildFallbackAnswer('general information'),
+    });
   }
 }

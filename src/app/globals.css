@@ -1765,6 +1765,7 @@ button {
   background: rgba(10, 10, 16, 0.68);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  overscroll-behavior: contain;
 }
 
 .faculty-overlay__panel {
@@ -1782,6 +1783,9 @@ button {
   color: rgba(255, 255, 255, 0.94);
   transform-origin: center center;
   will-change: transform, opacity;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .faculty-overlay__header {
@@ -2640,13 +2644,17 @@ button {
   right: 1.25rem;
   bottom: 5rem;
   z-index: 1100;
-  width: min(380px, calc(100vw - 1.5rem));
+  width: min(380px, calc(100vw - 2.5rem));
+  max-height: min(620px, calc(100svh - 6rem));
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 20px;
   background: rgba(16, 16, 20, 0.98);
   backdrop-filter: blur(24px);
   box-shadow: var(--shadow);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
 }
 
 .chatbot-head,
@@ -2679,10 +2687,15 @@ button {
 
 .chatbot-log {
   display: grid;
+  flex: 1 1 auto;
   gap: 0.8rem;
-  max-height: 320px;
+  min-height: 0;
   padding: 0 1rem 1rem;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .chatbot-message {
@@ -2692,6 +2705,11 @@ button {
   border-radius: 18px;
   background: #fff;
   border: 1px solid var(--line);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  min-width: 0;
 }
 
 .chatbot-message--user {
@@ -3068,6 +3086,21 @@ button {
     bottom: 0.85rem;
     padding: 0.82rem 0.95rem;
     font-size: 0.94rem;
+  }
+
+  .chatbot-toggle-icon {
+    right: 0.85rem;
+    bottom: 0.85rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .chatbot-panel {
+    right: 0.75rem;
+    left: 0.75rem;
+    bottom: 4.5rem;
+    width: auto;
+    max-height: min(520px, calc(100svh - 5.5rem));
   }
 
   .faculty-wheel__viewport {

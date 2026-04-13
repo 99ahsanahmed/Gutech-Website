@@ -347,19 +347,37 @@ export default function FacultyWheel({
         {activeProfile ? (
           <motion.div
             className="faculty-overlay"
+            data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0.18 : 0.24, ease: OVERLAY_EASE }}
             onClick={closeProfile}
+            onTouchMoveCapture={(event) => {
+              event.stopPropagation();
+            }}
+            onWheelCapture={(event) => {
+              event.stopPropagation();
+
+              if (event.target === event.currentTarget) {
+                event.preventDefault();
+              }
+            }}
           >
             <motion.article
               id={`${createMemberId(activeProfile.member.name)}-dialog`}
               className="faculty-overlay__panel"
+              data-lenis-prevent
               role="dialog"
               aria-modal="true"
               aria-labelledby={`${createMemberId(activeProfile.member.name)}-title`}
               onClick={(event) => event.stopPropagation()}
+              onTouchMoveCapture={(event) => {
+                event.stopPropagation();
+              }}
+              onWheelCapture={(event) => {
+                event.stopPropagation();
+              }}
               initial={
                 prefersReducedMotion
                   ? { opacity: 0, y: 20 }
