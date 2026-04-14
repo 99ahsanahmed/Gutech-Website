@@ -2850,6 +2850,21 @@ button {
 }
 
 @media (max-width: 960px) {
+  body {
+    padding-top: var(--header-h);
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .home-hero--locked {
+    margin-top: calc(-1 * var(--header-h));
+  }
+
   .desktop-nav,
   .nav-cta,
   .hero-media {
