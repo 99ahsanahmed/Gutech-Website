@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock, Tag, ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 import FadeUp from '@/components/animations/FadeUp';
 
 const updateItems = [
@@ -13,6 +14,7 @@ const updateItems = [
     category: 'Event',
     readTime: '3 min read',
     image: '/News-1.jpg',
+    link: 'https://www.facebook.com/share/p/17GqK44RWv/',
   },
   {
     id: 2,
@@ -21,6 +23,7 @@ const updateItems = [
     category: 'Academic',
     readTime: '2 min read',
     image: '/News-2.jpg',
+    link: 'https://www.facebook.com/share/p/1CQKcY6PNC/',
   },
   {
     id: 3,
@@ -29,6 +32,7 @@ const updateItems = [
     category: 'Workshop',
     readTime: '4 min read',
     image: '/News-3.jpg',
+    link: 'https://www.facebook.com/share/p/1AqBvXfcGT/',
   },
 ];
 
@@ -73,9 +77,9 @@ export default function LatestUpdates() {
                 </p>
                 
                 <div className="mt-auto pt-4 border-t border-line">
-                  <span className="text-xs font-bold text-brand group-hover:underline cursor-pointer">
-                    Read Full Story
-                  </span>
+                  <a href={item.link || '#'} target="_blank" rel="noreferrer" className="text-xs font-bold text-brand hover:underline cursor-pointer inline-flex">
+                    Read Story
+                  </a>
                 </div>
               </div>
             </FadeUp>
@@ -83,11 +87,11 @@ export default function LatestUpdates() {
         </div>
 
         <div className="flex justify-center">
-          <button className="button button--secondary group px-10 py-4 h-auto rounded-xl border-dashed border-2 hover:border-brand hover:text-brand transition-all">
+          <Link href="/news" className="button button--secondary group px-10 py-4 h-auto rounded-xl border-dashed border-2 hover:border-brand hover:text-brand transition-all inline-flex items-center">
             <span className="flex items-center gap-2 font-bold uppercase tracking-widest text-xs">
-              Load More Updates <ChevronDown size={18} className="group-hover:translate-y-1 transition-transform" />
+              View More Stories <ChevronDown size={18} className="group-hover:translate-y-1 transition-transform" />
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

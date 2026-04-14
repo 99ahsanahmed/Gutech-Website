@@ -26,6 +26,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       // Default configurations for premium scroll
     });
 
+    // @ts-ignore
+    window.lenis = lenis;
+
     let rafId: number;
 
     function raf(time: number) {
@@ -38,6 +41,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      // @ts-ignore
+      delete window.lenis;
     };
   }, []);
 

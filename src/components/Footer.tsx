@@ -6,6 +6,28 @@ import Link from 'next/link';
 import { navigation, siteConfig } from '@/lib/site-data';
 
 export default function Footer() {
+  const renderedSocials = siteConfig.socials.map((social) => {
+    const Icon = {
+      Facebook: FaFacebook,
+      Instagram: FaInstagram,
+      LinkedIn: FaLinkedinIn,
+      YouTube: FaYoutube,
+    }[social.label] || FaFacebook;
+    
+    return (
+      <a
+        key={social.label}
+        href={social.href}
+        rel="noreferrer"
+        target="_blank"
+        title={social.label}
+        className="footer-social-icon"
+      >
+        <Icon size={20} />
+      </a>
+    );
+  });
+
   return (
     <footer className="site-footer site-footer--flat">
       <div className="container">
@@ -69,34 +91,16 @@ export default function Footer() {
               <Link href="/news">Latest updates</Link>
               <Link href="/faculty">Faculty directory</Link>
             </div>
+
+            <h3 className="mt-8 mb-4">Connect</h3>
+            <div className="footer-socials flex flex-wrap gap-2">
+              {renderedSocials}
+            </div>
           </div>
         </div>
 
         <div className="footer-bottom">
           <span>&copy; {new Date().getFullYear()} GU TECH. All rights reserved.</span>
-          <div className="footer-socials">
-            {siteConfig.socials.map((social) => {
-              const Icon = {
-                Facebook: FaFacebook,
-                Instagram: FaInstagram,
-                LinkedIn: FaLinkedinIn,
-                YouTube: FaYoutube,
-              }[social.label] || FaFacebook;
-              
-              return (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  rel="noreferrer"
-                  target="_blank"
-                  title={social.label}
-                  className="footer-social-icon"
-                >
-                  <Icon size={20} />
-                </a>
-              );
-            })}
-          </div>
         </div>
       </div>
     </footer>

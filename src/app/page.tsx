@@ -11,7 +11,9 @@ import FadeUp from '@/components/animations/FadeUp';
 import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 import LatestUpdates from '@/components/site/LatestUpdates';
 import NewsReelMobile from '@/components/site/NewsReelMobile';
+import ExploreButton from '@/components/site/ExploreButton';
 import AnimatedCounter from '@/components/animations/AnimatedCounter';
+import InteractiveStats from '@/components/site/InteractiveStats';
 import { createMetadata, facultyMembers, newsItems, siteConfig } from '@/lib/site-data';
 
 export const metadata = createMetadata(
@@ -22,7 +24,7 @@ export const metadata = createMetadata(
 export default function Home() {
   return (
     <>
-      <section className="sticky top-0 h-[100svh] overflow-hidden flex items-center justify-center text-center -z-10">
+      <section className="sticky top-0 h-[100svh] overflow-hidden flex items-center justify-center text-center z-0">
         <Image
           src="/campus-hero.jpg"
           alt="GU TECH campus"
@@ -44,10 +46,7 @@ export default function Home() {
 
           {/* Explore indicator brought close to heading */}
           <FadeUp delay={0.3} className="flex flex-col items-center mt-4">
-             <span className="text-white/70 text-xs tracking-[0.25em] uppercase mb-3 block font-bold">Explore GU TECH</span>
-             <div className="animate-bounce">
-               <ArrowDown className="text-white/80 mx-auto drop-shadow-sm" size={18} />
-             </div>
+            <ExploreButton />
           </FadeUp>
         </div>
       </section>
@@ -80,7 +79,7 @@ export default function Home() {
 
       <main className="bg-white text-charcoal relative z-10">
         {/* SECTION 2: Introduction & Quick Stats */}
-        <section className="py-24 md:py-32 container relative z-10">
+        <section id="explore-section" className="py-24 md:py-32 container relative z-10">
           <FadeUp className="max-w-4xl mx-auto text-center mb-24">
             <h2 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] mb-8 text-charcoal drop-shadow-sm">Where ambition meets <br/><span className="text-brand">academic excellence.</span></h2>
             <p className="text-xl md:text-2xl text-charcoal/70 leading-[1.7] max-w-3xl mx-auto">
@@ -97,47 +96,13 @@ export default function Home() {
             </div>
           </FadeUp>
           
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-16 max-w-6xl mx-auto border-t border-[#262626]/20 pt-24">
-            {/* Stat 1: Programs */}
-            <StaggerItem className="flex flex-col items-center text-center group">
-              <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-                <GraduationCap className="absolute -top-2 text-charcoal opacity-10 group-hover:-translate-y-2 group-hover:opacity-20 transition-all duration-700" size={80} strokeWidth={1} />
-                <GraduationCap className="absolute top-2 text-brand drop-shadow-md group-hover:scale-110 transition-transform duration-500" size={56} strokeWidth={1.5} />
-                <GraduationCap className="absolute top-8 text-charcoal/20" size={48} strokeWidth={2} />
-              </div>
-              <div className="text-6xl md:text-[5.5rem] font-display mb-4 text-charcoal tabular-nums tracking-tight"><AnimatedCounter value={5} /></div>
-              <div className="text-xs md:text-sm tracking-[0.25em] uppercase text-charcoal/60 font-bold">Current Programs</div>
-            </StaggerItem>
-
-            {/* Stat 2: Innovation Units */}
-            <StaggerItem className="flex flex-col items-center text-center group">
-              <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-                <MapIcon className="absolute top-0 text-charcoal opacity-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-700" size={80} strokeWidth={1} />
-                <Settings className="absolute top-5 left-4 text-brand drop-shadow-sm group-hover:rotate-180 transition-all duration-[2000ms] ease-out" size={36} strokeWidth={1.5} />
-                <Settings className="absolute top-10 right-4 text-charcoal group-hover:-rotate-90 transition-all duration-[3000ms] ease-out" size={24} strokeWidth={2} />
-              </div>
-              <div className="text-6xl md:text-[5.5rem] font-display mb-4 text-charcoal tabular-nums tracking-tight"><AnimatedCounter value={5} /></div>
-              <div className="text-xs md:text-sm tracking-[0.25em] uppercase text-charcoal/60 font-bold">Innovation Units</div>
-            </StaggerItem>
-
-            {/* Stat 3: Chat Hub */}
-            <StaggerItem className="relative flex flex-col items-center text-center group cursor-pointer">
-              <a href={siteConfig.whatsappHref} target="_blank" rel="noreferrer" className="absolute inset-0 z-20" aria-label="WhatsApp Contact"></a>
-              <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
-                <MessageSquare className="absolute top-0 text-charcoal group-hover:scale-105 transition-transform duration-500" size={72} strokeWidth={1} />
-                <Bot className="absolute bottom-1 right-0 text-brand drop-shadow-md group-hover:-translate-y-2 transition-transform duration-500 delay-75" size={32} strokeWidth={1.5} />
-                <Phone className="absolute top-[18px] left-6 text-white" size={20} strokeWidth={2} />
-              </div>
-              <div className="text-6xl md:text-[5.5rem] font-display mb-4 text-charcoal tracking-tight">Hub</div>
-              <div className="text-xs md:text-sm tracking-[0.25em] uppercase text-brand font-bold group-hover:tracking-[0.3em] transition-all duration-500">Contact Channels</div>
-            </StaggerItem>
-          </StaggerContainer>
+          <InteractiveStats />
         </section>
 
         {/* SECTION 3: Mission Pillars */}
         <section className="py-24 md:py-40 bg-[#fafafa] border-y border-[#262626]/10 relative z-10 overflow-hidden">
           <div className="container">
-            <FadeUp className="max-w-2xl mb-24 relative">
+            <FadeUp className="max-w-2xl mx-auto md:mx-0 mb-24 relative text-center md:text-left flex flex-col items-center md:items-start">
               <h2 className="font-display text-4xl md:text-6xl mb-8 text-charcoal leading-[1.1]">A platform built for <br/><span className="italic text-brand">clarity and action.</span></h2>
               <div className="w-16 h-[2px] bg-brand mb-10 shadow-sm opacity-80"></div>
               <p className="text-lg md:text-xl text-charcoal/70 leading-[1.8]">
@@ -149,10 +114,8 @@ export default function Home() {
               {/* Pillar 1: Earn As You Learn */}
               <StaggerItem className="lg:col-span-5 relative lg:top-8 group bg-white border border-[#262626]/20 p-10 md:p-14 shadow-sm hover:shadow-2xl hover:border-brand/40 transition-all duration-700 hover:-translate-y-2 flex flex-col justify-between overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-white to-gray-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <div className="relative z-10 w-24 h-24 mb-14">
-                  <TrendingUp className="absolute bottom-0 text-charcoal opacity-5 group-hover:scale-[1.3] group-hover:-translate-y-2 transition-all duration-1000" size={96} strokeWidth={1} />
-                  <Coins className="absolute bottom-4 left-0 text-brand group-hover:-translate-y-1 transition-transform duration-500" size={40} strokeWidth={1.5} />
-                  <Sprout className="absolute top-0 right-4 text-charcoal group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500" size={44} strokeWidth={1.5} />
+                <div className="relative z-10 w-16 h-16 mb-14 mx-auto md:mx-0 flex flex-col justify-center">
+                  <TrendingUp className="text-brand group-hover:-translate-y-2 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm" size={64} strokeWidth={1} />
                 </div>
                 <div className="relative z-10">
                   <h3 className="text-3xl lg:text-4xl font-display mb-6 text-charcoal group-hover:text-brand transition-colors duration-500">Earn As You Learn</h3>
@@ -165,10 +128,8 @@ export default function Home() {
                 {/* Pillar 2: Faculty */}
                 <StaggerItem className="bg-white border border-[#262626]/20 p-8 md:p-12 shadow-sm hover:shadow-2xl hover:border-brand/40 transition-all duration-700 hover:-translate-y-2 group flex flex-col justify-between overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-brand/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <div className="relative z-10 w-20 h-20 mb-12">
-                    <Shield className="absolute top-0 left-0 text-charcoal opacity-[0.03] group-hover:rotate-12 group-hover:scale-110 transition-all duration-700" size={72} strokeWidth={1} />
-                    <Award className="absolute bottom-0 right-4 text-brand drop-shadow-sm group-hover:scale-110 transition-transform duration-500 delay-75" size={48} strokeWidth={1.5} />
-                    <Cpu className="absolute top-5 left-6 text-charcoal group-hover:text-black transition-colors duration-500" size={28} strokeWidth={1.5} />
+                  <div className="relative z-10 w-16 h-16 mb-12 flex flex-col justify-center">
+                    <Award className="text-brand group-hover:-translate-y-2 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm" size={56} strokeWidth={1} />
                   </div>
                   <div className="relative z-10">
                     <h3 className="text-2xl lg:text-3xl font-display mb-5 text-charcoal group-hover:text-brand transition-colors duration-500 leading-tight">Faculty From Top Schools</h3>
@@ -179,10 +140,8 @@ export default function Home() {
                 {/* Pillar 3: Tech-Inspired */}
                 <StaggerItem className="bg-[#fdfdfd] border border-[#262626]/20 p-8 md:p-12 shadow-sm hover:shadow-2xl hover:border-brand/40 transition-all duration-700 hover:-translate-y-2 sm:relative sm:top-16 group flex flex-col justify-between overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-tl from-transparent to-black/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  <div className="relative z-10 w-20 h-20 mb-12">
-                    <Cpu className="absolute bottom-2 left-0 text-charcoal opacity-[0.03] group-hover:scale-110 transition-transform duration-700" size={72} strokeWidth={1} />
-                    <Settings className="absolute top-0 right-6 text-brand group-hover:rotate-180 transition-transform duration-[2000ms] ease-out shadow-sm" size={36} strokeWidth={1.5} />
-                    <ArrowUpRight className="absolute bottom-5 right-2 text-charcoal group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" size={40} strokeWidth={1.5} />
+                  <div className="relative z-10 w-16 h-16 mb-12 flex flex-col justify-center">
+                    <Settings className="text-brand group-hover:-translate-y-2 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm" size={56} strokeWidth={1} />
                   </div>
                   <div className="relative z-10">
                     <h3 className="text-2xl lg:text-3xl font-display mb-5 text-charcoal group-hover:text-brand transition-colors duration-500 leading-tight">Tech-Inspired, Market-Driven</h3>
@@ -209,9 +168,8 @@ export default function Home() {
                   <Code2 size={180} strokeWidth={0.5} />
                </div>
                
-               <div className="relative z-10 w-20 h-20 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                 <Code2 className="absolute text-brand drop-shadow-md" size={56} strokeWidth={1} />
-                 <Network className="absolute text-charcoal/80 translate-x-5 translate-y-4" size={32} strokeWidth={1.5} />
+               <div className="relative z-10 w-16 h-16 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                 <Code2 className="text-brand drop-shadow-md" size={48} strokeWidth={1.5} />
                </div>
                
                <div className="relative z-10 flex flex-col grow">
@@ -234,9 +192,8 @@ export default function Home() {
                   <PieChart size={180} strokeWidth={0.5} />
                </div>
                
-               <div className="relative z-10 w-20 h-20 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                 <Handshake className="absolute text-brand drop-shadow-md" size={48} strokeWidth={1} />
-                 <PieChart className="absolute text-charcoal/80 -translate-x-5 translate-y-5" size={28} strokeWidth={1.5} />
+               <div className="relative z-10 w-16 h-16 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                 <Handshake className="text-brand drop-shadow-md" size={48} strokeWidth={1.5} />
                </div>
                
                <div className="relative z-10 flex flex-col grow">
@@ -260,9 +217,8 @@ export default function Home() {
                   <Pentagon size={180} strokeWidth={0.5} />
                </div>
                
-               <div className="relative z-10 w-20 h-20 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                 <Pentagon className="absolute text-brand drop-shadow-lg" size={56} strokeWidth={1} />
-                 <Building2 className="absolute text-white translate-x-3 translate-y-3" size={28} strokeWidth={1.5} />
+               <div className="relative z-10 w-16 h-16 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                 <Building2 className="text-brand drop-shadow-lg" size={48} strokeWidth={1.5} />
                </div>
                
                <div className="relative z-10 flex flex-col grow">
@@ -273,7 +229,7 @@ export default function Home() {
                  <h3 className="text-3xl md:text-4xl font-display mb-6 text-white leading-tight">MS Islamic Banking & Finance</h3>
                  <p className="text-charcoal-200 leading-[1.8] mb-12 text-lg text-white/70">Connecting ethical finance, regulatory practice, and modern banking leadership.</p>
                  
-                 <Link href="/programs/ms-ibf" className="mt-auto inline-flex items-center gap-3 font-bold uppercase tracking-[0.2em] text-xs text-brand group-hover:text-white transition-colors duration-500 w-fit">
+                 <Link href="/programs/ms-ibf" className="mt-auto inline-flex items-center gap-3 font-bold uppercase tracking-[0.2em] text-xs !text-[#efefef] group-hover:!text-brand transition-colors duration-500 w-fit">
                    View Program <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
                  </Link>
                </div>
@@ -286,9 +242,8 @@ export default function Home() {
                   <Fingerprint size={180} strokeWidth={0.5} />
                </div>
                
-               <div className="relative z-10 w-20 h-20 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                 <Network className="absolute text-brand drop-shadow-lg" size={56} strokeWidth={1} />
-                 <Fingerprint className="absolute text-white translate-x-4 -translate-y-3" size={28} strokeWidth={1.5} />
+               <div className="relative z-10 w-16 h-16 mb-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                 <Network className="text-brand drop-shadow-lg" size={48} strokeWidth={1.5} />
                </div>
                
                <div className="relative z-10 flex flex-col grow">
@@ -299,7 +254,7 @@ export default function Home() {
                  <h3 className="text-3xl md:text-4xl font-display mb-6 text-white">MS Data Science</h3>
                  <p className="text-charcoal-200 leading-[1.8] mb-12 text-lg text-white/70">A specialized pathway for analytics, machine learning, and data-led decision making.</p>
                  
-                 <Link href="/programs/ms-ds" className="mt-auto inline-flex items-center gap-3 font-bold uppercase tracking-[0.2em] text-xs text-brand group-hover:text-white transition-colors duration-500 w-fit">
+                 <Link href="/programs/ms-ds" className="mt-auto inline-flex items-center gap-3 font-bold uppercase tracking-[0.2em] text-xs !text-[#efefef] group-hover:!text-brand transition-colors duration-500 w-fit">
                    View Program <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
                  </Link>
                </div>
@@ -321,8 +276,8 @@ export default function Home() {
                 { step: "02", title: "Connect with Admissions", text: "Get direct support for fees, scholarships, and processing through our official channels." },
                 { step: "03", title: "Start Your Journey", text: "Apply through the official portal with guided, step-by-step onboarding." }
               ].map(item => (
-                <StaggerItem key={item.step} className="relative mt-8 md:mt-0">
-                  <div className="absolute -top-12 -left-6 text-8xl font-display text-white/5 pointer-events-none select-none">{item.step}</div>
+                <StaggerItem key={item.step} className="relative mt-8 md:mt-0 pl-16 md:pl-0">
+                  <div className="absolute top-0 -left-2 md:-top-12 md:-left-6 text-6xl md:text-8xl font-display text-white/10 md:text-white/5 pointer-events-none select-none">{item.step}</div>
                   <h3 className="text-2xl font-bold mb-4 relative z-10">{item.title}</h3>
                   <p className="text-gray-400 leading-[1.6] relative z-10">{item.text}</p>
                 </StaggerItem>
@@ -399,32 +354,29 @@ export default function Home() {
               </p>
             </FadeUp>
             
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-[1000px] md:h-[600px]">
+            <StaggerContainer className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:grid-rows-2 h-[400px] md:h-[600px] scrollbar-hide pb-4 md:pb-0">
               {/* Item 1 - Big Block */}
-              <StaggerItem className="relative overflow-hidden bg-white/5 transition-colors group md:col-span-2 md:row-span-2 h-[300px] md:h-full border border-[#262626]">
+              <StaggerItem className="relative shrink-0 w-[85vw] snap-center md:w-auto overflow-hidden bg-white/5 transition-colors group md:col-span-2 md:row-span-2 h-full border border-[#262626]">
                 <Image src="/internship-1.jpg" alt="Experience 1" fill className="object-cover opacity-80 group-hover:opacity-100 duration-500 scale-105 group-hover:scale-100 shadow-xl" sizes="(max-width: 960px) 100vw, 50vw" />
               </StaggerItem>
               
               {/* Item 2 - Wide Block */}
-              <StaggerItem className="relative overflow-hidden bg-white/5 transition-colors group md:col-span-2 md:row-span-1 h-[250px] md:h-full border border-[#262626]">
+              <StaggerItem className="relative shrink-0 w-[85vw] snap-center md:w-auto overflow-hidden bg-white/5 transition-colors group md:col-span-2 md:row-span-1 h-full border border-[#262626]">
                 <Image src="/Internship-2.jpg" alt="Experience 2" fill className="object-cover opacity-80 group-hover:opacity-100 duration-500 scale-105 group-hover:scale-100 shadow-xl" sizes="(max-width: 960px) 100vw, 50vw" />
               </StaggerItem>
 
               {/* Item 3 - Square Block */}
-              <StaggerItem className="relative overflow-hidden bg-white/5 transition-colors group md:col-span-1 md:row-span-1 h-[250px] md:h-full border border-[#262626]">
+              <StaggerItem className="relative shrink-0 w-[85vw] snap-center md:w-auto overflow-hidden bg-white/5 transition-colors group md:col-span-1 md:row-span-1 h-full border border-[#262626]">
                 <Image src="/Internship-3.jpg" alt="Experience 3" fill className="object-cover opacity-80 group-hover:opacity-100 duration-500 scale-105 group-hover:scale-100" sizes="(max-width: 960px) 50vw, 25vw" />
               </StaggerItem>
 
               {/* Item 4 - Square Block */}
-              <StaggerItem className="relative overflow-hidden bg-white/5 transition-colors group md:col-span-1 md:row-span-1 h-[250px] md:h-full border border-[#262626]">
+              <StaggerItem className="relative shrink-0 w-[85vw] snap-center md:w-auto overflow-hidden bg-white/5 transition-colors group md:col-span-1 md:row-span-1 h-full border border-[#262626]">
                 <Image src="/internship-4.webp" alt="Experience 4" fill className="object-cover opacity-80 group-hover:opacity-100 duration-500 scale-105 group-hover:scale-100" sizes="(max-width: 960px) 50vw, 25vw" />
               </StaggerItem>
             </StaggerContainer>
           </div>
         </section>
-
-        {/* Standard Final State: News Reel Ticker overlaying bottom section or sitting right below as previously structured. */}
-        <NewsReelMobile items={newsItems.slice(0, 3)} />
 
       </main>
     </>

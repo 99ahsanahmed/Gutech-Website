@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { createPortal } from 'react-dom';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import type { FacultyMember } from '@/lib/site-data';
@@ -343,11 +344,13 @@ export default function FacultyWheel({
         </button>
       </div>
 
-      <AnimatePresence mode="wait">
-        {activeProfile ? (
-          <motion.div
-            className="faculty-overlay"
-            data-lenis-prevent
+      {typeof document !== 'undefined'
+        ? createPortal(
+            <AnimatePresence mode="wait">
+              {activeProfile ? (
+                <motion.div
+                  className="faculty-overlay"
+                  data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -494,7 +497,9 @@ export default function FacultyWheel({
             </motion.article>
           </motion.div>
         ) : null}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+    ) : null}
     </section>
   );
 }
