@@ -140,7 +140,6 @@ export const navigation = {
     { label: 'Departments', href: '/departments' },
     { label: 'Admissions', href: '/admissions' },
     { label: 'Faculty', href: '/faculty' },
-    { label: 'Executive Learning', href: '/executive-learning' },
     { label: 'News', href: '/news' },
     { label: 'Contact', href: '/contact' },
   ],

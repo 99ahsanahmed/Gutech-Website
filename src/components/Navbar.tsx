@@ -301,9 +301,6 @@ export default function Navbar() {
               <Link href="/faculty" onClick={closeMenu}>
                 Faculty
               </Link>
-              <Link href="/executive-learning" onClick={closeMenu}>
-                Executive Learning
-              </Link>
               <Link href="/news" onClick={closeMenu}>
                 News
               </Link>
