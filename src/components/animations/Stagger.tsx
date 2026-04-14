@@ -14,12 +14,11 @@ const containerVariants = {
 };
 
 export const itemVariants = {
-  hidden: { opacity: 0, y: 42, scale: 0.985, filter: 'blur(10px)' },
+  hidden: { opacity: 0, y: 42, scale: 0.985 },
   show: { 
     opacity: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] as const }
   }
 };
@@ -47,7 +46,7 @@ export function StaggerItem({ children, className = "", style }: { children: Rea
   return (
     <motion.div
       className={className}
-      style={style}
+      style={{ ...style, willChange: 'transform, opacity' }}
       variants={reduceMotion ? undefined : itemVariants}
     >
       {children}

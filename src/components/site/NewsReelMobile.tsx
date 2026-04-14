@@ -126,8 +126,7 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
                   src={item.imageSrc}
                   alt={item.imageAlt ?? item.title}
                   fill
-                  sizes="100vw"
-                  unoptimized
+                  sizes="(max-width: 960px) 100vw, 100vw"
                   priority={index === 1}
                 />
               ) : null}

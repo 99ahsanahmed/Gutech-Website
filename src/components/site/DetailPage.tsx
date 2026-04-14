@@ -3,6 +3,7 @@ import Link from 'next/link';
 import FadeUp from '@/components/animations/FadeUp';
 import { StaggerContainer, StaggerItem } from '@/components/animations/Stagger';
 import CurriculumAccordion from '@/components/site/CurriculumAccordion';
+import InfoAccordion from '@/components/site/InfoAccordion';
 import MediaPanel from '@/components/site/MediaPanel';
 import PageHero from '@/components/site/PageHero';
 import SectionHeading from '@/components/site/SectionHeading';
@@ -62,18 +63,11 @@ export default function DetailPage({
                 </div>
               ) : null}
 
-              <StaggerContainer className="detail-sections">
-                {visibleSections.map((section) => (
-                  <StaggerItem key={section.title} className="surface section-card">
-                    <h3>{section.title}</h3>
-                    <ul className="check-list">
-                      {section.items.map((entry) => (
-                        <li key={entry}>{entry}</li>
-                      ))}
-                    </ul>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
+                <div className="surface section-card curriculum-shell" style={{ marginTop: '2rem' }}>
+                  <h3>Program Highlights</h3>
+                  <p>Explore career paths, themes, and learning outcomes.</p>
+                  <InfoAccordion sections={visibleSections} />
+                </div>
             </div>
 
             <FadeUp className="detail-side">

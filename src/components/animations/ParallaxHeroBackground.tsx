@@ -15,7 +15,7 @@ export default function ParallaxHeroBackground() {
     <div ref={ref} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0 }}>
       <motion.div 
         className="hero-campus-parallax"
-        style={{ y, position: 'absolute', top: '-15%', left: 0, width: '100%', height: '130%' }} 
+        style={{ y, position: 'absolute', top: '-15%', left: 0, width: '100%', height: '130%', willChange: 'transform' }} 
       />
     </div>
   );
