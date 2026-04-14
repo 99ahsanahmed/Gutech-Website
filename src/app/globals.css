@@ -40,7 +40,7 @@
 }
 
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -3390,6 +3390,11 @@ button {
 @media (max-width: 768px) {
   .dt-process-grid {
     grid-template-columns: repeat(5, 200px);
+  }
+  .dt-process-line {
+    width: 864px;
+    left: 100px;
+    right: auto;
   }
 }
 .dt-process-step {
