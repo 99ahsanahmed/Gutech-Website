@@ -38,7 +38,7 @@ const valuePillars = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative min-h-[80vh] flex flex-col justify-between overflow-hidden bg-charcoal">
+      <section className="sticky top-0 h-[100svh] w-full flex items-center overflow-hidden bg-charcoal z-0 pt-24 pb-12">
         <div className="absolute inset-0 z-0">
           <Image
             src="/about-hero-campus.png"
@@ -52,8 +52,8 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#111217] via-[#111217]/50 to-transparent" />
         </div>
         
-        {/* Main Hero Copy - Centered vertically within remaining space */}
-        <div className="container relative z-10 px-4 md:px-8 mt-auto mb-auto pt-32 pb-16">
+        {/* Main Hero Copy - Centered vertically perfectly */}
+        <div className="container relative z-10 px-4 md:px-8">
           <FadeUp className="max-w-4xl">
             <div className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-white/50 mb-6 inline-flex items-center gap-3">
               <div className="w-8 h-[1px] bg-brand"></div>
@@ -69,33 +69,28 @@ export default function AboutPage() {
             </p>
           </FadeUp>
         </div>
-
-        {/* Hero Stats Strip pinned cleanly to the bottom border */}
-        <div className="relative z-10 w-full border-t border-white/10 bg-[#111217] lg:bg-[#111217]/60 lg:backdrop-blur-md">
-           <FadeUp delay={0.2} className="container">
-             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
-               
-               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
-                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Established</div>
-                 <div className="text-3xl md:text-4xl font-display text-white">2023</div>
-               </div>
-
-               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
-                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Core direction</div>
-                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Future knowledge & AI economy</div>
-               </div>
-
-               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
-                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Academic promise</div>
-                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Ethics + employable capability</div>
-               </div>
-
-             </div>
-           </FadeUp>
-        </div>
       </section>
 
       <main className="home-sheet">
+        {/* Intro Stats Strip now scrolls natively with the content */}
+        <div className="relative z-10 w-full border-b border-white/5 bg-[#111217]">
+           <FadeUp delay={0.2} className="container">
+             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
+               <div className="p-8 md:px-10 md:py-12 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Established</div>
+                 <div className="text-3xl md:text-4xl font-display text-white">2023</div>
+               </div>
+               <div className="p-8 md:px-10 md:py-12 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Core direction</div>
+                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Future knowledge & AI economy</div>
+               </div>
+               <div className="p-8 md:px-10 md:py-12 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Academic promise</div>
+                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Ethics + employable capability</div>
+               </div>
+             </div>
+           </FadeUp>
+        </div>
         <section className="section home-section about-page__story">
           <div className="container">
             <div className="about-page__split">
