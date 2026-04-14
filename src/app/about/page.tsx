@@ -1,4 +1,4 @@
-import { Briefcase, Cpu, GraduationCap, HeartHandshake, ShieldCheck, Sparkles } from 'lucide-react';
+import { Briefcase, Cpu, GraduationCap, HeartHandshake, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -38,48 +38,60 @@ const valuePillars = [
 export default function AboutPage() {
   return (
     <>
-      <section className="home-hero home-hero--locked about-page-hero">
-        <Image
-          src="/about-hero-campus.png"
-          alt="Students entering GU TECH campus building"
-          fill
-          priority
-          className="home-hero__image"
-          sizes="100vw"
-        />
-        <div className="home-hero__overlay about-page-hero__overlay" />
-        <div className="home-hero__noise" />
-        <div className="container home-hero__content about-page-hero__content">
-          <FadeUp className="about-page-hero__copy">
-            <span className="eyebrow eyebrow--light">About GU TECH</span>
-            <h1>Building capable professionals with faith, character, and competence.</h1>
-            <p>
-              Founded in 2023, GU TECH positions academic excellence with ethical principles and
-              market-driven learning so students can solve real-world challenges with responsibility.
+      <section className="relative min-h-[80vh] flex flex-col justify-between overflow-hidden bg-charcoal">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/about-hero-campus.png"
+            alt="Students entering GU TECH campus building"
+            fill
+            priority
+            className="object-cover opacity-30 mix-blend-luminosity brightness-75 transition-transform duration-[2000ms] scale-100 hover:scale-[1.02]"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#14161e] via-[#14161e]/90 to-brand/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111217] via-[#111217]/50 to-transparent" />
+        </div>
+        
+        {/* Main Hero Copy - Centered vertically within remaining space */}
+        <div className="container relative z-10 px-4 md:px-8 mt-auto mb-auto pt-32 pb-16">
+          <FadeUp className="max-w-4xl">
+            <div className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-white/50 mb-6 inline-flex items-center gap-3">
+              <div className="w-8 h-[1px] bg-brand"></div>
+              About GU TECH
+            </div>
+            
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-8 text-white drop-shadow-lg">
+              Building capable professionals with <br className="hidden md:block"/><span className="text-brand italic pr-4">faith, character, and competence.</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-white/70 leading-[1.7] max-w-2xl">
+              Founded in 2023, GU TECH positions academic excellence with ethical principles and market-driven learning so students can solve real-world challenges with responsibility.
             </p>
-            <div className="home-hero__actions">
-              <Link className="button button--light" href="/programs">
-                Explore programs
-              </Link>
-              <a className="button button--ghost" href={siteConfig.whatsappHref} target="_blank" rel="noreferrer">
-                WhatsApp admissions
-              </a>
-            </div>
-            <div className="about-page-hero__facts">
-              <div className="about-page-hero__fact">
-                <span>Established</span>
-                <strong>2023</strong>
-              </div>
-              <div className="about-page-hero__fact">
-                <span>Core direction</span>
-                <strong>Future knowledge and AI economy</strong>
-              </div>
-              <div className="about-page-hero__fact">
-                <span>Academic promise</span>
-                <strong>Ethics + employable capability</strong>
-              </div>
-            </div>
           </FadeUp>
+        </div>
+
+        {/* Hero Stats Strip pinned cleanly to the bottom border */}
+        <div className="relative z-10 w-full border-t border-white/10 bg-[#111217] lg:bg-[#111217]/60 lg:backdrop-blur-md">
+           <FadeUp delay={0.2} className="container">
+             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/5">
+               
+               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Established</div>
+                 <div className="text-3xl md:text-4xl font-display text-white">2023</div>
+               </div>
+
+               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Core direction</div>
+                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Future knowledge & AI economy</div>
+               </div>
+
+               <div className="p-8 md:px-10 md:py-10 flex flex-col justify-center group hover:bg-white/5 transition-colors duration-500">
+                 <div className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brand font-bold mb-3">Academic promise</div>
+                 <div className="text-xl md:text-2xl font-display text-white leading-tight">Ethics + employable capability</div>
+               </div>
+
+             </div>
+           </FadeUp>
         </div>
       </section>
 
