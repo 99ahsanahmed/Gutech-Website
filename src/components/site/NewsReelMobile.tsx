@@ -73,26 +73,25 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
     }
   };
 
-  const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
-    if (!touch) {
-      return;
-    }
+  const [isPointerDown, setIsPointerDown] = useState(false);
 
-    setTouchStartX(touch.clientX);
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    setIsPointerDown(true);
+    setTouchStartX(event.clientX);
     setTouchDeltaX(0);
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    const touch = event.touches[0];
-    if (!touch) {
-      return;
-    }
-
-    setTouchDeltaX(touch.clientX - touchStartX);
+  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPointerDown) return;
+    setTouchDeltaX(event.clientX - touchStartX);
   };
 
-  const onTouchEnd = () => {
+  const onPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPointerDown) return;
+    setIsPointerDown(false);
+    event.currentTarget.releasePointerCapture(event.pointerId);
+
     if (touchDeltaX <= -SWIPE_THRESHOLD) {
       goNext();
     } else if (touchDeltaX >= SWIPE_THRESHOLD) {
@@ -106,9 +105,12 @@ export default function NewsReelMobile({ items }: NewsReelMobileProps) {
     <section className="news-carousel" aria-label="News highlights carousel">
       <div
         className="news-carousel__viewport"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        onPointerLeave={onPointerUp}
+        style={{ touchAction: 'pan-y', cursor: isPointerDown ? 'grabbing' : 'grab' }}
       >
         <div
           className={`news-carousel__track ${isAnimating ? 'is-animating' : ''}`}

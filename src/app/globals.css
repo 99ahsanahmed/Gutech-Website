@@ -39,8 +39,8 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html, body {
+  overflow-x: hidden;
 }
 
 body {
@@ -1635,9 +1635,7 @@ button {
 
 .faculty-wheel__meta {
   flex: 1;
-  display: grid;
-  grid-template-rows: 3rem 5.5rem 1fr;
-  gap: 0.42rem;
+  display: block;
   align-content: start;
   margin-top: 0;
   padding: 1rem 1.15rem 1.1rem;
@@ -1661,6 +1659,8 @@ button {
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-transform: uppercase;
+  height: 2.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .faculty-wheel__meta h3 {
@@ -1675,9 +1675,11 @@ button {
   overflow: hidden;
   color: #232531;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  height: 2.8rem;
+  margin-bottom: 0.4rem;
 }
 
-.faculty-wheel__meta p {
+.faculty-wheel__meta p:not(.faculty-wheel__school) {
   margin: 0;
   color: rgba(35, 37, 49, 0.86);
   font-size: 0.92rem;
@@ -1687,6 +1689,7 @@ button {
   -webkit-line-clamp: 4;
   overflow: hidden;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  height: 6rem;
 }
 
 .faculty-wheel__school {
@@ -1694,6 +1697,8 @@ button {
   font-size: 0.82rem !important;
   line-height: 1.35 !important;
   -webkit-line-clamp: 2 !important;
+  height: 2.7rem;
+  margin-bottom: 0.3rem;
 }
 
 .faculty-wheel--directory .faculty-wheel__viewport {
@@ -1712,21 +1717,40 @@ button {
 }
 
 .faculty-wheel--directory .faculty-wheel__meta {
-  grid-template-rows: 3.2rem 6.1rem 3rem 1fr;
+  display: block;
   padding: 1.05rem 1.2rem 1.2rem;
 }
 
 .faculty-wheel--directory .faculty-wheel__meta span {
-  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 2.8rem;
+  margin-bottom: 0.4rem;
 }
 
 .faculty-wheel--directory .faculty-wheel__meta h3 {
   font-size: 1.42rem;
-  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 3.4rem;
+  margin-bottom: 0.5rem;
 }
 
-.faculty-wheel--directory .faculty-wheel__meta p {
-  -webkit-line-clamp: 5;
+.faculty-wheel--directory .faculty-wheel__meta p.faculty-wheel__school {
+  height: 2.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.faculty-wheel--directory .faculty-wheel__meta p:not(.faculty-wheel__school) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  height: 6.4rem;
 }
 
 .faculty-wheel__card:focus-visible {
@@ -2916,6 +2940,11 @@ button {
     grid-auto-flow: row;
   }
 
+  .hero-actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+
   .detail-hero__metrics {
     grid-template-columns: 1fr;
   }
@@ -3132,7 +3161,7 @@ button {
   }
 
   .faculty-wheel__meta {
-    grid-template-rows: 2.8rem 4.6rem 1fr;
+    display: block;
     padding: 0.82rem 0.95rem 0.95rem;
   }
 
@@ -3152,12 +3181,24 @@ button {
   }
 
   .faculty-wheel--directory .faculty-wheel__meta {
-    grid-template-rows: 2.9rem 4.95rem 2.45rem 1fr;
+    display: block;
     padding: 0.88rem 1rem 1rem;
+  }
+
+  .faculty-wheel--directory .faculty-wheel__meta span {
+    height: 2.7rem;
+    margin-bottom: 0.2rem;
   }
 
   .faculty-wheel--directory .faculty-wheel__meta h3 {
     font-size: 1.25rem;
+    height: 3rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .faculty-wheel--directory .faculty-wheel__meta p.faculty-wheel__school {
+    height: 2.7rem;
+    margin-bottom: 0.4rem;
   }
 
   .faculty-overlay {
@@ -4785,20 +4826,16 @@ button {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, rgba(10, 12, 16, 0.74), rgba(10, 12, 16, 0.12) 55%),
-    radial-gradient(circle at top right, rgba(139, 24, 29, 0.2), transparent 42%);
+    linear-gradient(0deg, rgba(8, 10, 14, 0.94) 0%, rgba(8, 10, 14, 0.4) 40%, rgba(8, 10, 14, 0) 70%),
+    radial-gradient(circle at top right, rgba(139, 24, 29, 0.15), transparent 42%);
 }
 
 .iic-proof-media__float {
   position: absolute;
   left: 1rem;
   right: 1rem;
-  bottom: 1rem;
+  bottom: 0.5rem;
   padding: 1rem;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(10, 12, 16, 0.55);
-  backdrop-filter: blur(12px);
 }
 
 .iic-proof-media__tags {
@@ -5198,7 +5235,7 @@ button {
   .iic-proof-media__tags span,
   .iic-expertise-cloud span,
   .iic-leap-signals span {
-    width: 100%;
+    width: auto;
     justify-content: flex-start;
     min-height: 2.2rem;
     font-size: 0.76rem;
@@ -5484,6 +5521,28 @@ button {
 
 .centered {
   text-align: center;
+}
+
+@media (max-width: 960px) {
+  .hero-actions,
+  .home-actions,
+  .iic-cta__actions,
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .hero-actions .button, 
+  .home-actions .button, 
+  .iic-cta__actions .button, 
+  .button-group .button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    max-width: none;
+  }
 }
 
 @media (max-width: 768px) {

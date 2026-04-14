@@ -47,13 +47,23 @@ function CopyButton({ text }: { text: string }) {
 }
 
 const feeData = [
-  { item: 'Registration / Application Fee (Non-refundable)', amount: 'PKR 1,000/-' },
-  ...Array(23).fill({ item: 'Program Tuition / Admission Fee (Placeholder)', amount: 'PKR 1,000/-' })
+  { item: 'Application Processing & GSAT Fee (Non-refundable)', amount: 'PKR 1,000/-' },
+  { item: 'Admission Fee (One-time, Non-refundable)', amount: 'PKR 10,000/-' },
+  { item: 'Security Deposit (One-time, Refundable)', amount: 'PKR 10,000/-' },
+  { item: 'Semester Examination Fee (Per Semester)', amount: 'PKR 10,000/-' },
+  { item: 'BBA Tuition Fee (Per Credit Hour)', amount: 'PKR 14,000/-' },
+  { item: 'BS Accounting & Finance Tuition Fee (Per Credit Hour)', amount: 'PKR 14,000/-' },
+  { item: 'BS Business Analytics Tuition Fee (Per Credit Hour)', amount: 'PKR 14,000/-' },
+  { item: 'BS Computer Science Tuition Fee (Per Credit Hour)', amount: 'PKR 16,000/-' },
+  { item: 'MS Islamic Banking & Finance Tuition Fee (Per Credit Hour)', amount: 'PKR 14,000/-' },
 ];
 
 const otherCharges = [
   { item: 'Campus Transfer Fee (Between campuses)', amount: 'PKR 5,000/-' },
-  ...Array(6).fill({ item: 'Document Verification / Processing (Placeholder)', amount: 'PKR 5,000/-' })
+  { item: 'Document Verification / Processing', amount: 'PKR 5,000/-' },
+  { item: 'Degree / Transcript Issuance', amount: 'PKR 5,000/-' },
+  { item: 'Late Payment Charity (Per day per PKR 1,000/-)', amount: 'PKR 10/-' },
+  { item: 'Readmission / Registration Restoration Fee', amount: 'PKR 10,000/-' }
 ];
 
 const refundPolicy = [
