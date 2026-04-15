@@ -90,7 +90,7 @@ export default function InteractiveStats() {
             }`}
           >
             {/* Mobile interaction cue */}
-            <div className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 md:hidden transition-opacity duration-300 ${activeId === item.id ? 'opacity-0' : 'opacity-100 animate-pulse text-brand'}`}>
+            <div className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 md:hidden transition-opacity duration-300 ${activeId === item.id ? 'opacity-0' : 'opacity-100 animate-bounce-x text-brand drop-shadow-[0_0_8px_rgba(139,24,29,0.4)]'}`}>
               <ChevronRight size={24} strokeWidth={2.5} />
             </div>
             <div className="relative w-24 h-24 mb-6 flex items-center justify-center">

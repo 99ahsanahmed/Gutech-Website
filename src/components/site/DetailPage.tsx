@@ -35,10 +35,7 @@ export default function DetailPage({
         imageLabel={item.imageLabel}
         imageSrc={item.imageSrc}
         facts={item.facts}
-        actions={[
-          { label: 'Contact admissions', href: '/contact', variant: 'light' },
-          { label: 'View admissions', href: '/admissions', variant: 'ghost' },
-        ]}
+        actions={[]}
         locked
       />
 
